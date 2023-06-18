@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {Container,Row,Col} from 'reactstrap'
-import Navi from '../Navi/Navi'
 import Sidebar from '../Sidebar/Sidebar'
 import Footer from '../Footer/Footer'
 import HotelList from '../Home/HotelList'
@@ -14,6 +13,7 @@ import Register from '../Auth/Register/Register'
 import CustomerRegister from '../Auth/Register/CustomerRegister'
 import HotelRegister from '../Auth/Register/HotelRegister'
 import BusinessRegister from '../Auth/Register/BusinessRegister'
+import Navi,{NaviWithNavigate} from '../Navi/Navi'
 
 export default class App extends Component {
   render() {
@@ -22,16 +22,14 @@ export default class App extends Component {
         <Container>
         <Row>
           <Col>
-            <Navi/>
+            <NaviWithNavigate/>
           </Col>
         </Row>
-        <Row style={{height:"550px",marginTop:"80px"}}>
+        <Row className='mt-3'>
 
           <Routes>
             <Route path='/' element={<Navigate to='/hotel/list'/>}></Route>
-            <Route path='/hotel' Component={Dashboard}>
-              <Route path='list' Component={HotelList}/>
-            </Route>
+            <Route path='/hotel/list' Component={HotelList}/>
             <Route path='/login' Component={Login}/>
             <Route path='/register' Component={Register}/>
             <Route path='/register/customer' Component={CustomerRegister}/>

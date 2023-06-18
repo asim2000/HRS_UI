@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -10,12 +11,9 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem, 
-  Container,
-  Row,
-  Col} from 'reactstrap';
+  DropdownItem } from 'reactstrap';
 
-export default class Navi extends React.Component {
+class Navi extends React.Component {
   constructor(props) {
     super(props);
 
@@ -31,32 +29,31 @@ export default class Navi extends React.Component {
   }
   render() {
     return (
-      <div style={{position:"relative"}}>
-        <Navbar style={{position:"fixed",width:"1296px",zIndex:"10"}} className='' color="light" light expand="md">
-          <NavbarBrand href="/">reactstrap</NavbarBrand>
+      <div>
+        <Navbar color="light" light expand="md">
+          <NavbarBrand style={{marginLeft:"20px",cursor:"pointer"}} onClick={()=>this.props.navigate('/')}>HRS</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
+            <Nav className="ms-auto" navbar>
               <NavItem>
-                <NavLink href="/components/">Components</NavLink>
+                <NavLink href="/components/">About</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Contact</NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Options
+                  <img style={{borderRadius:"50%",width:"30px"}} src={require('../../assets/img/avatar.jpg')}/>  Admin
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    Option 1
+                    Settings
                   </DropdownItem>
-                  <DropdownItem>
-                    Option 2
+                  <DropdownItem onClick={()=>this.props.navigate('/login')}>
+                    Login
                   </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
+                  <DropdownItem onClick={()=>this.props.navigate('/register')}>
+                    Register
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
@@ -67,3 +64,9 @@ export default class Navi extends React.Component {
     );
   }
 }
+export function NaviWithNavigate(props){
+  const navigate = useNavigate()
+  return (<Navi navigate = {navigate}/>)
+}
+
+export default Navi;

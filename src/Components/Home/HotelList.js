@@ -11,24 +11,28 @@ export default class HotelList extends Component {
           <Col><Header/></Col>
         </Row>
         <Row>
-          <Col xs="4"><HotelCard/></Col>
-          <Col xs="4"><HotelCard/></Col>
-          <Col xs="4"><HotelCard/></Col>
+          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
+          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
+          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
+          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
         </Row>
         <Row>
-          <Col xs="4"><HotelCard/></Col>
-          <Col xs="4"><HotelCard/></Col>
-          <Col xs="4"><HotelCard/></Col>
+          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
+          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
+          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
+          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
         </Row>
         <Row>
-          <Col xs="4"><HotelCard/></Col>
-          <Col xs="4"><HotelCard/></Col>
-          <Col xs="4"><HotelCard/></Col>
+          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
+          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
+          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
+          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
         </Row>
         <Row>
-          <Col xs="4"><HotelCard/></Col>
-          <Col xs="4"><HotelCard/></Col>
-          <Col xs="4"><HotelCard/></Col>
+          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
+          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
+          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
+          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
         </Row>
       </div>
     )
