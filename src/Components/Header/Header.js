@@ -20,8 +20,8 @@ export default class Header extends Component {
   }
   render() {
     return (
-        <Row style={{margin:"10px 1px 10px 1px"}} className='bg-light p-5'>
-        <Col lg="3" md='4' sm='6' xs='12'>
+        <Row style={{margin:"0 1px 0 1px"}} className='bg-light p-5'>
+        <Col className='mb-2' lg="3" md='4' sm='6' xs='12'>
            <Card>
              <CardBody className='vertical-center'>
                 <FormGroup>
@@ -36,7 +36,7 @@ export default class Header extends Component {
              </CardBody>
            </Card>
         </Col>
-        <Col lg="3" md='4' sm='6' xs='12'>
+        <Col className='mb-2' lg="3" md='4' sm='6' xs='12'>
          <Card>
            <CardBody className='vertical-center'>
            <FormGroup>
@@ -45,10 +45,14 @@ export default class Header extends Component {
            </CardBody>
          </Card>
         </Col>
-        <Col lg="4" md='4' sm='6' xs='12'>
-          <RoomSelectBox/>
+        <Col className='mb-2' lg="4" md='4' sm='6' xs='12'>
+          <Card>
+             <CardBody className='vertical-center'>
+               <RoomSelectBox/>
+             </CardBody>
+          </Card>
         </Col>
-        <Col lg="2" md='4' sm='6' xs='12'>
+        <Col className='mb-2' lg="2" md='4' sm='6' xs='12'>
             <Card>
               <CardBody className='vertical-center'>
               <Button className='mb-3' style={{width:"100%"}} type='submit'>Search</Button>

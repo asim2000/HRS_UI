@@ -22,7 +22,7 @@ class App extends Component {
     return (
       <div>
         <Container>
-        <Row>
+        <Row className='mb-3'>
           <Col>
             <NaviWithNavigate/>
           </Col>

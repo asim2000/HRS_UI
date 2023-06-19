@@ -12,16 +12,12 @@ class RoomSelectBox extends Component {
   render() {
     return (
       <div>
-        <Card>
-             <CardBody className='vertical-center'>
                 <FormGroup>
                   <Input type="select" onClick={()=>this.props.actions.changeVisibility()} name="room" id="room">
                     <option value='' disabled selected hidden>{this.props.adultCount} adults - {this.props.childreenCount} children - {this.props.roomCount} room</option>
                   </Input>
                 </FormGroup>
-             </CardBody>
-           </Card>
-           <Card style={{visibility:this.props.visibility,position:"absolute",zIndex:"10",width:"310px"}} className='mt-2' id='roomConfig'>
+           <Card style={{visibility:this.props.visibility,position:"absolute",zIndex:"10",width:"300px"}} className='mt-2' id='roomConfig'>
              <CardBody>
                 <Row>
                   <Col xs='6'>Adults</Col>

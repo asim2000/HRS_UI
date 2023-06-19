@@ -8,7 +8,7 @@ export default class HotelList extends Component {
   render() {
     return (
       <div>
-        <Row>
+        <Row className='mb-2'>
           <Col>
             <Header/>
           </Col>
