@@ -1,0 +1,12 @@
+.action:hover {
+    background-color: rgba(13, 51, 241, 0.489);
+    color:white;
+}
+.action {
+    cursor: pointer;
+}
+
+.vertical-center {
+    margin-top: 10px;
+  }
+  

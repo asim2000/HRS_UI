@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card, CardBody, Col, Row } from 'reactstrap'
-
+import '../../../assets/css/register.css'
 export default function () {
   const navigate = useNavigate()
   return (
@@ -11,15 +11,15 @@ export default function () {
               <h3>Register</h3>
             </Col>
         </Row>
-        <Row className='m-5'>
-            <Col className='col-md-6' onClick={()=>navigate('/register/customer')}>
+        <Row className='d-flex justify-content-center'>
+            <Col md='4' sm='6' xs='12' className='m-3' onClick={()=>navigate('/register/customer')}>
                 <Card className='registerCard'>
                     <CardBody style={{cursor:"pointer"}} className='text-center'>
                         For Customer
                     </CardBody>
                 </Card>
             </Col>
-            <Col className='col-md-6 ml-auto'>
+            <Col md='4' sm='6' xs='12' className='m-3'>
             <Card className='registerCard' onClick={()=>navigate('/register/business')}>
                     <CardBody style={{cursor:"pointer"}} className='text-center'>
                         For Business
@@ -27,8 +27,8 @@ export default function () {
                 </Card>
             </Col>
         </Row>
-        <Row className='justify-content-center m-5'>
-            <Col xs="6">
+        <Row className='justify-content-center'>
+            <Col md='4' sm='6' xs='12' className='m-3'>
             <Card className='registerCard' onClick={()=>navigate('/register/hotel')}>
                     <CardBody style={{cursor:"pointer"}} className='text-center'>
                         For Hotel

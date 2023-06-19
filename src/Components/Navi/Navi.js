@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom/dist';
 import {
   Collapse,
   Navbar,
@@ -31,7 +32,9 @@ class Navi extends React.Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand style={{marginLeft:"20px",cursor:"pointer"}} onClick={()=>this.props.navigate('/')}>HRS</NavbarBrand>
+          <NavbarBrand style={{cursor:"pointer"}} onClick={()=>this.props.navigate('/')}>
+           <img width='50' src={require('../../assets/img/navbar-logo.png')}/>
+          </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ms-auto" navbar>
@@ -41,7 +44,13 @@ class Navi extends React.Component {
               <NavItem>
                 <NavLink href="https://github.com/reactstrap/reactstrap">Contact</NavLink>
               </NavItem>
-              <UncontrolledDropdown nav inNavbar>
+              <NavItem>
+                <NavLink style={{cursor:"pointer"}} onClick={()=>this.props.navigate('/login')}>Login</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink style={{cursor:"pointer"}} onClick={()=>this.props.navigate('/register')}>Register</NavLink>
+              </NavItem>
+              {/* <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   <img style={{borderRadius:"50%",width:"30px"}} src={require('../../assets/img/avatar.jpg')}/>  Admin
                 </DropdownToggle>
@@ -49,14 +58,12 @@ class Navi extends React.Component {
                   <DropdownItem>
                     Settings
                   </DropdownItem>
-                  <DropdownItem onClick={()=>this.props.navigate('/login')}>
-                    Login
-                  </DropdownItem>
-                  <DropdownItem onClick={()=>this.props.navigate('/register')}>
-                    Register
+                  <DropdownItem divider/>
+                  <DropdownItem onClick={()=>this.props.navigate('/logout')}>
+                    Logout
                   </DropdownItem>
                 </DropdownMenu>
-              </UncontrolledDropdown>
+              </UncontrolledDropdown> */}
             </Nav>
           </Collapse>
         </Navbar>

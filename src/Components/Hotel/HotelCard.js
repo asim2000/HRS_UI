@@ -1,17 +1,21 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button } from 'reactstrap';
+  CardTitle, CardSubtitle, Button, Badge } from 'reactstrap';
 
 const HotelCard = (props) => {
+  const navigate = useNavigate()
   return (
     <div>
-      <Card className='m-2'>
+      <Card className='m-2' onClick={()=>navigate('/hotel/details')}>
         <CardImg top src={require('../../assets/img/hotel.jpg')} alt="Hotel image" />
         <CardBody>
-          <CardTitle>Baku</CardTitle>
-          <CardSubtitle>Hilton</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <Button>Book</Button>
+          <CardTitle>Hilton</CardTitle>
+          <CardSubtitle>Azerbaijan,Baku</CardSubtitle>
+          <CardText>Starting from 200 Azn</CardText>
+          <CardText>
+            <Badge className='bg-primary'>8.7</Badge> <b>Excellent</b> 1823 review
+          </CardText>
         </CardBody>
       </Card>
     </div>
