@@ -16,6 +16,8 @@ import BusinessRegister from '../Auth/Register/BusinessRegister'
 import Navi,{NaviWithNavigate} from '../Navi/Navi'
 import HotelDetails from '../Hotel/HotelDetails'
 import HotelDetailCarousel from '../Carousel/HotelDetailCarousel'
+import BookHistory from '../BookHistory/BookHistory'
+import Payment from '../Payment/Payment'
 
 class App extends Component {
   render() {
@@ -33,6 +35,8 @@ class App extends Component {
             <Route path='/' element={<Navigate to='/hotel/list'/>}></Route>
             <Route path='/hotel/list' Component={HotelList}/>
             <Route path='/hotel/details' Component={HotelDetails}/>
+            <Route path='book-history' Component={BookHistory}/>
+            <Route path='payment' Component={Payment}/>
             <Route path='carousel' Component={HotelDetailCarousel}/>
             <Route path='/login' Component={Login}/>
             <Route path='/register' Component={Register}/>

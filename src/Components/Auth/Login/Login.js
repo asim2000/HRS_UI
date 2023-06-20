@@ -10,7 +10,7 @@ export default class Login extends Component {
           <Col lg='6' md='8' sm='10' xs='12'>
                <Form>
               <FormGroup className='m-3'>
-                <Label for="email">Lastname</Label>
+                <Label for="email">Email</Label>
                 <Input type="email" name="email" id="email" placeholder="Enter email" />
               </FormGroup>
               <FormGroup className='m-3'>

@@ -50,7 +50,7 @@ class RoomSelectBox extends Component {
                   </Col>
                 </Row>
                 <Row>
-                <Button outline className='mt-2' block color='primary'>Done</Button>
+                <Button outline className='mt-2' block color='primary' onClick={()=>this.props.actions.changeVisibility()}>Done</Button>
                 </Row>
              </CardBody>
            </Card>

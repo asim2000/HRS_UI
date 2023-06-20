@@ -9,10 +9,13 @@ import { FaParking } from 'react-icons/fa'
 import RoomSelectBox from '../RoomSelectBox/RoomSelectBox'
 import { Link, useNavigate } from 'react-router-dom'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
-
+import alertify from 'alertifyjs'
 
 export default function HotelDetails() {
     const navigate = useNavigate()
+    const bookNow = ()=> {
+        navigate('/payment')
+    }
     return (
         <div>
             <Button onClick={()=>navigate('/hotel/list')} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Back</Button>
@@ -114,7 +117,7 @@ export default function HotelDetails() {
                                         Total 250 Azn
                                     </CardSubtitle>
                                     <CardFooter>
-                                        <Button className='w-100' type='submit' color='primary'>Book Now</Button>
+                                        <Button onClick={()=>bookNow()} className='w-100' type='submit' color='primary'>Book Now</Button>
                                     </CardFooter>
                                 </CardBody>
                             </Card>

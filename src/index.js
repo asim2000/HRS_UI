@@ -4,6 +4,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'alertifyjs/build/css/alertify.min.css'
 import App from './Components/Root/App';
 import configureStore from './redux/reducers/configureStore';
 import { Provider } from 'react-redux';
