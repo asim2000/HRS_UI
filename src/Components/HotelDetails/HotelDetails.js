@@ -95,26 +95,26 @@ export default function HotelDetails() {
                                             <Input type="checkbox" />
                                             {' '}
                                             <Label check>
-                                                Breakfast
+                                                Breakfast (60 Azn)
                                             </Label>
                                         </FormGroup>
                                         <FormGroup check>
                                             <Input type="checkbox" />
                                             {' '}
                                             <Label check>
-                                                Garage
+                                                Garage (15 Azn)
                                             </Label>
                                         </FormGroup>
                                         <FormGroup check>
                                             <Input type="checkbox" />
                                             {' '}
                                             <Label check>
-                                                Sauna
+                                                Sauna (50Azn)
                                             </Label>
                                         </FormGroup>
                                     </CardText>
                                     <CardSubtitle>
-                                        Total 250 Azn
+                                        Total 375 Azn
                                     </CardSubtitle>
                                     <CardFooter>
                                         <Button onClick={()=>bookNow()} className='w-100' type='submit' color='primary'>Book Now</Button>

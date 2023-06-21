@@ -1,23 +1,23 @@
 import React, { Component } from 'react'
 import {Container,Row,Col} from 'reactstrap'
-import Sidebar from '../Sidebar/Sidebar'
 import Footer from '../Footer/Footer'
 import HotelList from '../Home/HotelList'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import Dashboard from './Dashboard'
 import NotFound from './NotFound'
-import HotelCard from '../Hotel/HotelCard'
-import Header from '../Header/Header'
 import Login from '../Auth/Login/Login'
 import Register from '../Auth/Register/Register'
 import CustomerRegister from '../Auth/Register/CustomerRegister'
 import HotelRegister from '../Auth/Register/HotelRegister'
 import BusinessRegister from '../Auth/Register/BusinessRegister'
 import Navi,{NaviWithNavigate} from '../Navi/Navi'
-import HotelDetails from '../Hotel/HotelDetails'
+import HotelDetails from '../HotelDetails/HotelDetails'
 import HotelDetailCarousel from '../Carousel/HotelDetailCarousel'
 import BookHistory from '../BookHistory/BookHistory'
 import Payment from '../Payment/Payment'
+import CreateHotel from '../HotelAdmin/CreateHotel'
+import Rooms from '../HotelAdmin/Rooms'
+import AddRoom from '../HotelAdmin/AddRoom'
+import Hotels from '../HotelAdmin/Hotels'
 
 class App extends Component {
   render() {
@@ -32,9 +32,13 @@ class App extends Component {
         <Row>
           <Col>
             <Routes>
-            <Route path='/' element={<Navigate to='/hotel/list'/>}></Route>
-            <Route path='/hotel/list' Component={HotelList}/>
+            <Route path='/' element={<Navigate to='/home/index'/>}></Route>
+            <Route path='/home/index' Component={HotelList}/>
             <Route path='/hotel/details' Component={HotelDetails}/>
+            <Route exact path='/hotel/create' Component={CreateHotel}/>
+            <Route path='/hotel/rooms' Component={Rooms}/>
+            <Route path='/hotel/room/add' Component={AddRoom}/>
+            <Route path='/hotel/list' Component={Hotels}/>
             <Route path='book-history' Component={BookHistory}/>
             <Route path='payment' Component={Payment}/>
             <Route path='carousel' Component={HotelDetailCarousel}/>

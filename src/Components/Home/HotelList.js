@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import HotelCard from '../Hotel/HotelCard'
+import HotelCard from '../HotelCard/HotelCard'
 import Header from '../Header/Header'
 import { Col, Row } from 'reactstrap'
 import PagePagination from '../Pagination/PagePagination'
