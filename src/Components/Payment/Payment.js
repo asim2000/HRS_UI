@@ -7,7 +7,7 @@ import alertify from 'alertifyjs'
 export default function Payment() {
     const navigate = useNavigate()
     const book = ()=> {
-        navigate('/book-history')
+        navigate('/booking-history')
         alertify.success('Successfully booking hotel')
     }
   return (

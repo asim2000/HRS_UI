@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button, Col, Input, InputGroup, Row, Table } from 'reactstrap'
 import {AiFillEdit} from 'react-icons/ai'
 import {GiCancel} from 'react-icons/gi'
-export default function BookHistory() {
+export default function BookHistory(props) {
     const navigate = useNavigate()
     return (
         <div>
@@ -12,7 +12,7 @@ export default function BookHistory() {
                     <h5>Bookings</h5>
                 </Col>
                 <Col>
-                    <Button className='d-flex ms-auto' color='primary' onClick={() => navigate('/hotel/list')}>New Book</Button>
+                    <Button className='d-flex ms-auto' color='primary' onClick={() => navigate(props.url)}>New Book</Button>
                 </Col>
             </Row>
             <Row className='mt-3 mb-5'>
