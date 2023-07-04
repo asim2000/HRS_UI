@@ -8,6 +8,8 @@ import 'alertifyjs/build/css/alertify.min.css'
 import App from './Components/Root/App';
 import configureStore from './redux/reducers/configureStore';
 import { Provider } from 'react-redux';
+import 'semantic-ui-css/semantic.min.css'
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const store = configureStore()
 root.render(

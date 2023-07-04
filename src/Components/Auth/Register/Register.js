@@ -1,41 +1,76 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Card, CardBody, Col, Row } from 'reactstrap'
-import '../../../assets/css/register.css'
-export default function () {
+import { Link, useNavigate } from 'react-router-dom'
+import { Button, Col} from 'reactstrap'
+import React, { useEffect, useReducer, useState } from 'react'
+import CityService from '../../../services/cityService'
+import TextInput from '../../../utilities/customFormControls/TextInput'
+import { Formik,Form, validateYupSchema } from 'formik'
+import * as Yup from "yup"
+import alertifyjs from 'alertifyjs'
+import AuthService from '../../../services/authService'
+import SelectInput from '../../../utilities/customFormControls/SelectInput'
+import customerTypeReducer from '../../../redux/reducers/customerTypeReducer'
+import { useSelector } from 'react-redux'
+
+export default function Register() {
+  const [cities, setSities] = useState([])
   const navigate = useNavigate()
+  const customerType = useSelector(state=>state.customerTypeReducer)
+  useEffect(()=>{
+    let cityService = new CityService();
+    cityService.getCities()
+    .then(result=>setSities(result.data));
+  },[])
+
+  const initialValues = { role:customerType}
+  
+  const schema = Yup.object({
+    name: Yup.string().required("Name is required"),
+    surname: Yup.string().required("Surname is required"),
+    email: Yup.string().email().required("Email is required"),
+    password: Yup.string().required("Password is required"),
+    phone: Yup.string().required("Phone is required"),
+    dateOfBirth: Yup.date().required("Date of birth is required"),
+    gender: Yup.string().required("Gender is required"),
+    cityId: Yup.string().required("City is required"),
+    addressLine: Yup.string().required("Address is required")
+  });
+
+  const register = values => {
+    const authService = new AuthService()
+    authService.register(values)
+    .then(result=>{
+      navigate('/')
+      alertifyjs.success(values.name + " successfully registered")
+  })
+  .catch(error=>{
+      alertifyjs.error(error.response.data.message)
+  })
+  }
   return (
     <div>
-        <Row className='text-center'>
-            <Col>
-              <h3>Register</h3>
-            </Col>
-        </Row>
-        <Row className='d-flex justify-content-center'>
-            <Col md='4' sm='6' xs='12' className='m-3' onClick={()=>navigate('/register/customer')}>
-                <Card className='registerCard'>
-                    <CardBody style={{cursor:"pointer"}} className='text-center'>
-                        For Customer
-                    </CardBody>
-                </Card>
-            </Col>
-            <Col md='4' sm='6' xs='12' className='m-3'>
-            <Card className='registerCard' onClick={()=>navigate('/register/business')}>
-                    <CardBody style={{cursor:"pointer"}} className='text-center'>
-                        For Business
-                    </CardBody>
-                </Card>
-            </Col>
-        </Row>
-        <Row className='justify-content-center'>
-            <Col md='4' sm='6' xs='12' className='m-3'>
-            <Card className='registerCard' onClick={()=>navigate('/register/hotel')}>
-                    <CardBody style={{cursor:"pointer"}} className='text-center'>
-                        For Hotel
-                    </CardBody>
-                </Card>
-            </Col>
-        </Row>
-      </div>
+      <Col md="6">
+        <Formik
+          initialValues={initialValues} 
+          validationSchema={schema}
+          onSubmit = {(values)=>{
+            register(values)
+          }}
+        >
+          <Form className="ui form">
+            <TextInput type='text' name="name" placeholder="Enter name"/>
+            <TextInput type='text' name="surname" placeholder="Enter surname"/>
+            <TextInput type='email' name="email" placeholder="Enter email"/>
+            <TextInput type='password' name="password" placeholder="Enter password"/>
+            <TextInput type='text' name="phone" placeholder="Enter phone"/>
+            <TextInput type='date' name="dateOfBirth" placeholder="Enter date of birth"/>
+            <SelectInput name='gender' defaultValue='Choose gender' options={[{value:'MAN',text:'Man'},{value:'WOMAN',text:'Woman'}]}/>
+            <SelectInput name='cityId' defaultValue='Choose city' options={cities.map(city=>({value:city.id,text:city.name}))}/>
+            <TextInput type='text' name="addressLine" placeholder="Enter address"/>
+            <TextInput type='hidden' name="role"/>
+            <Button type='submit' color='primary'>Register</Button>
+          </Form>
+        </Formik>
+      </Col>
+    </div>
   )
 }

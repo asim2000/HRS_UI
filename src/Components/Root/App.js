@@ -6,9 +6,6 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import NotFound from './NotFound'
 import Login from '../Auth/Login/Login'
 import Register from '../Auth/Register/Register'
-import CustomerRegister from '../Auth/Register/CustomerRegister'
-import HotelRegister from '../Auth/Register/HotelRegister'
-import BusinessRegister from '../Auth/Register/BusinessRegister'
 import Navi,{NaviWithNavigate} from '../Navi/Navi'
 import HotelDetails from '../HotelDetails/HotelDetails'
 import HotelDetailCarousel from '../Carousel/HotelDetailCarousel'
@@ -20,6 +17,7 @@ import AddRoom from '../HotelAdmin/AddRoom'
 import Hotels from '../HotelAdmin/Hotels'
 import HotelAdminBook from '../HotelAdmin/HotelAdminBook'
 import HotelAdminBookHistory from '../HotelAdmin/HotelAdminBookHistory'
+import SelectRegister from '../Auth/Register/SelectRegister'
 
 class App extends Component {
   render() {
@@ -48,9 +46,7 @@ class App extends Component {
             <Route path='carousel' Component={HotelDetailCarousel}/>
             <Route path='/login' Component={Login}/>
             <Route path='/register' Component={Register}/>
-            <Route path='/register/customer' Component={CustomerRegister}/>
-            <Route path='/register/business' Component={BusinessRegister}/>
-            <Route path='/register/hotel' Component={HotelRegister}/>
+            <Route path='/select-register' Component={SelectRegister}/>
             <Route path='*' Component={NotFound}/>
           </Routes>
           </Col>

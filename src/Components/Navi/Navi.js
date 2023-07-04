@@ -48,7 +48,7 @@ class Navi extends React.Component {
                 <NavLink style={{cursor:"pointer"}} onClick={()=>this.props.navigate('/login')}>Login</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink style={{cursor:"pointer"}} onClick={()=>this.props.navigate('/register')}>Register</NavLink>
+                <NavLink style={{cursor:"pointer"}} onClick={()=>this.props.navigate('/select-register')}>Register</NavLink>
               </NavItem>
               {/* <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
