@@ -10,7 +10,10 @@ import * as Yup from "yup"
 
 export default function Login(){
   const navigate = useNavigate()
-  const initialValues = {}
+  const initialValues = {
+    email:"",
+    password:""
+  }
   
   const  schema = Yup.object({
     email: Yup.string().email().required("Email is required"),
@@ -40,7 +43,7 @@ export default function Login(){
             >
               <Form className="ui form">
                 <TextInput name='email' placeholder='Enter Email'/>
-                <TextInput name='password' placeholder='Enter password'/>
+                <TextInput type="password" name='password' placeholder='Enter password'/>
                 <Link to='/forgot/password'>Forgot password?</Link><br/>
                 <Button type='submit' className='mt-2' color='primary'>Login</Button>
               </Form>
@@ -48,5 +51,5 @@ export default function Login(){
           </Col>
         </Row>
       </div>
-    )
+    ) 
   }

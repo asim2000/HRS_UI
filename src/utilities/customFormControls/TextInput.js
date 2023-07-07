@@ -1,5 +1,5 @@
 import { useField } from 'formik'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FormField, Label } from 'semantic-ui-react'
 
 export default function TextInput({...props}) {
@@ -9,7 +9,7 @@ export default function TextInput({...props}) {
     <FormField error={meta.touched && !!meta.error}>
         <input {...props} {...field}/>
         {
-            meta.touched && !!meta.error ? (<Label pointing basic color='red' content={meta.error}></Label>) : null
+            (meta.touched) && !!meta.error ? (<Label pointing basic color='red' content={meta.error}></Label>) : null
         }
     </FormField>
   )
