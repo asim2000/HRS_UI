@@ -33,8 +33,7 @@ export default function CreateHotel() {
         addressLine:"",
         phone:"",
         description:"",
-        serviceIds:[],
-        images:{}
+        serviceIds:[]
       }
       
       const schema = Yup.object({
@@ -47,13 +46,10 @@ export default function CreateHotel() {
         // images:Yup.array()
        
       });
-    const save = (hotel)=> {
-        const formdata = new FormData()
-        formdata.append('photo',images)
-        hotel.images=formdata
-        console.log(hotel)
+
+    const save = (values)=> {
         let hotelService = new HotelService()
-        hotelService.create(hotel)
+        hotelService.create(values)
         .then(result=>{
             //navigate('/hotel/list')
             alertify.success('Successfully created hotel')
@@ -74,8 +70,10 @@ export default function CreateHotel() {
             save(values)
           }}
         >
-            
-        <Form className="ui form">
+            {(formik)=>{
+                return(
+               
+        <Form className="ui form" id='formid' method='post' encType='multipart/form-data'>
             <h1>Create Hotel</h1><hr/>
             <Row>
                 <Col md='6'>
@@ -92,11 +90,16 @@ export default function CreateHotel() {
                     
                     <FormGroup className='mt-5'>
                         <Label for='images'>Select Images</Label>
-                        <Input type='file' name='images' id='images' onChange={event=>setImages(event.currentTarget.files[0])} placeholder='Choose hotel images' />
+                        <Input type='file' multiple name='images' id='images' onChange={event=> formik.setFieldValue("images",event.target.files)} placeholder='Choose hotel images' />
+                        
                     </FormGroup>
+                    {/* {images?<img width='100px' height='100px' src={URL.createObjectURL(images)} />:null } */}
                 </Col>
             </Row>
+           
                     </Form>
+                    )
+            }}
                     </Formik>
         </div>
     )
