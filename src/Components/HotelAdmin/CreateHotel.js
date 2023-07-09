@@ -15,7 +15,7 @@ export default function CreateHotel() {
     const navigate = useNavigate()
     const [cities, setCities] = useState([])
     const [services, setServices] = useState([])
-    const [images, setImages] = useState()
+    const [target, setTarget] = useState()
     useEffect(()=>{
         let cityService = new CityService();
         let serviceService = new ServiceService();
@@ -47,18 +47,27 @@ export default function CreateHotel() {
        
       });
 
-    const save = (values)=> {
+      const form = document.getElementById("formid")
+      if(form){
+        form.onsubmit = e => {
+            e.preventDefault()
+            setTarget(e.target)
+          }
+      }
+
+    const save = e => {
         let hotelService = new HotelService()
-        hotelService.create(values)
-        .then(result=>{
-            //navigate('/hotel/list')
-            alertify.success('Successfully created hotel')
-        })
-        .catch(error=>{
-            console.log(error)
-            alertify.error(error.response.data)
-        })
-        
+        console.log(target)
+                    const formData = new FormData(target)
+                hotelService.create(formData)
+                .then(result=>{
+                    console.log(result)
+                    //navigate('/hotel/list')
+                    alertify.success('Successfully created hotel')
+                })
+                .catch(error=>{
+                    console.log(error)
+                })
     }
     return (
         <div>
@@ -73,7 +82,7 @@ export default function CreateHotel() {
             {(formik)=>{
                 return(
                
-        <Form className="ui form" id='formid' method='post' encType='multipart/form-data'>
+        <Form className="ui form" id='formid' encType='multipart/form-data'>
             <h1>Create Hotel</h1><hr/>
             <Row>
                 <Col md='6'>
