@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {Container,Row,Col} from 'reactstrap'
 import Footer from '../Footer/Footer'
-import HotelList from '../Home/HotelList'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import NotFound from './NotFound'
 import Login from '../Auth/Login/Login'
@@ -18,6 +17,7 @@ import Hotels from '../HotelAdmin/Hotels'
 import HotelAdminBook from '../HotelAdmin/HotelAdminBook'
 import HotelAdminBookHistory from '../HotelAdmin/HotelAdminBookHistory'
 import SelectRegister from '../Auth/Register/SelectRegister'
+import Home from '../Home/Home'
 
 class App extends Component {
   render() {
@@ -33,7 +33,7 @@ class App extends Component {
           <Col>
             <Routes>
             <Route path='/' element={<Navigate to='/home/index'/>}></Route>
-            <Route path='/home/index' Component={HotelList}/>
+            <Route path='/home/index' Component={Home}/>
             <Route path='/hotel/details' Component={HotelDetails}/>
             <Route exact path='/hotel/create' Component={CreateHotel}/>
             <Route path='/hotel/rooms' Component={Rooms}/>

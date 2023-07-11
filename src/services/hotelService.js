@@ -1,8 +1,8 @@
 import axios from "axios"
 
 export default class HotelService {
+    url = 'http://localhost:8585/hotel'
     create(formData){
-        const url = 'http://localhost:8585/hotel'
-        return axios.post(url,formData)
+        return axios.post(this.url,formData)
     }
 }

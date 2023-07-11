@@ -1,11 +1,21 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import HotelCard from '../HotelCard/HotelCard'
 import Header from '../Header/Header'
 import { Col, Row } from 'reactstrap'
 import PagePagination from '../Pagination/PagePagination'
+import HomeService from '../../services/homeService'
+import alertify from 'alertifyjs'
 
-export default class HotelList extends Component {
-  render() {
+export default function Home() {
+  const [hotels, setHotels] = useState([])
+  useEffect(() => {
+    const homeService = new HomeService()
+    homeService.getHomeHotels()
+    .then(result=>{
+      setHotels(result.data)
+    })
+    .catch(error=>alertify.error(error.response.data.message))
+  }, [])
     return (
       <div>
         <Row className='mb-2'>
@@ -13,7 +23,12 @@ export default class HotelList extends Component {
             <Header/>
           </Col>
         </Row>
-        <Row>
+          <Row>
+            {
+              hotels.map(hotel=><Col key={hotel.id} lg='3' md='4' sm='6' xs='12'><HotelCard hotel={hotel}/></Col>)
+            }
+          </Row>
+        {/* <Row>
           <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
           <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
           <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
@@ -30,13 +45,7 @@ export default class HotelList extends Component {
           <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
           <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
           <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
-        </Row>
-        <Row>
-          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
-          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
-          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
-          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
-        </Row>
+        </Row> */}
         <Row className='mt-5'>
           <Col className='d-flex justify-content-center'>
             <PagePagination/>
@@ -45,4 +54,3 @@ export default class HotelList extends Component {
       </div>
     )
   }
-}
