@@ -5,12 +5,13 @@ import { Col, Row } from 'reactstrap'
 import PagePagination from '../Pagination/PagePagination'
 import HomeService from '../../services/homeService'
 import alertify from 'alertifyjs'
+import HotelService from '../../services/hotelService'
 
 export default function Home() {
   const [hotels, setHotels] = useState([])
   useEffect(() => {
-    const homeService = new HomeService()
-    homeService.getHomeHotels()
+    const hotelService = new HotelService()
+    hotelService.getHomeHotels()
     .then(result=>{
       setHotels(result.data)
     })

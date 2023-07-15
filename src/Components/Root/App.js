@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Container,Row,Col} from 'reactstrap'
 import Footer from '../Footer/Footer'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useParams } from 'react-router-dom'
 import NotFound from './NotFound'
 import Login from '../Auth/Login/Login'
 import Register from '../Auth/Register/Register'
@@ -19,8 +19,7 @@ import HotelAdminBookHistory from '../HotelAdmin/HotelAdminBookHistory'
 import SelectRegister from '../Auth/Register/SelectRegister'
 import Home from '../Home/Home'
 
-class App extends Component {
-  render() {
+function App() {
     return (
       <div>
         <Container>
@@ -34,7 +33,7 @@ class App extends Component {
             <Routes>
             <Route path='/' element={<Navigate to='/home/index'/>}></Route>
             <Route path='/home/index' Component={Home}/>
-            <Route path='/hotel/details' Component={HotelDetails}/>
+            <Route path='/hotel/details/:id' Component={HotelDetails}/>
             <Route exact path='/hotel/create' Component={CreateHotel}/>
             <Route path='/hotel/rooms' Component={Rooms}/>
             <Route path='/hotel/room/add' Component={AddRoom}/>
@@ -59,6 +58,5 @@ class App extends Component {
       </Container>
       </div>
     )
-  }
 }
 export default App;

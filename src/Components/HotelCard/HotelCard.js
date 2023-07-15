@@ -5,7 +5,6 @@ import { Card, CardImg, CardText, CardBody,
 
 const HotelCard = (props) => {
   const navigate = useNavigate()
-  console.log(props.hotel.images[0].image)
   
   return (
     <div>
@@ -20,10 +19,10 @@ const HotelCard = (props) => {
           </CardText>
         </CardBody>
       </Card> */}
-      <Card className='m-2' onClick={()=>navigate('/hotel/details')}>
+      <Card className='m-2' onClick={()=>navigate('/hotel/details/'+props.hotel.id)}>
         <CardImg top src={require(`../../assets/img/${props.hotel.images[0].path}`)} alt="Hotel image" />
         <CardBody>
-          <CardTitle bold>{props.hotel.name}</CardTitle>
+          <CardTitle>{props.hotel.name}</CardTitle>
           <CardSubtitle>Azerbaijan,{props.hotel.address.city.name},{props.hotel.address.addressLine}</CardSubtitle>
           <CardText>Starting from 200 Azn</CardText>
           <CardText>
