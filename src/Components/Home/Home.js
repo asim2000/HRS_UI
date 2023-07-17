@@ -29,24 +29,6 @@ export default function Home() {
               hotels.map(hotel=><Col key={hotel.id} lg='3' md='4' sm='6' xs='12'><HotelCard hotel={hotel}/></Col>)
             }
           </Row>
-        {/* <Row>
-          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
-          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
-          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
-          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
-        </Row>
-        <Row>
-          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
-          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
-          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
-          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
-        </Row>
-        <Row>
-          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
-          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
-          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
-          <Col lg='3' md='4' sm='6' xs='12'><HotelCard/></Col>
-        </Row> */}
         <Row className='mt-5'>
           <Col className='d-flex justify-content-center'>
             <PagePagination/>
