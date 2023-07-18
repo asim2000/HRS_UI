@@ -13,9 +13,13 @@ export default function Home() {
     const hotelService = new HotelService()
     hotelService.getHomeHotels()
     .then(result=>{
-      setHotels(result.data)
+      if(result.data.code === 200){
+        setHotels(result.data.data)
+      }
+      else{
+        alertify.error(result.data.message)
+      }
     })
-    .catch(error=>alertify.error(error.response.data.message))
   }, [])
     return (
       <div>

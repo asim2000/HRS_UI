@@ -11,6 +11,7 @@ import SelectInput from '../../../utilities/customFormControls/SelectInput'
 import customerTypeReducer from '../../../redux/reducers/customerTypeReducer'
 import { useSelector } from 'react-redux'
 import GenderService from '../../../services/genderService'
+import alertify from 'alertifyjs'
 
 export default function Register() {
   const [cities, setSities] = useState([])
@@ -22,10 +23,23 @@ export default function Register() {
     let genderService = new GenderService();
 
     cityService.getCities()
-    .then(result=>setSities(result.data));
+    .then(result=>{
+      if(result.data.code === 200){
+        setSities(result.data.data)
+      }else{
+        alertify.error(result.data.message)
+      }
+    });
 
     genderService.getGenders()
-    .then(result=>setGenders(result.data))
+    .then(result=>{
+      if(result.data.code === 200){
+        setGenders(result.data.data)
+      }
+      else{
+        alertify.error(result.data.message)
+      }
+    })
 
 
   },[])
@@ -59,14 +73,12 @@ export default function Register() {
     const authService = new AuthService()
     authService.register(values)
     .then(result=>{
-      navigate('/')
-      alertifyjs.success(values.name + " successfully registered")
-  })
-  .catch(error=>{
-    if(error.response.data.validationErrors)
-      alertifyjs.error(Object.keys(error.response.data.validationErrors)[0]+" "+Object.values(error.response.data.validationErrors)[0])
-    else
-    alertifyjs.error(error.response.data.message)
+      if(result.data.code === 200){
+        navigate('/')
+      alertifyjs.success(result.data.message)
+      }else{
+        alertifyjs.error(result.data.message)
+      }
   })
   }
   return (

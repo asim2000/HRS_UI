@@ -23,10 +23,11 @@ export default function HotelDetails(props) {
         let hotelService = new HotelService()
         hotelService.getHotelDetails(id)
         .then(result=>{
-            setHotel(result.data)
-        })
-        .catch(error=>{
-            console.log(error.response.data.message)
+            if(result.data.code === 200){
+                setHotel(result.data.data)
+            }else{
+                alertify.error(result.data.message)
+            }
         })
     },[])
     

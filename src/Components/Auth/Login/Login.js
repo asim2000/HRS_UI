@@ -17,17 +17,18 @@ export default function Login() {
 
   const schema = Yup.object({
     email: Yup.string().email().required("Email is required"),
-    password: Yup.string().required("Password is required"),
+    password: Yup.string().required("Password is required")
   });
   const login = values => {
     const authService = new AuthService()
     authService.login(values)
       .then(result => {
-          navigate('/')
-          alertifyjs.success(result.data.message)
-      })
-      .catch(error=>{
-        alertifyjs.error(error.response.data.message)
+          if(result.data.code === 200){
+            navigate('/')
+            alertifyjs.success(result.data.message)
+          }else{
+            alertifyjs.error("<pre>"+result.data.message+"</pre>")
+          }
       })
   }
   return (
