@@ -74,7 +74,7 @@ export default function Register() {
     authService.register(values)
     .then(result=>{
       if(result.data.code === 200){
-        navigate('/')
+        navigate('/login')
       alertifyjs.success(result.data.message)
       }else{
         alertifyjs.error(result.data.message)

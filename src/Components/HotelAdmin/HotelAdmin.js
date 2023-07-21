@@ -10,12 +10,12 @@ import alertify from 'alertifyjs'
 
 export default function HotelAdmin() {
     const navigate = useNavigate()
-    const {id} = useParams()
-    const url = `/hotel/create/${id}`
+    const {adminId} = useParams()
+    const url = `/hotel/create/${adminId}`
     const [hotel, setHotel] = useState()
     useEffect(() => {
         const hotelService = new HotelService()
-        hotelService.getByEmployeeId(id)
+        hotelService.getByEmployeeId(adminId)
         .then(result=>{
             if(result.data.code === 200){
                 setHotel(result.data.data)
@@ -49,7 +49,7 @@ export default function HotelAdmin() {
                             </CardBody>
                             <CardFooter className='d-flex'>
                                 <Button onClick={() => navigate(`/hotel/${hotel.id}/room/add`)} color='primary'>Add Room</Button>&nbsp;
-                                <Button onClick={() => navigate(`/hotel/admin/${id}/rooms`)} color='primary'>Room List</Button>
+                                <Button onClick={() => navigate(`/hotel/${hotel.id}/rooms`)} color='primary'>Room List</Button>
                                 <AiFillEye size='23' className='ms-auto' color='green' title='view' />
                                 <AiFillEdit size='23' className='ms-3' title='edit' color='blue' />
                                 <RiDeleteBin6Fill size='23' className='ms-3' color='red' title='delete' />

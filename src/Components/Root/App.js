@@ -34,10 +34,10 @@ function App() {
             <Route path='/' element={<Navigate to='/home/index'/>}></Route>
             <Route path='/home/index' Component={Home}/>
             <Route path='/hotel/details/:id' Component={HotelDetails}/>
-            <Route exact path='/hotel/create/:id' Component={CreateHotel}/>
-            <Route path='/hotel/:id/rooms' Component={Rooms}/>
-            <Route path='/hotel/:id/room/add' Component={AddRoom}/>
-            <Route path='/hotel/admin/:id' Component={HotelAdmin}/>
+            <Route exact path='/hotel/create/:adminId' Component={CreateHotel}/>
+            <Route path='/hotel/:hotelId/rooms' Component={Rooms}/>
+            <Route path='/hotel/:hotelId/room/add' Component={AddRoom}/>
+            <Route path='/hotel/admin/:adminId' Component={HotelAdmin}/>
             <Route path='/hotel/room/book' Component={HotelAdminBook}/>
             <Route path='booking-history' Component={()=>(<BookHistory url='/home/index'/>)}/>
             <Route path='/hotel/admin/booking-history' Component={()=>(<HotelAdminBookHistory url='/hotel/admin/rooms'/>)}/>

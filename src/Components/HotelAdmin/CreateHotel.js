@@ -13,7 +13,7 @@ import HotelService from '../../services/hotelService'
 
 export default function CreateHotel() {
     const navigate = useNavigate()
-    const {id} = useParams()
+    const {adminId} = useParams()
     const [cities, setCities] = useState([])
     const [services, setServices] = useState([])
     const [target, setTarget] = useState()
@@ -71,7 +71,7 @@ export default function CreateHotel() {
         hotelService.create(formData)
             .then(result => {
                 if(result.data.code === 200){
-                    navigate('/hotel/admin/'+id)
+                    navigate('/hotel/admin/'+adminId)
                     alertify.success(result.data.message)
                 }else{
                     alertify.error(result.data.message)
@@ -95,7 +95,7 @@ export default function CreateHotel() {
                             <h1>Create Hotel</h1><hr />
                             <Row>
                                 <Col md='6'>
-                                    <input type='hidden' name='employeeId' value={id}/>
+                                    <input type='hidden' name='employeeId' value={adminId}/>
                                     <TextInput name='name' id='name' placeholder='Enter name' />
                                     <SelectInput name='cityId' id='cityId' defaultValue='Choose city' options={cities.map(city => ({ value: city.id, text: city.name }))} />
                                     <TextInput name='addressLine' id='addressLine' placeholder='Enter address' />

@@ -13,16 +13,16 @@ import RoomService from '../../services/roomService'
 
 export default function AddRoom() {
     const navigate = useNavigate()
-    const { id } = useParams()
+    const { hotelId } = useParams()
     const [roomStyles, setRoomStyles] = useState([])
     const [items, setItems] = useState([])
     const save = (values) => {
         const roomService = new RoomService()
-        values.hotelId = id
+        values.hotelId = hotelId
         roomService.create(values)
             .then(result => {
                 if (result.data.code === 200) {
-                    navigate('/hotel/'+id+'/rooms')
+                    navigate('/hotel/'+hotelId+'/rooms')
                     alertify.success(result.data.message)
                 } else {
                     alertify.error(result.data.message)

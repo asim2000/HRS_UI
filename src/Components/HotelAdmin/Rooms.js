@@ -12,11 +12,11 @@ import alertify from 'alertifyjs'
 export default function Rooms() {
     const navigate = useNavigate()
     const [rooms, setRooms] = useState([])
-    const {id} = useParams()
+    const {hotelId} = useParams()
 
     useEffect(() => {
         const roomService = new RoomService()
-        roomService.getAllByHotelId(id)
+        roomService.getAllByHotelId(hotelId)
         .then(result=>{
             if(result.data.code === 200){
                 setRooms(result.data.data)
@@ -30,10 +30,10 @@ export default function Rooms() {
         <div>
             <Row>
                 <Col>
-                <Button onClick={()=>navigate('/hotel/admin/'+id)} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Home</Button>
+                <Button onClick={()=>navigate(`/hotel/admin/1`)} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Home</Button>
                 </Col>
                 <Col>
-                    <Button className='d-flex ms-auto' color='primary' onClick={() => navigate('/hotel/room/add')}>Add Room</Button>
+                    <Button className='d-flex ms-auto' color='primary' onClick={() => navigate(`/hotel/${hotelId}/room/add`)}>Add Room</Button>
                 </Col>
             </Row>
            {
@@ -59,160 +59,51 @@ export default function Rooms() {
                         <thead>
                             <tr>
                                 <th>Number</th>
-                                <th>Type</th>
-                                <th>Room</th>
+                                <th>Price</th>
+                                <th>Room Style</th>
+                                <th>Floor</th>
+                                <th>Room Count</th>
                                 <th>Adult</th>
                                 <th>Childreen</th>
                                 <th>Twin Bed</th>
                                 <th>Single Bed</th>
-                                <th>Pet</th>
-                                <th>Breakfast</th>
-                                <th>Parking</th>
-                                <th>Price</th>
+                                <th>Shower Count</th>
+                                <th>Room Status</th>
+                                <th>Clean</th>
+                                <th>Pet allow</th>
+                                <th>Room Size</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>123</td>
-                                <td>Deluxe</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>Yes</td>
-                                <td>Yes,free</td>
-                                <td>Yes,free</td>
-                                <td>50</td>
-                                <td>
-                                    <AiFillCheckCircle onClick={()=>navigate('/hotel/room/book')} title='book' color='green'/>
-                                    <AiFillEye title='view' color='blue' className='ms-3' />
-                                    <AiFillCopy title='copy' color='lime' className='ms-3'/>
-                                    <AiFillEdit title='edit' color='aqua' className='ms-3' />
-                                    <GiCancel color='red' title='cancel' className='ms-3' />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>123</td>
-                                <td>Deluxe</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>Yes</td>
-                                <td>Yes,free</td>
-                                <td>Yes,free</td>
-                                <td>50</td>
-                                <td>
-                                    <AiFillCheckCircle onClick={()=>navigate('/hotel/room/book')} title='book' color='green'/>
-                                    <AiFillEye title='view' color='blue' className='ms-3' />
-                                    <AiFillCopy title='copy' color='lime' className='ms-3'/>
-                                    <AiFillEdit title='edit' color='aqua' className='ms-3' />
-                                    <GiCancel color='red' title='cancel' className='ms-3' />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>123</td>
-                                <td>Deluxe</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>Yes</td>
-                                <td>Yes,free</td>
-                                <td>Yes,free</td>
-                                <td>50</td>
-                                <td>
-                                    <AiFillCheckCircle onClick={()=>navigate('/hotel/room/book')} title='book' color='green'/>
-                                    <AiFillEye title='view' color='blue' className='ms-3' />
-                                    <AiFillCopy title='copy' color='lime' className='ms-3'/>
-                                    <AiFillEdit title='edit' color='aqua' className='ms-3' />
-                                    <GiCancel color='red' title='cancel' className='ms-3' />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>123</td>
-                                <td>Deluxe</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>Yes</td>
-                                <td>Yes,free</td>
-                                <td>Yes,free</td>
-                                <td>50</td>
-                                <td>
-                                    <AiFillCheckCircle onClick={()=>navigate('/hotel/room/book')} title='book' color='green'/>
-                                    <AiFillEye title='view' color='blue' className='ms-3' />
-                                    <AiFillCopy title='copy' color='lime' className='ms-3'/>
-                                    <AiFillEdit title='edit' color='aqua' className='ms-3' />
-                                    <GiCancel color='red' title='cancel' className='ms-3' />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>123</td>
-                                <td>Deluxe</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>Yes</td>
-                                <td>Yes,free</td>
-                                <td>Yes,free</td>
-                                <td>50</td>
-                                <td>
-                                    <AiFillCheckCircle onClick={()=>navigate('/hotel/room/book')} title='book' color='green'/>
-                                    <AiFillEye title='view' color='blue' className='ms-3' />
-                                    <AiFillCopy title='copy' color='lime' className='ms-3'/>
-                                    <AiFillEdit title='edit' color='aqua' className='ms-3' />
-                                    <GiCancel color='red' title='cancel' className='ms-3' />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>123</td>
-                                <td>Deluxe</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>Yes</td>
-                                <td>Yes,free</td>
-                                <td>Yes,free</td>
-                                <td>50</td>
-                                <td>
-                                    <AiFillCheckCircle onClick={()=>navigate('/hotel/room/book')} title='book' color='green'/>
-                                    <AiFillEye title='view' color='blue' className='ms-3' />
-                                    <AiFillCopy title='copy' color='lime' className='ms-3'/>
-                                    <AiFillEdit title='edit' color='aqua' className='ms-3' />
-                                    <GiCancel color='red' title='cancel' className='ms-3' />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>123</td>
-                                <td>Deluxe</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>Yes</td>
-                                <td>Yes,free</td>
-                                <td>Yes,free</td>
-                                <td>50</td>
-                                <td>
-                                    <AiFillCheckCircle onClick={()=>navigate('/hotel/room/book')} title='book' color='green'/>
-                                    <AiFillEye title='view' color='blue' className='ms-3' />
-                                    <AiFillCopy title='copy' color='lime' className='ms-3'/>
-                                    <AiFillEdit title='edit' color='aqua' className='ms-3' />
-                                    <GiCancel color='red' title='cancel' className='ms-3' />
-                                </td>
-                            </tr>
+                            {console.log(rooms)}
+                            {
+                                rooms.map(room=>(
+                                    <tr>
+                                        <td>{room.roomNumber}</td>
+                                        <td>{room.pricePerNight}</td>
+                                        <td>{room.roomStyle}</td>
+                                        <td>{room.floor}</td>
+                                        <td>{room.roomCount}</td>
+                                        <td>{room.adultCount}</td>
+                                        <td>{room.childreenCount}</td>
+                                        <td>{room.twinBedCount}</td>
+                                        <td>{room.singleBedCount}</td>
+                                        <td>{room.showerCount}</td>
+                                        <td>{room.roomStatus}</td>
+                                        <td>{room.isClean?"Yes":"No"}</td>
+                                        <td>{room.isPetAllowed?"Yes":"No"}</td>
+                                        <td>{room.roomSize}</td>
+                                        <td>
+                                            <AiFillCheckCircle onClick={()=>navigate('/hotel/room/book')} title='book' color='green'/>
+                                            <AiFillEye title='view' color='blue' className='ms-3' />
+                                            <AiFillCopy title='copy' color='lime' className='ms-3'/>
+                                            <AiFillEdit title='edit' color='aqua' className='ms-3' />
+                                            <GiCancel color='red' title='cancel' className='ms-3' />
+                                        </td>
+                                </tr>
+                                ))
+                            }
                         </tbody>
                     </Table>
                 </Col>

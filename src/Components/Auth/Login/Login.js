@@ -24,7 +24,7 @@ export default function Login() {
     authService.login(values)
       .then(result => {
           if(result.data.code === 200){
-            navigate('/')
+            navigate(`/hotel/admin/${result.data.data.id}`)
             alertifyjs.success(result.data.message)
           }else{
             alertifyjs.error("<pre>"+result.data.message+"</pre>")
