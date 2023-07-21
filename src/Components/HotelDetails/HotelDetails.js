@@ -45,13 +45,12 @@ export default function HotelDetails(props) {
                                 <Col md='4'>
                                    <CardBody>
                                         <CardTitle className='pb-2' style={{fontSize:'20px'}}>
-                                               {hotel.name} &nbsp;&nbsp;  <span>
+                                               {hotel.name} <br/>  
                                                 <FaStar size='15' color='#0d6efd' />
                                                 <FaStar size='15' color='#0d6efd' />
                                                 <FaStar size='15' color='#0d6efd' />
                                                 <FaStar size='15' color='#0d6efd' />
                                                 <FaStar size='15' color='#0d6efd' />
-                                                </span>
                                             
                                         </CardTitle>
                                         <CardSubtitle className='pb-2'>Azerbaijan,{hotel.address?.city.name},{hotel.address?.addressLine}</CardSubtitle>
@@ -62,7 +61,7 @@ export default function HotelDetails(props) {
                                         <CardText className='mt-5'>
                                             <h5 className='pb-2'>Hotel services</h5>
                                             {
-                                                hotel.services?.map(service=>service.name)
+                                                hotel.services?.map(service=>(<p>{service.name}</p>))
                                             }
                                             {/* <AiOutlineWifi />&nbsp;&nbsp;Free Wifi <br />
                                             <MdFreeBreakfast />&nbsp;&nbsp;Free breakfast <br />

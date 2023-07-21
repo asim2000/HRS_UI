@@ -13,11 +13,11 @@ import Payment from '../Payment/Payment'
 import CreateHotel from '../HotelAdmin/CreateHotel'
 import Rooms from '../HotelAdmin/Rooms'
 import AddRoom from '../HotelAdmin/AddRoom'
-import Hotels from '../HotelAdmin/Hotels'
 import HotelAdminBook from '../HotelAdmin/HotelAdminBook'
 import HotelAdminBookHistory from '../HotelAdmin/HotelAdminBookHistory'
 import SelectRegister from '../Auth/Register/SelectRegister'
 import Home from '../Home/Home'
+import HotelAdmin from '../HotelAdmin/HotelAdmin'
 
 function App() {
     return (
@@ -34,10 +34,10 @@ function App() {
             <Route path='/' element={<Navigate to='/home/index'/>}></Route>
             <Route path='/home/index' Component={Home}/>
             <Route path='/hotel/details/:id' Component={HotelDetails}/>
-            <Route exact path='/hotel/create' Component={CreateHotel}/>
-            <Route path='/hotel/rooms' Component={Rooms}/>
-            <Route path='/hotel/room/add' Component={AddRoom}/>
-            <Route path='/hotel/list' Component={Hotels}/>
+            <Route exact path='/hotel/create/:id' Component={CreateHotel}/>
+            <Route path='/hotel/:id/rooms' Component={Rooms}/>
+            <Route path='/hotel/:id/room/add' Component={AddRoom}/>
+            <Route path='/hotel/admin/:id' Component={HotelAdmin}/>
             <Route path='/hotel/room/book' Component={HotelAdminBook}/>
             <Route path='booking-history' Component={()=>(<BookHistory url='/home/index'/>)}/>
             <Route path='/hotel/admin/booking-history' Component={()=>(<HotelAdminBookHistory url='/hotel/admin/rooms'/>)}/>

@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from 'react'
 import { Button, Col, FormGroup, Input, Label, Row } from 'reactstrap'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import alertify from 'alertifyjs'
 import { Field, Form, Formik } from 'formik'
 import TextInput from '../../utilities/customFormControls/TextInput'
@@ -13,6 +13,7 @@ import HotelService from '../../services/hotelService'
 
 export default function CreateHotel() {
     const navigate = useNavigate()
+    const {id} = useParams()
     const [cities, setCities] = useState([])
     const [services, setServices] = useState([])
     const [target, setTarget] = useState()
@@ -69,9 +70,8 @@ export default function CreateHotel() {
         const formData = new FormData(target)
         hotelService.create(formData)
             .then(result => {
-                console.log(result)
                 if(result.data.code === 200){
-                    navigate('/hotel/list')
+                    navigate('/hotel/admin/'+id)
                     alertify.success(result.data.message)
                 }else{
                     alertify.error(result.data.message)
@@ -95,6 +95,7 @@ export default function CreateHotel() {
                             <h1>Create Hotel</h1><hr />
                             <Row>
                                 <Col md='6'>
+                                    <input type='hidden' name='employeeId' value={id}/>
                                     <TextInput name='name' id='name' placeholder='Enter name' />
                                     <SelectInput name='cityId' id='cityId' defaultValue='Choose city' options={cities.map(city => ({ value: city.id, text: city.name }))} />
                                     <TextInput name='addressLine' id='addressLine' placeholder='Enter address' />

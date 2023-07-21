@@ -11,4 +11,7 @@ export default class HotelService {
     getHotelDetails(id){
         return axios.get(this.url+'/details/'+id)
     }
+    getByEmployeeId(id){
+        return axios.get(this.url+'/employee/'+id)
+    }
 }
