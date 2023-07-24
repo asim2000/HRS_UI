@@ -4,13 +4,17 @@ import adultReducer from './adultReducer'
 import childreenReducer from './childreenReducer'
 import roomReducer from './roomReducer'
 import customerTypeReducer from './customerTypeReducer'
+import checkInReducer from './checkInReducer'
+import checkOutReducer from './checkOutReducer'
 
 const rootReducer = combineReducers({
     visibilityReducer,
     adultReducer,
     childreenReducer,
     roomReducer,
-    customerTypeReducer
+    customerTypeReducer,
+    checkInReducer,
+    checkOutReducer
 })
 
 export default rootReducer;

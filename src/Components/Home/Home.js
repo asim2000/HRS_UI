@@ -1,31 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import HotelCard from '../HotelCard/HotelCard'
 import Header from '../Header/Header'
 import { Col, Row } from 'reactstrap'
 import PagePagination from '../Pagination/PagePagination'
-import HomeService from '../../services/homeService'
 import alertify from 'alertifyjs'
 import HotelService from '../../services/hotelService'
 
 export default function Home() {
   const [hotels, setHotels] = useState([])
+  console.log(useReducer(state=>state.checkInReducer))
   useEffect(() => {
+    searchHotel({})
+  },[])
+  const searchHotel = (data) => {
     const hotelService = new HotelService()
-    hotelService.getHomeHotels()
+    hotelService.getHomeHotels(data)
     .then(result=>{
       if(result.data.code === 200){
         setHotels(result.data.data)
       }
       else{
+        setHotels([])
         alertify.error(result.data.message)
+        console.log(hotels)
       }
     })
-  }, [])
+  }
     return (
       <div>
         <Row className='mb-2'>
           <Col>
-            <Header/>
+            <Header searchHotel = {searchHotel}/>
           </Col>
         </Row>
           <Row>

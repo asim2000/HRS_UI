@@ -17,6 +17,7 @@ export default function CreateHotel() {
     const [cities, setCities] = useState([])
     const [services, setServices] = useState([])
     const [target, setTarget] = useState()
+    const [images, setImages] = useState([])
     useEffect(() => {
         let cityService = new CityService();
         let serviceService = new ServiceService();
@@ -109,10 +110,10 @@ export default function CreateHotel() {
 
                                     <FormGroup className='mt-5'>
                                         <Label for='images'>Select Images</Label>
-                                        <Input type='file' required multiple name='images' id='images' onChange={event => formik.setFieldValue("images", event.target.files)} placeholder='Choose hotel images' />
+                                        <Input type='file' required multiple name='images' id='images' onChange={event =>setImages(event.target.files)} placeholder='Choose hotel images' />
 
                                     </FormGroup>
-                                    {/* {images?<img width='100px' height='100px' src={URL.createObjectURL(images)} />:null } */}
+                                    {Array.from(images).map(image => <img width='100px' height='100px' style={{marginRight:'10px'}} src={URL.createObjectURL(image)} />)}
                                 </Col>
                             </Row>
 
