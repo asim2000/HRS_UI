@@ -12,47 +12,77 @@ import { AiOutlineArrowLeft } from 'react-icons/ai'
 import alertify from 'alertifyjs'
 import HotelService from '../../services/hotelService'
 import BootstrapDateRangePicker from '../DateRangeBox/BootstrapDateRangePicker'
+import { useSelector } from 'react-redux'
+import RoomService from '../../services/roomService'
+import { Divider } from 'semantic-ui-react'
 
 export default function HotelDetails(props) {
-    const {hotelId} = useParams()
+    const { hotelId } = useParams()
     const navigate = useNavigate()
     const [hotel, setHotel] = useState({})
-    const bookNow = ()=> {
+    const checkIn = useSelector(state => state.checkInReducer)
+    const checkOut = useSelector(state => state.checkOutReducer)
+    const adultCount = useSelector(state => state.adultReducer)
+    const childreenCount = useSelector(state => state.childreenReducer)
+    const roomCount = useSelector(state => state.roomReducer)
+    const [randomRoom, setRandomRoom] = useState()
+    const bookNow = () => {
         navigate('/payment')
     }
     useEffect(() => {
         let hotelService = new HotelService()
         hotelService.getHotelDetails(hotelId)
-        .then(result=>{
-            if(result.data.code === 200){
-                setHotel(result.data.data)
-            }else{
-                alertify.error(result.data.message)
-            }
-        })
-    },[])
-    
+            .then(result => {
+                if (result.data.code === 200) {
+                    setHotel(result.data.data)
+                } else {
+                    alertify.error(result.data.message)
+                }
+            })
+    }, [])
+    const searchRoom = () => {
+        document.getElementById('spinner').style.visibility = 'visible'
+        setTimeout(() => {
+            const roomService = new RoomService()
+            roomService.getRandomRoom({
+                hotelId: hotelId,
+                checkIn: checkIn,
+                checkOut: checkOut,
+                roomCount: roomCount,
+                adultCount: adultCount,
+                childreenCount: childreenCount
+            }).then(result => {
+                if (result.data.code === 200) {
+                    setRandomRoom(result.data.data)
+                    document.getElementById('spinner').style.visibility = 'hidden'
+                } else {
+                    alertify.error(result.data.message)
+                }
+            })
+        }, 2000);
+
+    }
     return (
         <div>
-            <Button onClick={()=>navigate(-1)} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Back</Button>
+            <Button onClick={() => navigate(-1)} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Back</Button>
             <Col>
                 <Row className='mb-3'>
                     <Col className='mb-2' lg='8'>
                         <Card className='h-100'>
                             <Row>
                                 <Col md='8'>
-                                     <HotelDetailCarousel images={hotel.images} /> 
+                                    <HotelDetailCarousel images={hotel.images} />
                                 </Col>
                                 <Col md='4'>
-                                   <CardBody>
-                                        <CardTitle className='pb-2' style={{fontSize:'20px'}}>
-                                               {hotel.name} <br/>  
-                                                <FaStar size='15' color='#0d6efd' />
-                                                <FaStar size='15' color='#0d6efd' />
-                                                <FaStar size='15' color='#0d6efd' />
-                                                <FaStar size='15' color='#0d6efd' />
-                                                <FaStar size='15' color='#0d6efd' />
-                                            
+                                    <CardBody>
+                                        <CardTitle className='pb-2' style={{ fontSize: '20px' }}>
+                                            {hotel.name} <br />
+                                            <FaStar size='15' color='#0d6efd' />
+                                            <FaStar size='15' color='#0d6efd' />
+                                            <FaStar size='15' color='#0d6efd' />
+                                            <FaStar size='15' color='#0d6efd' />
+                                            <FaStar size='15' color='#0d6efd' />
+
                                         </CardTitle>
                                         <CardSubtitle className='pb-2'>Azerbaijan,{hotel.address?.city.name},{hotel.address?.addressLine}</CardSubtitle>
                                         <CardText>Starting from 200 Azn</CardText>
@@ -60,10 +90,11 @@ export default function HotelDetails(props) {
                                             <Badge className='bg-primary'>8.7</Badge> <b>Excellent</b> 1823 review
                                         </CardText>
                                         <CardText className='mt-5'>
-                                            <h5 className='pb-2'>Hotel services</h5>
-                                            {
-                                                hotel.services?.map(service=>(<p>{service.name}</p>))
-                                            }
+                                            <ul>
+                                                {
+                                                    hotel.services?.map(service => (<li>{service.name}</li>))
+                                                }
+                                            </ul>
                                             {/* <AiOutlineWifi />&nbsp;&nbsp;Free Wifi <br />
                                             <MdFreeBreakfast />&nbsp;&nbsp;Free breakfast <br />
                                             <FaParking />&nbsp;&nbsp;Free parking */}
@@ -79,29 +110,67 @@ export default function HotelDetails(props) {
                                             </CardText> */}
                                     </CardBody>
                                 </Col>
-                                <p className='p-3'>
-                                    {hotel.description}
-                                </p>
+                                <div style={{ marginLeft: '10px' }}>
+                                    <p className='pt-3'>
+                                        {hotel.description}
+                                    </p>
+                                    {
+                                        randomRoom != null && (
+                                            <p>{randomRoom.description}</p>
+                                        )
+                                    }
+                                </div>
                             </Row>
                         </Card>
                     </Col>
                     <Col className='mb-2' lg='4'>
-                        <Form>
-                            <Card>
+                        <Card>
+                            <CardBody>
+                                <CardTitle>
+                                    <FormGroup>
+                                        <Label>Change Date</Label>
+                                        <BootstrapDateRangePicker />
+                                    </FormGroup>
+
+                                    <RoomSelectBox />
+
+                                    <Button onClick={() => searchRoom()} className='w-100'>Search Room</Button>
+                                </CardTitle>
+                            </CardBody>
+                        </Card>
+                        <div class="spinner-grow text-primary" style={{ width: '5rem', height: '5rem', marginTop:'50px',marginLeft: '150px', visibility:'hidden',position:'absolute' }} id='spinner' role="status">
+
+                        </div>
+                        {
+                            randomRoom && (<Card className='mt-3'>
                                 <CardBody>
-                                    <CardTitle>
-                                        <FormGroup>
-                                            <Label>Change Date</Label>
-                                            <BootstrapDateRangePicker/>
-                                        </FormGroup>
-
-                                        <RoomSelectBox />
-
-                                        <Button className='w-100' type='submit'>Search Room</Button>
-                                    </CardTitle>
+                                    <Row className='d-flex'>
+                                        <Col>
+                                            <p>Room Number: {randomRoom.roomNumber}</p>
+                                            <p>Price: {randomRoom.pricePerNight} Azn</p>
+                                            <p>Room Style: {randomRoom.roomStyle}</p>
+                                            <p>Room Size: {randomRoom.roomSize}</p>
+                                            <p>Adult Count: {randomRoom.adultCount}</p>
+                                            <p>Childreen Count: {randomRoom.childreenCount}</p>
+                                            <p>Room Count: {randomRoom.roomCount}</p>
+                                            <p>Shower Count: {randomRoom.showerCount}</p>
+                                            <p>Twin Bed Count: {randomRoom.twinBedCount}</p>
+                                            <p>Single Bed Count: {randomRoom.singleBedCount}</p>
+                                            <p>Pet Allowed: {randomRoom.isPetAllowed ? 'Yes' : 'No'}</p>
+                                        </Col>
+                                        <Divider vertical />
+                                        <Col>
+                                            <ul>
+                                                {
+                                                    randomRoom.items?.map(item => (<li>{item.name}</li>))
+                                                }
+                                            </ul>
+                                            <Button className='bg-primary w-100'>Book Now <i>{randomRoom.pricePerNight} AZN</i></Button>
+                                        </Col>
+                                    </Row>
                                 </CardBody>
-                            </Card>
-                        </Form>
+                            </Card>)
+                        }
                     </Col>
                 </Row>
             </Col>
