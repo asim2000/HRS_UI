@@ -47,7 +47,8 @@ export default function CreateHotel() {
         cityId: "",
         addressLine: "",
         phone: "",
-        description: ""
+        description: "",
+        payPerCent:''
     }
 
     const schema = Yup.object({
@@ -55,7 +56,8 @@ export default function CreateHotel() {
         cityId: Yup.number().required(),
         addressLine: Yup.string().required(),
         phone: Yup.string().required(),
-        description: Yup.string()
+        description: Yup.string(),
+        payPerCent:Yup.string().required()
 
     });
 
@@ -85,6 +87,7 @@ export default function CreateHotel() {
                 }
             })
     }
+    const perCents = [5,20,50,100]
     return (
         <div>
             <Formik
@@ -107,6 +110,7 @@ export default function CreateHotel() {
                                     <SelectInput name='cityId' id='cityId' defaultValue='Choose city' options={cities.map(city => ({ value: city.id, text: city.name }))} />
                                     <TextInput name='addressLine' id='addressLine' placeholder='Enter address' />
                                     <TextInput name='phone' id='phone' placeholder='Enter phone' />
+                                    <SelectInput name='payPerCent' id='payPerCent' defaultValue='How much interest should the customer pay?' options={perCents.map(perCent => ({ value: perCent, text: perCent+'%' }))} />
                                     <TextInput name='description' id='description' placeholder='Enter description' />
                                     <Button type='submit' color='primary'>Save</Button>
                                 </Col>

@@ -1,65 +1,80 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Button, Card, CardBody, CardText, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
-import {AiOutlineArrowLeft} from 'react-icons/ai'
+import { Button, Card, CardBody, CardText, Col, Form, FormGroup, Input, Label, Progress, Row } from 'reactstrap'
+import { AiOutlineArrowLeft } from 'react-icons/ai'
 import alertify from 'alertifyjs'
+import RoomService from '../../services/roomService'
+import { Slider } from '@mui/material'
 
-export default function Payment() {
-    const navigate = useNavigate()
-    const book = ()=> {
-        navigate('/booking-history')
-        alertify.success('Successfully booking hotel')
-    }
+export default function Payment(props) {
+  const navigate = useNavigate()
+  const { userId, roomId } = useParams()
+  const [room, setRoom] = useState()
+  const [minPerCent, setMinPerCent] = useState()
+  const [payPerCent, setPayPerCent] = useState()
+  useEffect(() => {
+    const roomService = new RoomService()
+    roomService.getByIdForPayment(roomId)
+      .then(result => {
+        if (result.data.code === 200) {
+          setRoom(result.data.data)
+          setMinPerCent(result.data.data.payPerCent)
+          setPayPerCent(result.data.data.payPerCent)
+        } else {
+          alertify.error(result.data.message)
+        }
+      })
+  }, [])
+
+  const book = () => {
+    navigate('/booking-history')
+    alertify.success('Successfully booking hotel')
+  }
   return (
     <div>
-        <Button className='mb-3' color='primary' onClick={()=>navigate(-1)}><AiOutlineArrowLeft /> Back</Button>
-        <Row>
-            <Col>
-              <Card>
-                <CardBody>
-                <Form>
-              <FormGroup>
-                    <Label for='nameOnCard'>Name On Card</Label>
-                    <Input type='text' id='nameOnCard' name='nameOnCard' placeholder='Will Smith'/>
+      <Button className='mb-3' color='primary' onClick={() => navigate(-1)}><AiOutlineArrowLeft /> Back</Button>
+      <Row>
+        <Col xs='12' md='6'>
+          <Card>
+            <CardBody>
+              <Form>
+                <FormGroup>
+                  <Label for='nameOnCard'>Name On Card</Label>
+                  <Input type='text' id='nameOnCard' name='nameOnCard' placeholder='Will Smith' />
                 </FormGroup>
                 <FormGroup>
-                    <Label for='cardNumber'>Card Number</Label>
-                    <Input type='text' id='cardNumber' name='cardNumber' placeholder='0000 0000 0000 0000'/>
+                  <Label for='cardNumber'>Card Number</Label>
+                  <Input type='text' id='cardNumber' name='cardNumber' placeholder='0000 0000 0000 0000' />
                 </FormGroup>
                 <Row>
-                    <Col>
+                  <Col>
                     <FormGroup>
-                    <Label for='expireDate'>Expire Date</Label>
-                    <Input type='text' id='expireDate' name='expireDate' placeholder='26/11'/>
-                </FormGroup>
-                    </Col>
-                    <Col>
+                      <Label for='expireDate'>Expire Date</Label>
+                      <Input type='text' id='expireDate' name='expireDate' placeholder='26/11' />
+                    </FormGroup>
+                  </Col>
+                  <Col>
                     <FormGroup>
-                    <Label for='securityCode'>CVV</Label>
-                    <Input type='text' id='securityCode' name='securityCode' placeholder='345'/>
-                </FormGroup>
-                    </Col>
-                    <Button color='primary' onClick={()=>book()}>Book</Button>
+                      <Label for='securityCode'>CVV</Label>
+                      <Input type='text' id='securityCode' name='securityCode' placeholder='345' />
+                    </FormGroup>
+                  </Col>
+                  <Label>You must pay minimum {minPerCent}%</Label>
+                  <Slider
+                    style={{width:'600px',margin:'10px'}}
+                    min={minPerCent}
+                    max={100}
+                    onChange={event=>setPayPerCent(event.target.value)}
+                    aria-label="Small"
+                    valueLabelDisplay="auto"
+                  />
+                  <Button color='primary' onClick={() => book()}>Pay {room?.pricePerNight * payPerCent / 100} AZN</Button>
                 </Row>
               </Form>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col>
-             <Card style={{height:'100%'}}>
-                <CardBody>
-                    <p>Room number: 102</p>
-                    <p>Services</p>
-                    <ul>
-                        <li>Room charges 200 Azn</li>
-                        <li>Breakfast 100 Azn</li>
-                        <li>Garage 20 Azn</li>
-                    </ul>
-                    <p className='pt-5'>Total 320 Azn</p>
-                </CardBody>
-             </Card>
-            </Col>
-        </Row>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
     </div>
   )
 }

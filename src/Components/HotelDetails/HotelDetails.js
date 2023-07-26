@@ -165,7 +165,7 @@ export default function HotelDetails(props) {
                                                     randomRoom.items?.map(item => (<li>{item.name}</li>))
                                                 }
                                             </ul>
-                                            <Button className='bg-primary w-100'>Book Now <i>{randomRoom.pricePerNight} AZN</i></Button>
+                                            <Button className='bg-primary w-100' onClick={()=>navigate(`/payment/${1}/${randomRoom.id}`)}>Book Now <i>{randomRoom.pricePerNight} AZN</i></Button>
                                         </Col>
                                     </Row>
                                 </CardBody>

@@ -33,7 +33,7 @@ function App() {
             <Routes>
             <Route path='/' element={<Navigate to='/home/index'/>}></Route>
             <Route path='/home/index' Component={Home}/>
-            <Route path='/hotel/details/:hotelId' Component={HotelDetails}/>
+            <Route path='/hotel/:hotelId/details' Component={HotelDetails}/>
             <Route exact path='/hotel/create/:adminId' Component={CreateHotel}/>
             <Route path='/hotel/:hotelId/rooms' Component={Rooms}/>
             <Route path='/hotel/:hotelId/room/add' Component={AddRoom}/>
@@ -41,8 +41,8 @@ function App() {
             <Route path='/hotel/room/book' Component={HotelAdminBook}/>
             <Route path='booking-history' Component={()=>(<BookHistory url='/home/index'/>)}/>
             <Route path='/hotel/admin/booking-history' Component={()=>(<HotelAdminBookHistory url='/hotel/admin/rooms'/>)}/>
-            <Route path='payment' Component={Payment}/>
-            <Route path='carousel' Component={HotelDetailCarousel}/>
+            <Route path='/payment/:userId/:roomId' Component={Payment}/>
+            <Route path='/carousel' Component={HotelDetailCarousel}/>
             <Route path='/login' Component={Login}/>
             <Route path='/register' Component={Register}/>
             <Route path='/select-register' Component={SelectRegister}/>

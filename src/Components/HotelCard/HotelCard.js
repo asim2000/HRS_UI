@@ -19,7 +19,7 @@ const HotelCard = (props) => {
           </CardText>
         </CardBody>
       </Card> */}
-      <Card className='m-2' onClick={()=>navigate('/hotel/details/'+props.hotel.id)}>
+      <Card className='m-2' onClick={()=>navigate('/hotel/'+props.hotel.id+'/details')}>
         <CardImg top src={require(`../../assets/img/${props.hotel.mainImageName}`)} alt="Hotel image" />
         <CardBody>
           <CardTitle>{props.hotel.name}</CardTitle>
