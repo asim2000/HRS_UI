@@ -5,12 +5,23 @@ import { Col, Row } from 'reactstrap'
 import PagePagination from '../Pagination/PagePagination'
 import alertify from 'alertifyjs'
 import HotelService from '../../services/hotelService'
+import { useSelector } from 'react-redux'
 
 export default function Home() {
   const [hotels, setHotels] = useState([])
-  console.log(useReducer(state=>state.checkInReducer))
+  const checkIn = useSelector(state=>state.checkInReducer)
+  const checkOut = useSelector(state=>state.checkOutReducer)
+  const adultCount = useSelector(state=>state.adultReducer)
+  const childreenCount = useSelector(state=>state.childreenReducer)
+  const roomCount = useSelector(state=>state.roomReducer)
   useEffect(() => {
-    searchHotel({})
+    searchHotel({
+      checkIn:checkIn,
+      checkOut:checkOut,
+      roomCount:roomCount,
+      adultCount:adultCount,
+      childreenCount:childreenCount
+    })
   },[])
   const searchHotel = (data) => {
     const hotelService = new HotelService()

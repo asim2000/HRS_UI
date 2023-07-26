@@ -39,7 +39,7 @@ export default function HotelAdmin() {
                     <Row>
                         <Col md='6'>
                             {console.log(hotel)}
-                            <CardImg src={require('../../assets/img/'+hotel.images[0].path)} alt='Hotel Image' />
+                            <CardImg src={require('../../assets/img/'+hotel.mainImageName)} alt='Hotel Image' />
                         </Col>
                         <Col md='6'>
                             <CardBody>

@@ -1,19 +1,21 @@
-import React, { Component, useEffect, useState } from 'react';
-import { Button, Card, CardBody, Col, Container, FormGroup, Input, Jumbotron, Label, Row } from 'reactstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Card, CardBody, Col, FormGroup, Input, Jumbotron, Label, Row } from 'reactstrap';
 import '../../assets/css/header.css'
 import RoomSelectBox from '../RoomSelectBox/RoomSelectBox';
 import CityService from '../../services/cityService';
 import alertify from 'alertifyjs';
 import './Header.css'
-import MuiDateRangePicker from '../DateRangeBox/MuiDateRangePicker';
 import { useSelector } from 'react-redux';
+import BootstrapDateRangePicker from '../DateRangeBox/BootstrapDateRangePicker';
 
 export default function Header(props) {
   const [cities, setCities] = useState([])
-  const [selectedCity,setSelectedCity] = useState()
+  const [selectedCity,setSelectedCity] = useState(null)
   const adultCount = useSelector(state=>state.adultReducer)
   const childreenCount = useSelector(state=>state.childreenReducer)
   const roomCount = useSelector(state=>state.roomReducer)
+  const checkIn = useSelector(state=>state.checkInReducer)
+  const checkOut = useSelector(state=>state.checkOutReducer)
   useEffect(() => {
     const cityService = new CityService();
     cityService.getCities()
@@ -31,7 +33,9 @@ export default function Header(props) {
       cityId:selectedCity,
       adultCount:adultCount,
       childreenCount:childreenCount,
-      roomCount:roomCount
+      roomCount:roomCount,
+      checkIn:checkIn,
+      checkOut:checkOut
     })
   }
 
@@ -51,7 +55,7 @@ export default function Header(props) {
               <CardBody className='vertical-center'>
               <FormGroup>
                 <Input type="select" name="city" id="city" onChange={(event)=>setSelectedCity(event.target.value)}>
-                  <option value={null}>Where are you going?</option>
+                  <option value='null'>Where are you going?</option>
                   {cities.map(city=>(<option value={city.id}>{city.name}</option>))}
                 </Input>
             </FormGroup>
@@ -61,7 +65,7 @@ export default function Header(props) {
           <Col className='mb-2' lg="3" md='4' sm='6' xs='12'>
             <Card style={{height:'86px'}}>
               <CardBody className='vertical-center'>
-                <MuiDateRangePicker/>
+                <BootstrapDateRangePicker />
               </CardBody>
             </Card>
           </Col>

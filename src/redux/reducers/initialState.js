@@ -4,6 +4,6 @@ export default {
     childreenCount:0,
     roomCount:1,
     customerType:"",
-    checkIn:'rfre',
-    checkOut:'gregre'
+    checkIn:new Date(),
+    checkOut:new Date()
 }

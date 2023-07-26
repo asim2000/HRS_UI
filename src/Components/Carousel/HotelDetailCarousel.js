@@ -13,7 +13,7 @@ function HotelDetailCarousel(args) {
   const items = [];
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
-    args.images?.map((image)=>items.push({src:image.path,key:image.id}))
+    args.images?.map((image)=>items.push({src:image.name,key:image.id}))
   const next = () => {
     if (animating) return;
     const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;

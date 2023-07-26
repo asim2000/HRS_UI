@@ -11,9 +11,10 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import alertify from 'alertifyjs'
 import HotelService from '../../services/hotelService'
+import BootstrapDateRangePicker from '../DateRangeBox/BootstrapDateRangePicker'
 
 export default function HotelDetails(props) {
-    const {id} = useParams()
+    const {hotelId} = useParams()
     const navigate = useNavigate()
     const [hotel, setHotel] = useState({})
     const bookNow = ()=> {
@@ -21,7 +22,7 @@ export default function HotelDetails(props) {
     }
     useEffect(() => {
         let hotelService = new HotelService()
-        hotelService.getHotelDetails(id)
+        hotelService.getHotelDetails(hotelId)
         .then(result=>{
             if(result.data.code === 200){
                 setHotel(result.data.data)
@@ -33,7 +34,7 @@ export default function HotelDetails(props) {
     
     return (
         <div>
-            <Button onClick={()=>navigate('/home/index')} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Back</Button>
+            <Button onClick={()=>navigate(-1)} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Back</Button>
             <Col>
                 <Row className='mb-3'>
                     <Col className='mb-2' lg='8'>
@@ -91,53 +92,13 @@ export default function HotelDetails(props) {
                                     <CardTitle>
                                         <FormGroup>
                                             <Label>Change Date</Label>
-                                            <Input type="date" name="date" id="exampleDate" placeholder="Change Date" /><br />
+                                            <BootstrapDateRangePicker/>
                                         </FormGroup>
 
                                         <RoomSelectBox />
 
-                                        <FormGroup>
-                                            <Input type="select" name="select" id="exampleSelect">
-                                                <option>Select floor</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                            </Input>
-                                        </FormGroup><br />
-
-                                        <Button className='w-100' type='submit'>Search</Button>
+                                        <Button className='w-100' type='submit'>Search Room</Button>
                                     </CardTitle>
-                                    <hr />
-                                    <CardText>
-                                        <FormGroup check>
-                                            <Input type="checkbox" />
-                                            {' '}
-                                            <Label check>
-                                                Breakfast (60 Azn)
-                                            </Label>
-                                        </FormGroup>
-                                        <FormGroup check>
-                                            <Input type="checkbox" />
-                                            {' '}
-                                            <Label check>
-                                                Garage (15 Azn)
-                                            </Label>
-                                        </FormGroup>
-                                        <FormGroup check>
-                                            <Input type="checkbox" />
-                                            {' '}
-                                            <Label check>
-                                                Sauna (50Azn)
-                                            </Label>
-                                        </FormGroup>
-                                    </CardText>
-                                    <CardSubtitle>
-                                        Total 375 Azn
-                                    </CardSubtitle>
-                                    <CardFooter>
-                                        <Button onClick={()=>bookNow()} className='w-100' type='submit' color='primary'>Book Now</Button>
-                                    </CardFooter>
                                 </CardBody>
                             </Card>
                         </Form>

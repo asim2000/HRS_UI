@@ -33,7 +33,7 @@ function App() {
             <Routes>
             <Route path='/' element={<Navigate to='/home/index'/>}></Route>
             <Route path='/home/index' Component={Home}/>
-            <Route path='/hotel/details/:id' Component={HotelDetails}/>
+            <Route path='/hotel/details/:hotelId' Component={HotelDetails}/>
             <Route exact path='/hotel/create/:adminId' Component={CreateHotel}/>
             <Route path='/hotel/:hotelId/rooms' Component={Rooms}/>
             <Route path='/hotel/:hotelId/room/add' Component={AddRoom}/>

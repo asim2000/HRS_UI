@@ -1,5 +1,5 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Button, Card, CardBody, CardText, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 import {AiOutlineArrowLeft} from 'react-icons/ai'
 import alertify from 'alertifyjs'
@@ -12,7 +12,7 @@ export default function Payment() {
     }
   return (
     <div>
-        <Button className='mb-3' color='primary' onClick={()=>navigate('/hotel/details')}><AiOutlineArrowLeft /> Back</Button>
+        <Button className='mb-3' color='primary' onClick={()=>navigate(-1)}><AiOutlineArrowLeft /> Back</Button>
         <Row>
             <Col>
               <Card>

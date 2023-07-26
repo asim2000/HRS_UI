@@ -35,14 +35,15 @@ class Navi extends React.Component {
           <NavbarBrand style={{cursor:"pointer"}} onClick={()=>this.props.navigate('/')}>
            <img width='50' src={require('../../assets/img/navbar-logo.png')}/>
           </NavbarBrand>
+          
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ms-auto" navbar>
               <NavItem>
-                <NavLink href="/components/">About</NavLink>
+                <NavLink style={{cursor:"pointer"}} onClick={()=>this.props.navigate('/about')}>About</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">Contact</NavLink>
+                <NavLink style={{cursor:"pointer"}} onClick={()=>this.props.navigate('/contact')}>Contact</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink style={{cursor:"pointer"}} onClick={()=>this.props.navigate('/login')}>Login</NavLink>

@@ -13,29 +13,30 @@ import HotelService from '../../services/hotelService'
 
 export default function CreateHotel() {
     const navigate = useNavigate()
-    const {adminId} = useParams()
+    const { adminId } = useParams()
     const [cities, setCities] = useState([])
     const [services, setServices] = useState([])
     const [target, setTarget] = useState()
     const [images, setImages] = useState([])
+    const [selectedImg, setSelectedImg] = useState('')
     useEffect(() => {
         let cityService = new CityService();
         let serviceService = new ServiceService();
 
         cityService.getCities()
             .then(result => {
-                if(result.data.code === 200){
+                if (result.data.code === 200) {
                     setCities(result.data.data)
-                }else{
+                } else {
                     alertify.error(result.data.message)
                 }
             });
 
         serviceService.getServices()
             .then(result => {
-                if(result.data.code === 200){
+                if (result.data.code === 200) {
                     setServices(result.data.data)
-                }else{
+                } else {
                     alertify.error(result.data.message)
                 }
             })
@@ -50,11 +51,11 @@ export default function CreateHotel() {
     }
 
     const schema = Yup.object({
-        name:Yup.string().required(),
-        cityId:Yup.number().required(),
-        addressLine:Yup.string().required(),
-        phone:Yup.string().required(),
-        description:Yup.string()
+        name: Yup.string().required(),
+        cityId: Yup.number().required(),
+        addressLine: Yup.string().required(),
+        phone: Yup.string().required(),
+        description: Yup.string()
 
     });
 
@@ -66,15 +67,20 @@ export default function CreateHotel() {
         }
     }
 
+    // const selectedImage = (event,image) => {
+    //     setSelectedImg(image.name)
+    //     event.target.style.border = selectedImg === image.name ? '1px blue solid' : ''
+    // }
+
     const save = e => {
         let hotelService = new HotelService()
         const formData = new FormData(target)
         hotelService.create(formData)
             .then(result => {
-                if(result.data.code === 200){
-                    navigate('/hotel/admin/'+adminId)
+                if (result.data.code === 200) {
+                    navigate('/hotel/admin/' + adminId)
                     alertify.success(result.data.message)
-                }else{
+                } else {
                     alertify.error(result.data.message)
                 }
             })
@@ -96,7 +102,7 @@ export default function CreateHotel() {
                             <h1>Create Hotel</h1><hr />
                             <Row>
                                 <Col md='6'>
-                                    <input type='hidden' name='employeeId' value={adminId}/>
+                                    <input type='hidden' name='employeeId' value={adminId} />
                                     <TextInput name='name' id='name' placeholder='Enter name' />
                                     <SelectInput name='cityId' id='cityId' defaultValue='Choose city' options={cities.map(city => ({ value: city.id, text: city.name }))} />
                                     <TextInput name='addressLine' id='addressLine' placeholder='Enter address' />
@@ -110,10 +116,12 @@ export default function CreateHotel() {
 
                                     <FormGroup className='mt-5'>
                                         <Label for='images'>Select Images</Label>
-                                        <Input type='file' required multiple name='images' id='images' onChange={event =>setImages(event.target.files)} placeholder='Choose hotel images' />
+                                        <Input type='file' required multiple name='images' id='images' onChange={event => setImages(event.target.files)} placeholder='Choose hotel images' />
 
                                     </FormGroup>
-                                    {Array.from(images).map(image => <img width='100px' height='100px' style={{marginRight:'10px'}} src={URL.createObjectURL(image)} />)}
+                                    <input type='hidden' name='mainImageName' id='mainImageName' value={selectedImg}/>
+                                    {images.length!==0?<div><Label>Select main image</Label><br/></div>:null}
+                                    {Array.from(images).map(image => <img width='100px' onClick={event => setSelectedImg(image.name)} height='100px' style={{border:selectedImg===image.name?'solid 1px blue':'', marginRight: '10px' }} src={URL.createObjectURL(image)} />)}
                                 </Col>
                             </Row>
 
