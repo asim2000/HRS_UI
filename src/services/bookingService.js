@@ -5,7 +5,7 @@ export default class BookingService {
     headers = {
         'Content-Type': 'application/json'
       }
-    book(values){
-        return axios.post(this.url+'/book',JSON.stringify(values),{headers:this.headers})
+    getAllByPersonId(id){
+        return axios.get(this.url+'/getallbypersonid/'+id)
     }
 }

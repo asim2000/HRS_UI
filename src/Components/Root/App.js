@@ -39,7 +39,7 @@ function App() {
             <Route path='/hotel/:hotelId/room/add' Component={AddRoom}/>
             <Route path='/hotel/admin/:adminId' Component={HotelAdmin}/>
             <Route path='/hotel/room/book' Component={HotelAdminBook}/>
-            <Route path='booking-history' Component={()=>(<BookHistory url='/home/index'/>)}/>
+            <Route path='/customer/:userId/booking-history' Component={BookHistory}/>
             <Route path='/hotel/admin/booking-history' Component={()=>(<HotelAdminBookHistory url='/hotel/admin/rooms'/>)}/>
             <Route path='/payment/:userId/:roomId' Component={Payment}/>
             <Route path='/carousel' Component={HotelDetailCarousel}/>
