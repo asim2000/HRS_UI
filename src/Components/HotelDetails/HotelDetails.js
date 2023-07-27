@@ -12,13 +12,17 @@ import { AiOutlineArrowLeft } from 'react-icons/ai'
 import alertify from 'alertifyjs'
 import HotelService from '../../services/hotelService'
 import BootstrapDateRangePicker from '../DateRangeBox/BootstrapDateRangePicker'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import RoomService from '../../services/roomService'
-import { Divider } from 'semantic-ui-react'
+import { Divider, Select } from 'semantic-ui-react'
+import RoomStyleService from '../../services/roomStyleService'
+import SelectInput from '../../utilities/customFormControls/SelectInput'
+import BaseSelectInput from '../../utilities/customFormControls/BaseSelectInput'
 
 export default function HotelDetails(props) {
     const { hotelId } = useParams()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [hotel, setHotel] = useState({})
     const checkIn = useSelector(state => state.checkInReducer)
     const checkOut = useSelector(state => state.checkOutReducer)
@@ -26,6 +30,8 @@ export default function HotelDetails(props) {
     const childreenCount = useSelector(state => state.childreenReducer)
     const roomCount = useSelector(state => state.roomReducer)
     const [randomRoom, setRandomRoom] = useState()
+    const [roomStyles, setRoomStyles] = useState([])
+    const [selectedRoomStyle, setSelectedRoomStyle] = useState('STANDART')
     const bookNow = () => {
         navigate('/payment')
     }
@@ -39,8 +45,18 @@ export default function HotelDetails(props) {
                     alertify.error(result.data.message)
                 }
             })
+            const roomStyleService = new RoomStyleService()
+            roomStyleService.getAll()
+            .then(result=>{
+                if(result.data.code === 200){
+                    setRoomStyles(result.data.data)
+                }else{
+                    alertify.error(result.data.message)
+                }
+            })
     }, [])
-    const searchRoom = () => {
+     const searchRoom = () => {
+        setRandomRoom(null)
         document.getElementById('spinner').style.visibility = 'visible'
         setTimeout(() => {
             const roomService = new RoomService()
@@ -50,7 +66,8 @@ export default function HotelDetails(props) {
                 checkOut: checkOut,
                 roomCount: roomCount,
                 adultCount: adultCount,
-                childreenCount: childreenCount
+                childreenCount: childreenCount,
+                roomStyle:selectedRoomStyle
             }).then(result => {
                 if (result.data.code === 200) {
                     setRandomRoom(result.data.data)
@@ -61,7 +78,7 @@ export default function HotelDetails(props) {
             })
         }, 2000);
 
-    }
+     }
     return (
         <div>
             <Button onClick={() => navigate(-1)} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Back</Button>
@@ -131,7 +148,8 @@ export default function HotelDetails(props) {
                                         <Label>Change Date</Label>
                                         <BootstrapDateRangePicker />
                                     </FormGroup>
-
+                                    <Label>Select Room Style</Label>
+                                    <Select name='roomStyle' onChange={(e,{value})=>setSelectedRoomStyle(value)} className='w-100 mb-3' id='roomStyle' defaultValue={selectedRoomStyle} options={roomStyles?.map(roomStyle => ({ value: roomStyle, text: roomStyle,key:roomStyle }))} />
                                     <RoomSelectBox />
 
                                     <Button onClick={() => searchRoom()} className='w-100'>Search Room</Button>

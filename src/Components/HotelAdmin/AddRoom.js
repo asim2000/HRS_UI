@@ -120,7 +120,7 @@ export default function AddRoom() {
                     <Row>
                         <Col md='6'>
                             <TextInput name='roomNumber' id='roomNumber' placeholder='Enter room number' />
-                            <SelectInput name='roomStyle' id='roomNumber' defaultValue='Select room style' options={roomStyles.map(roomStyle => ({ value: roomStyle, text: roomStyle }))} />
+                            <SelectInput name='roomStyle' id='roomStyle' defaultValue='Select room style' options={roomStyles.map(roomStyle => ({ value: roomStyle, text: roomStyle }))} />
                             <TextInput name='floor' id='floor' placeholder='Enter floor' />
                             <TextInput name='roomCount' id='roomCount' placeholder='Enter room count' />
                             <TextInput name='roomSize' id='roomSize' placeholder='Enter room size' />
