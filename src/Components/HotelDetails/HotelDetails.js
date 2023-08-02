@@ -18,6 +18,9 @@ import { Divider, Select } from 'semantic-ui-react'
 import RoomStyleService from '../../services/roomStyleService'
 import SelectInput from '../../utilities/customFormControls/SelectInput'
 import BaseSelectInput from '../../utilities/customFormControls/BaseSelectInput'
+import { isAuthenticated } from '../../utilities/jwt/isAuthenticate'
+import jwtDecode from 'jwt-decode'
+import { getJwt } from '../../utilities/jwt/jwt'
 
 export default function HotelDetails(props) {
     const { hotelId } = useParams()
@@ -33,17 +36,34 @@ export default function HotelDetails(props) {
     const [roomStyles, setRoomStyles] = useState([])
     const [selectedRoomStyle, setSelectedRoomStyle] = useState('STANDART')
     const bookNow = () => {
-        navigate('/payment')
+        if(isAuthenticated()){
+            navigate(`/payment/${jwtDecode(getJwt()).sub}/${randomRoom.id}`)
+        }
+        else{
+            navigate('/login')
+            alertify.error('Zehmet olmasa once daxil olun.')
+        }
     }
     useEffect(() => {
         let hotelService = new HotelService()
         hotelService.getHotelDetails(hotelId)
             .then(result => {
+                console.log("ijijijkij")
+                console.log(result)
                 if (result.data.code === 200) {
                     setHotel(result.data.data)
-                } else {
+                }
+                else if(result.data.code === 401){
+                    navigate('/login')
+                    alertify.info(result.data.message)
+                }
+                else {
                     alertify.error(result.data.message)
                 }
+            })
+            .catch(error=>{
+                console.log("deiwjf")
+                console.log(error)
             })
             const roomStyleService = new RoomStyleService()
             roomStyleService.getAll()
@@ -74,6 +94,7 @@ export default function HotelDetails(props) {
                     document.getElementById('spinner').style.visibility = 'hidden'
                 } else {
                     alertify.error(result.data.message)
+                    document.getElementById('spinner').style.visibility = 'hidden'
                 }
             })
         }, 2000);
@@ -183,7 +204,7 @@ export default function HotelDetails(props) {
                                                     randomRoom.items?.map(item => (<li>{item.name}</li>))
                                                 }
                                             </ul>
-                                            <Button className='bg-primary w-100' onClick={()=>navigate(`/payment/${1}/${randomRoom.id}`)}>Book Now <i>{randomRoom.pricePerNight} AZN</i></Button>
+                                            <Button className='bg-primary w-100' onClick={()=>bookNow()}>Book Now <i>{randomRoom.pricePerNight} AZN</i></Button>
                                         </Col>
                                     </Row>
                                 </CardBody>

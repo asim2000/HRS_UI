@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter} from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'alertifyjs/build/css/alertify.min.css'
 import App from './Components/Root/App';
@@ -15,7 +15,9 @@ const store = configureStore()
 root.render(
   <BrowserRouter>
       <React.StrictMode>
-        <Provider store={store}><App/></Provider>
+        <Provider store={store}>
+        <App />
+        </Provider>
       </React.StrictMode>
   </BrowserRouter>
 );

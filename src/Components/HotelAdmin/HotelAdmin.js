@@ -49,7 +49,8 @@ export default function HotelAdmin() {
                             </CardBody>
                             <CardFooter className='d-flex'>
                                 <Button onClick={() => navigate(`/hotel/${hotel.id}/room/add`)} color='primary'>Add Room</Button>&nbsp;
-                                <Button onClick={() => navigate(`/hotel/${hotel.id}/rooms`)} color='primary'>Room List</Button>
+                                <Button onClick={() => navigate(`/hotel/${hotel.id}/rooms`)} color='primary'>Room List</Button>&nbsp;
+                                <Button onClick={() => navigate(`/hotel/admin/${adminId}/booking-history`)} color='primary'>Booking history</Button>
                                 <AiFillEye size='23' className='ms-auto' color='green' title='view' />
                                 <AiFillEdit size='23' className='ms-3' title='edit' color='blue' />
                                 <RiDeleteBin6Fill size='23' className='ms-3' color='red' title='delete' />

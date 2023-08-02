@@ -135,7 +135,7 @@ export default function AddRoom() {
                             <Button type='submit' color='primary'>Add Room</Button>
                         </Col>
                         <Col md='6'>
-                            <CheckInput type='checkbox' name='itemIds' options={items.map(item => ({ value: item.id, text: item.name }))} />
+                            <CheckInput br={true} type='checkbox'  name='itemIds' options={items.map(item => ({ value: item.id, text: item.name }))} />
                             {/* <FormGroup>
                             <Label for='breakfast'>Breakfast</Label>
                             <Input onChange={() => changeBreakfastInput()} id='breakfast' name='breakfast' type='select'>

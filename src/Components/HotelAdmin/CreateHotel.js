@@ -116,7 +116,7 @@ export default function CreateHotel() {
                                 </Col>
                                 <Col md='6'>
                                     <h5>Services</h5>
-                                    <CheckInput name='serviceIds' type='checkbox' options={services.map(service => ({ value: service.id, text: service.name }))} />
+                                    <CheckInput name='serviceIds' br={true} type='checkbox' options={services.map(service => ({ value: service.id, text: service.name }))} />
 
                                     <FormGroup className='mt-5'>
                                         <Label for='images'>Select Images</Label>

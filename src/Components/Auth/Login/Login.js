@@ -7,6 +7,9 @@ import { Button } from 'semantic-ui-react'
 import AuthService from '../../../services/authService'
 import alertifyjs from 'alertifyjs'
 import * as Yup from "yup"
+import jwtDecode from 'jwt-decode'
+import axios from 'axios'
+import { setJwt } from '../../../utilities/jwt/jwt'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -24,11 +27,19 @@ export default function Login() {
     authService.login(values)
       .then(result => {
           if(result.data.code === 200){
-            navigate(`/hotel/admin/${result.data.data.id}`)
+            setJwt(result.data.data)
+            axios.defaults.headers.common["Authorization"] = `Bearer ${result.data.data}`
+            const user = jwtDecode(result.data.data)
+            if(user.roles[0] === 'customer')
+              navigate(-1)
+            else if(user.roles[0] === 'hotel')
+              navigate(`/hotel/admin/${user.sub}`)
             alertifyjs.success(result.data.message)
           }else{
             alertifyjs.error("<pre>"+result.data.message+"</pre>")
           }
+      }).catch(error=>{
+        console.error(error)
       })
   }
   return (

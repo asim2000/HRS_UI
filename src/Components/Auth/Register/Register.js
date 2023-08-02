@@ -12,6 +12,7 @@ import customerTypeReducer from '../../../redux/reducers/customerTypeReducer'
 import { useSelector } from 'react-redux'
 import GenderService from '../../../services/genderService'
 import alertify from 'alertifyjs'
+import axios from 'axios'
 
 export default function Register() {
   const [cities, setSities] = useState([])
@@ -22,7 +23,10 @@ export default function Register() {
     let cityService = new CityService();
     let genderService = new GenderService();
 
-    cityService.getCities()
+    const headers = {
+      Authorization:`Bearer ${localStorage.getItem("token")}`
+    }
+    cityService.getCities(headers)
     .then(result=>{
       if(result.data.code === 200){
         setSities(result.data.data)
@@ -31,7 +35,7 @@ export default function Register() {
       }
     });
 
-    genderService.getGenders()
+    genderService.getGenders(headers)
     .then(result=>{
       if(result.data.code === 200){
         setGenders(result.data.data)

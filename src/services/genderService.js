@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default class GenderService {
-    getGenders() {
-        return axios.get("http://localhost:8585/gender")
+    getGenders(headers) {
+        return axios.get("http://localhost:8585/gender",{headers:headers})
     }
 }
