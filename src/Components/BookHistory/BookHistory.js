@@ -75,7 +75,7 @@ export default function BookHistory(props) {
                     <td>Azerbaijan,{booking.room.hotel.address.city.name},{booking.room.hotel.address.addressLine}</td>
                     <td>{booking.room.hotel.contact.phone}</td>
                     <td>{booking.bookingStatus}</td>
-                    <td>{booking.checkIn} / {booking.checkOut}<br/><i style={{color:'red'}}>{(new Date(booking.checkOut).getTime()-new Date(booking.checkIn).getTime())/(1000 * 3600 * 24)} days</i></td>
+                    <td>{booking.checkIn} / {booking.checkOut}<br/><i style={{color:'red'}}>{(new Date(booking.checkOut).getTime()-new Date(booking.checkIn).getTime())/(1000 * 3600 * 24)+1} days</i></td>
                     <td>{booking.room.roomCount}</td>
                     <td>{booking.room.adultCount}</td>
                     <td>{booking.room.childreenCount}</td>

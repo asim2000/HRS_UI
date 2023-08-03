@@ -1,7 +1,7 @@
 import React, { Component, useEffect } from 'react'
 import { Container, Row, Col } from 'reactstrap'
 import Footer from '../Footer/Footer'
-import { Navigate, Route, Router, Routes, useParams } from 'react-router-dom'
+import { Navigate, Route, Router, Routes, useNavigate, useParams } from 'react-router-dom'
 import NotFound from './NotFound'
 import Login from '../Auth/Login/Login'
 import Register from '../Auth/Register/Register'
@@ -21,9 +21,19 @@ import HotelAdmin from '../HotelAdmin/HotelAdmin'
 import axios from 'axios'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import { Switch } from '@mui/material'
-import { getJwt } from '../../utilities/jwt/jwt'
+import { getJwt, removeJwt } from '../../utilities/jwt/jwt'
+import AddHotelService from '../Admin/HotelService/AddHotelService'
+import ListHotelService from '../Admin/HotelService/ListHotelService'
+import AddRoomItem from '../Admin/RoomItem/AddRoomItem'
+import ListRoomItem from '../Admin/RoomItem/ListRoomItem'
+import { isAuthenticated } from '../../utilities/jwt/isAuthenticate'
 function App() {
+  const navigate = useNavigate()
   useEffect(() => {
+    if(!isAuthenticated()){
+      removeJwt()
+      navigate('/login')
+    }
     axios.defaults.headers.common["Authorization"] = `Bearer ${getJwt()}`
   }, [])
 
@@ -59,7 +69,12 @@ function App() {
               <Route exact path='/payment' Component={ProtectedRoute}>
                 <Route exact path='/payment/:userId/:roomId' Component={Payment} />
               </Route>
-
+              <Route exact path='/admin' Component={ProtectedRoute}>
+                <Route exact path='/admin/hotel-service/add' Component={AddHotelService}/>
+                <Route exact path='/admin/hotel-service/list' Component={ListHotelService}/>
+                <Route exact path='/admin/room-item/add' Component={AddRoomItem}/>
+                <Route exact path='/admin/room-item/list' Component={ListRoomItem}/>
+              </Route>
               <Route path='*' Component={NotFound} />
             </Routes>
           </Col>

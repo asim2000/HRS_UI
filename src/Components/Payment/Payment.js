@@ -66,7 +66,7 @@ export default function Payment(props) {
       isSaveCard:isSaveCard
     }
     const paymentService = new PaymentService()
-    paymentService.create(payment)
+    paymentService.createPaymentForCustomer(payment)
       .then(result => {
         if (result.data.code === 200) {
           navigate(`/customer/${userId}/booking-history`)
