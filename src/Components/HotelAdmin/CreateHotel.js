@@ -105,7 +105,7 @@ export default function CreateHotel() {
                             <h1>Create Hotel</h1><hr />
                             <Row>
                                 <Col md='6'>
-                                    <input type='hidden' name='employeeId' value={adminId} />
+                                    <input type='hidden' name='personId' value={adminId} />
                                     <TextInput name='name' id='name' placeholder='Enter name' />
                                     <SelectInput name='cityId' id='cityId' defaultValue='Choose city' options={cities.map(city => ({ value: city.id, text: city.name }))} />
                                     <TextInput name='addressLine' id='addressLine' placeholder='Enter address' />

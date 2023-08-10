@@ -30,10 +30,6 @@ import { isAuthenticated } from '../../utilities/jwt/isAuthenticate'
 function App() {
   const navigate = useNavigate()
   useEffect(() => {
-    if(!isAuthenticated()){
-      removeJwt()
-      navigate('/login')
-    }
     axios.defaults.headers.common["Authorization"] = `Bearer ${getJwt()}`
   }, [])
 
@@ -48,28 +44,28 @@ function App() {
         <Row>
           <Col>
             <Routes>
-              <Route path='/login' Component={Login} />
-              <Route path='/register' Component={Register} />
-              <Route path='/select-register' Component={SelectRegister} />
-              <Route path='/' element={<Navigate to='/home/index' />} />
-              <Route path='/home/index' Component={Home} />
+              <Route exact path='/' element={<Navigate to='/home/index' />} />
+              <Route exact path='/login' Component={Login} />
+              <Route exact path='/register' Component={Register} />
+              <Route exact path='/select-register' Component={SelectRegister} />
+              <Route exact path='/home/index' Component={Home} />
               <Route exact path='/hotel/:hotelId/details' Component={HotelDetails} />
 
-              <Route exact path='/hotel' Component={ProtectedRoute}>
+              <Route path='/hotel' Component={ProtectedRoute}>
                 <Route exact path='/hotel/create/:adminId' Component={CreateHotel} />
                 <Route exact path='/hotel/:hotelId/rooms' Component={Rooms} />
                 <Route exact path='/hotel/:hotelId/room/add' Component={AddRoom} />
                 <Route exact path='/hotel/admin/:adminId' Component={HotelAdmin} />
                 <Route exact path='/hotel/room/book' Component={HotelAdminBook} />
-                <Route exact path='/hotel/admin/:userId/booking-history' Component={BookHistory} />
+                <Route exact path='/hotel/:hotelId/booking-history' Component={HotelAdminBookHistory} />
               </Route>
-              <Route exact path='/customer' Component={ProtectedRoute}>
+              <Route path='/customer' Component={ProtectedRoute}>
                 <Route exact path='/customer/:userId/booking-history' Component={BookHistory} />
               </Route>
-              <Route exact path='/payment' Component={ProtectedRoute}>
+              <Route path='/payment' Component={ProtectedRoute}>
                 <Route exact path='/payment/:userId/:roomId' Component={Payment} />
               </Route>
-              <Route exact path='/admin' Component={ProtectedRoute}>
+              <Route path='/admin' Component={ProtectedRoute}>
                 <Route exact path='/admin/hotel-service/add' Component={AddHotelService}/>
                 <Route exact path='/admin/hotel-service/list' Component={ListHotelService}/>
                 <Route exact path='/admin/room-item/add' Component={AddRoomItem}/>

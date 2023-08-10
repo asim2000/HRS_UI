@@ -1,8 +1,8 @@
 export default {
     visibility:'hidden',
     adultCount:2,
-    childreenCount:0,
-    roomCount:1,
+    childreenCount:1,
+    roomCount:2,
     customerType:"",
     checkIn:new Date(),
     checkOut:new Date()

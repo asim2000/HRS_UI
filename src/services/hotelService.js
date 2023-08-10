@@ -19,4 +19,7 @@ export default class HotelService {
     getByEmployeeId(id){
         return axios.get(this.url+'/employee/'+id)
     }
+    checkIfExistsRoom(hotelId){
+        return axios.get(this.url+'/'+hotelId+'/existsroom')
+    }
 }

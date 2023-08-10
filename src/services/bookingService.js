@@ -8,4 +8,7 @@ export default class BookingService {
     getAllByPersonId(id){
         return axios.get(this.url+'/getallbypersonid/'+id)
     }
+    getAllByHotelId(id){
+        return axios.get(this.url+'/getallbyhotelid/'+id)
+    }
 }

@@ -30,7 +30,7 @@ export default function Rooms() {
         <div>
             <Row>
                 <Col>
-                <Button onClick={()=>navigate(`/hotel/admin/1`)} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Home</Button>
+                <Button onClick={()=>navigate(-1)} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Home</Button>
                 </Col>
                 <Col>
                     <Button className='d-flex ms-auto' color='primary' onClick={() => navigate(`/hotel/${hotelId}/room/add`)}>Add Room</Button>

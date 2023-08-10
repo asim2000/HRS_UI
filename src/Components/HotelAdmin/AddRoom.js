@@ -10,6 +10,7 @@ import CheckInput from '../../utilities/customFormControls/CheckInput'
 import * as Yup from "yup"
 import SelectInput from '../../utilities/customFormControls/SelectInput'
 import RoomService from '../../services/roomService'
+import { AiOutlineArrowLeft } from 'react-icons/ai'
 
 export default function AddRoom() {
     const navigate = useNavigate()
@@ -108,6 +109,14 @@ export default function AddRoom() {
     // }
     return (
         <div>
+            <Row>
+                <Col>
+                <Button onClick={()=>navigate(-1)} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Back</Button>
+                </Col>
+                <Col>
+                    <Button className='d-flex ms-auto' color='primary' onClick={() => navigate(`/hotel/${hotelId}/room/add`)}>Add Room</Button>
+                </Col>
+            </Row>
             <Formik
                 initialValues={initialValues}
                 validationSchema={schema}

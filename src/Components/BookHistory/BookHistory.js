@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button, Col, Input, InputGroup, Row, Table } from 'reactstrap'
-import {AiFillEdit} from 'react-icons/ai'
+import {AiFillEdit, AiOutlineArrowLeft} from 'react-icons/ai'
 import {GiCancel} from 'react-icons/gi'
 import BookingService from '../../services/bookingService'
 import alertify from 'alertifyjs'
@@ -24,8 +24,8 @@ export default function BookHistory(props) {
     return (
         <div>
             <Row>
-                <Col>
-                    <h5>Bookings</h5>
+            <Col>
+                <Button onClick={()=>navigate(`/hotel/admin/1`)} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Home</Button>
                 </Col>
                 <Col>
                     <Button className='d-flex ms-auto' color='primary' onClick={() => navigate('/')}>New Book</Button>
