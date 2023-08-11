@@ -19,8 +19,7 @@ export default function Payment(props) {
   const navigate = useNavigate()
   const { userId, roomId } = useParams()
   const [room, setRoom] = useState()
-  const [minPerCent, setMinPerCent] = useState()
-  const [payPerCent, setPayPerCent] = useState()
+  const [payPerCent, setPayPerCent] = useState(20)
   const checkIn = useSelector(state => state.checkInReducer)
   const checkOut = useSelector(state => state.checkOutReducer)
   const [creditCardTypes, setCreditCardTypes] = useState([])
@@ -31,8 +30,6 @@ export default function Payment(props) {
       .then(result => {
         if (result.data.code === 200) {
           setRoom(result.data.data)
-          setMinPerCent(result.data.data.payPerCent)
-          setPayPerCent(result.data.data.payPerCent)
         } else {
           alertify.error(result.data.message)
         }
@@ -189,10 +186,10 @@ export default function Payment(props) {
                         <TextInput type='text' id='cvv' name='cvv' placeholder='345' />
                       </FormGroup>
                     </Col>
-                    <Label>You must pay minimum {minPerCent}%</Label>
+                    <Label>You must pay minimum {20}%</Label>
                     <Slider
                       style={{ width: '600px', margin: '10px' }}
-                      min={minPerCent}
+                      min={20}
                       max={100}
                       onChange={event => setPayPerCent(event.target.value)}
                       aria-label="Small"

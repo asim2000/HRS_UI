@@ -6,7 +6,7 @@ import TextInput from '../../../utilities/customFormControls/TextInput'
 import { Formik,Form, validateYupSchema } from 'formik'
 import * as Yup from "yup"
 import alertifyjs from 'alertifyjs'
-import AuthService from '../../../services/authService'
+import * as authServices from '../../../services/authService'
 import SelectInput from '../../../utilities/customFormControls/SelectInput'
 import customerTypeReducer from '../../../redux/reducers/customerTypeReducer'
 import { useSelector } from 'react-redux'
@@ -74,8 +74,7 @@ export default function Register() {
   });
   
   const register = values => {
-    const authService = new AuthService()
-    authService.register(values)
+    authServices.register(values)
     .then(result=>{
       if(result.data.code === 200){
         navigate('/login')
