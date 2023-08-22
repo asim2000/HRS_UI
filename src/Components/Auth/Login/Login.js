@@ -10,6 +10,7 @@ import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import { setJwt } from '../../../utilities/jwt/jwt'
 import alertify from 'alertifyjs'
+import { instance } from '../../../api/utils'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -48,7 +49,6 @@ export default function Login() {
     authServices.login(values)
     .then(result => {
       setJwt(result.data)
-      axios.defaults.headers.common["Authorization"] = `Bearer ${result.data}`
       const user = jwtDecode(result.data)
       if (user.roles[0] === 'customer')
           navigate(-1)

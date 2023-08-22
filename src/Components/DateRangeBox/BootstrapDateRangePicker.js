@@ -8,8 +8,6 @@ export default function BootstrapDateRangePicker() {
   const dispatch = useDispatch()
   const checkIn = useSelector(state=>state.checkInReducer)
   const checkOut = useSelector(state=>state.checkOutReducer)
-  console.log(checkIn)
-  console.log(checkOut)
   const changeDate = (picker) => {
     console.log(picker.startDate._d)
     console.log(picker.endDate._d)

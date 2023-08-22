@@ -35,11 +35,7 @@ export default function HotelAdmin() {
         const hotelService = new HotelService()
         hotelService.getByEmployeeId(adminId)
             .then(result => {
-                if (result.data.code === 200) {
-                    setHotel(result.data.data)
-                } else {
-                    alertify.error(result.data.message)
-                }
+              setHotel(result.data)
             })
 
         const roomStyleService = new RoomStyleService()

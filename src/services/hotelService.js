@@ -1,4 +1,5 @@
 import axios from "axios"
+import { makeRequest } from "../api/utils"
 
 export default class HotelService {
    
@@ -17,7 +18,7 @@ export default class HotelService {
         return axios.get(this.url+'/details/'+id)
     }
     getByEmployeeId(id){
-        return axios.get(this.url+'/employee/'+id)
+        return makeRequest('get',`/hotel/employee/${id}`)
     }
     checkIfExistsRoom(hotelId){
         return axios.get(this.url+'/'+hotelId+'/existsroom')

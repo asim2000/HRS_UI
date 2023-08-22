@@ -1,7 +1,8 @@
 import alertify from "alertifyjs"
 import axios from "axios"
-
-const instance = axios.create({
+import { getJwt } from "../utilities/jwt/jwt"
+import { Navigate } from "react-router-dom"
+ const instance = axios.create({
     baseURL:'http://localhost:8585',
     timeout:5000,
     headers:{'Content-Type': 'application/json'}
@@ -18,4 +19,18 @@ instance.interceptors.response.use(response=>{
     }else{
         alertify.error(response.data.message)
     }
+},error=>{
+    if(error.code === 'ERR_NETWORK'){
+        if(getJwt()==null){
+            window.location.href = '/login'
+        }else{
+            window.location.href = '/notfound'
+        }
+    }
+    return error
+})
+
+instance.interceptors.request.use(request=>{
+    request.headers.Authorization = `Bearer ${getJwt()}`
+    return request
 })
