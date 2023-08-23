@@ -1,4 +1,5 @@
 import axios from "axios"
+import { makeRequest } from "../api/utils"
 
 export default class PaymentService {
     headers = {
@@ -6,9 +7,9 @@ export default class PaymentService {
       }
     url = 'http://localhost:8585/payment'
     createPaymentForCustomer(data){
-        return axios.post(this.url+'/createpaymentforcustomer',JSON.stringify(data),{headers:this.headers})
+        return makeRequest('post','/payment/CreateForCustomer',data)
     }
     createPaymentForHotel(data){
-        return axios.post(this.url+'/createpaymentforhotel',JSON.stringify(data),{headers:this.headers})
+        return makeRequest('post','/payment/CreateForHotel',data)
     }
 }

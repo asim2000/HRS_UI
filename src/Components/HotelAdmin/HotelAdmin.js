@@ -66,12 +66,10 @@ export default function HotelAdmin() {
         const paymentService = new PaymentService()
         paymentService.createPaymentForHotel(payment)
             .then(result => {
-                if (result.data.code === 200) {
-                    document.getElementById('bookSection').style.visibility = 'hidden'
-                    alertify.success('Successfully booking room')
-                } else {
-                    alertify.error(result.data.message)
-                }
+                document.getElementById('bookSection').style.visibility = 'hidden'
+                alertify.success('Successfully booking room')
+            }).catch(error=>{
+                alertify.error(error.message)
             })
     }
     const searchRoom = () => {

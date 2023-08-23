@@ -62,12 +62,10 @@ export default function Payment(props) {
     const paymentService = new PaymentService()
     paymentService.createPaymentForCustomer(payment)
       .then(result => {
-        if (result.data.code === 200) {
           navigate(`/customer/${userId}/booking-history`)
           alertify.success('Successfully booking room')
-        } else {
-          alertify.error(result.data.message)
-        }
+      }).catch(error=>{
+        alertify.error(error.message)
       })
   }
   const initialValues = {
