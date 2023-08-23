@@ -32,11 +32,9 @@ export default function AddRoom() {
         const roomStyleService = new RoomStyleService()
         roomStyleService.getAll()
             .then(result => {
-                if (result.data.code === 200) {
-                    setRoomStyles(result.data.data)
-                } else {
-                    alertify.error(result.data.message)
-                }
+                setRoomStyles(result.data)
+            }).catch(error => {
+                alertify.error(error.message)
             })
         const itemService = new ItemService()
         itemService.getAll()
