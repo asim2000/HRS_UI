@@ -18,11 +18,9 @@ export default function Rooms() {
         const roomService = new RoomService()
         roomService.getAllByHotelId(hotelId)
         .then(result=>{
-            if(result.data.code === 200){
-                setRooms(result.data.data)
-            }else{
-                alertify.error(result.data.message)
-            }
+            setRooms(result.data)
+        }).catch(error=>{
+            alertify(error.message)
         })
     }, [])
     

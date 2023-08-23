@@ -27,11 +27,9 @@ export default function Payment(props) {
     const roomService = new RoomService()
     roomService.getByIdForPayment(roomId)
       .then(result => {
-        if (result.data.code === 200) {
-          setRoom(result.data.data)
-        } else {
-          alertify.error(result.data.message)
-        }
+          setRoom(result.data)
+      }).catch(error=>{
+        alertify.error(error.message)
       })
     const creditCardTypeService = new CreditCardTypeService()
     creditCardTypeService.getAll()

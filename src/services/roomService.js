@@ -1,23 +1,21 @@
 import axios from "axios"
+import { makeRequest } from "../api/utils"
 
 export default class RoomService {
-    url = 'http://localhost:8585/room'
-    headers = {
-        'Content-Type': 'application/json'
-      }
+    
     getAllByHotelId(id) {
-        return axios.get(this.url+'/getall/'+id)
+        return makeRequest('get',`/room/hotel/${id}`)
     }
     create(values){
-        return axios.post(this.url+"/create",values)
+        return makeRequest('post','/room',values)
     }
     getRandomRoom(data){
-        return axios.post(this.url+'/getRandomRoom',JSON.stringify(data),{headers:this.headers})
+        return makeRequest('post','/room/GetRandomRoom',data)
     }
     getById(id){
-        return axios.get(this.url+'/getbyid/'+id)
+        return makeRequest('get',`/room/${id}`)
     }
     getByIdForPayment(id){
-        return axios.get(this.url+'/getbyidforpayment/'+id)
+        return makeRequest('get',`/room/${id}/ForPayment`)
     }
 }

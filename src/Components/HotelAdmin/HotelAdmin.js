@@ -68,7 +68,7 @@ export default function HotelAdmin() {
             .then(result => {
                 document.getElementById('bookSection').style.visibility = 'hidden'
                 alertify.success('Successfully booking room')
-            }).catch(error=>{
+            }).catch(error => {
                 alertify.error(error.message)
             })
     }
@@ -86,14 +86,12 @@ export default function HotelAdmin() {
                 childreenCount: childreenCount,
                 roomStyle: selectedRoomStyle
             }).then(result => {
-                if (result.data.code === 200) {
-                    setRandomRoom(result.data.data)
-                    setPayAmount(Math.round(((new Date(checkOut).getTime() - new Date(checkIn).getTime()) / (1000 * 3600 * 24) + 1) * result.data.data.pricePerNight))
-                    document.getElementById('spinner').style.visibility = 'hidden'
-                } else {
-                    alertify.error(result.data.message)
-                    document.getElementById('spinner').style.visibility = 'hidden'
-                }
+                setRandomRoom(result.data)
+                setPayAmount(Math.round(((new Date(checkOut).getTime() - new Date(checkIn).getTime()) / (1000 * 3600 * 24) + 1) * result.data.data.pricePerNight))
+                document.getElementById('spinner').style.visibility = 'hidden'
+            }).catch(error => {
+                alertify.error(error.message)
+                document.getElementById('spinner').style.visibility = 'hidden'
             })
         }, 2000);
 

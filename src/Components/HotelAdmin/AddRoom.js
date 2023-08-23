@@ -22,16 +22,11 @@ export default function AddRoom() {
         values.hotelId = hotelId
         roomService.create(values)
             .then(result => {
-                if (result.data.code === 200) {
-                    navigate('/hotel/' + hotelId + '/rooms')
-                    alertify.success(result.data.message)
-                } else {
-                    alertify.error(result.data.message)
-                }
+                navigate('/hotel/' + hotelId + '/rooms')
+                alertify.success(result.message)
+            }).catch(error => {
+                alertify.error(error.message)
             })
-
-
-
     }
     useEffect(() => {
         const roomStyleService = new RoomStyleService()

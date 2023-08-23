@@ -77,13 +77,11 @@ export default function HotelDetails(props) {
                 childreenCount: childreenCount,
                 roomStyle: selectedRoomStyle
             }).then(result => {
-                if (result.data.code === 200) {
-                    setRandomRoom(result.data.data)
-                    document.getElementById('spinner').style.visibility = 'hidden'
-                } else {
-                    alertify.error(result.data.message)
-                    document.getElementById('spinner').style.visibility = 'hidden'
-                }
+                setRandomRoom(result.data)
+                document.getElementById('spinner').style.visibility = 'hidden'
+            }).catch(error => {
+                alertify.error(error.message)
+                document.getElementById('spinner').style.visibility = 'hidden'
             })
         }, 2000);
 
