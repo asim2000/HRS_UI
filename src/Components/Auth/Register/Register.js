@@ -30,14 +30,11 @@ export default function Register() {
         alertify.error(error.message)
       })
 
-    genderService.getGenders()
+    genderService.getAll()
       .then(result => {
-        if (result.data.code === 200) {
-          setGenders(result.data.data)
-        }
-        else {
-          alertify.error(result.data.message)
-        }
+          setGenders(result.data)
+      }).catch(error=>{
+        alertify.error(error.message)
       })
 
 

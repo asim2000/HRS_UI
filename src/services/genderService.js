@@ -1,7 +1,7 @@
-import axios from "axios";
+import { makeRequest } from "../api/utils";
 
 export default class GenderService {
-    getGenders(headers) {
-        return axios.get("http://localhost:8585/gender",{headers:headers})
+    getAll() {
+        return makeRequest('get',"/gender")
     }
 }
