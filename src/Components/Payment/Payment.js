@@ -36,11 +36,9 @@ export default function Payment(props) {
     const creditCardTypeService = new CreditCardTypeService()
     creditCardTypeService.getAll()
       .then(result => {
-        if (result.data.code === 200) {
-          setCreditCardTypes(result.data.data)
-        } else {
-          alertify.error(result.data.message)
-        }
+        setCreditCardTypes(result.data)
+      }).catch(error => {
+        alertify.error(error.message)
       })
   }, [])
 
@@ -59,7 +57,7 @@ export default function Payment(props) {
       creditCard: values,
       booking: booking,
       amount: payPerCent * room.pricePerNight / 100,
-      isSaveCard:isSaveCard
+      isSaveCard: isSaveCard
     }
     const paymentService = new PaymentService()
     paymentService.createPaymentForCustomer(payment)
@@ -198,8 +196,8 @@ export default function Payment(props) {
                       <Row>
                         <Col xs='3'>
                           <div class="ui toggle checkbox">
-                            <input onChange={(event)=>setIsSaveCard(event.target.checked)} checked={isSaveCard} type="checkbox" id="saveCard" name="saveCard" />
-                          <label htmlFor='saveCard'>Save card</label>
+                            <input onChange={(event) => setIsSaveCard(event.target.checked)} checked={isSaveCard} type="checkbox" id="saveCard" name="saveCard" />
+                            <label htmlFor='saveCard'>Save card</label>
                           </div>
                         </Col>
                         <Col xs='9'>
