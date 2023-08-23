@@ -23,40 +23,19 @@ export default function Login() {
     email: Yup.string().email().required("Email is required"),
     password: Yup.string().required("Password is required")
   });
-  // const login = values => {
-  //   const authService = new AuthService()
-  //   authService.login(values)
-  //     .then(result => {
-  //          if(result.data.code === 200){
-  //           setJwt(result.data.data)
-  //           axios.defaults.headers.common["Authorization"] = `Bearer ${result.data.data}`
-  //           const user = jwtDecode(result.data.data)
-  //           if(user.roles[0] === 'customer')
-  //             navigate(-1)
-  //           else if(user.roles[0] === 'hotel')
-  //             navigate(`/hotel/admin/${user.sub}`)
-  //           alertifyjs.success(result.data.message)
-  //         }
-  //         else{
-  //           alertifyjs.error("<pre>"+result.data.message+"</pre>")
-  //         }
-  //     })
-  //     .catch(error=>{
-  //       console.error(error)
-  //     })
-  // }
+
   const login = values => {
     authServices.login(values)
-    .then(result => {
-      setJwt(result.data)
-      axios.defaults.headers.common['Authorization'] = `Bearer ${result.data}`
-      const user = jwtDecode(result.data)
-      if (user.roles[0] === 'customer')
+      .then(result => {
+        setJwt(result.data)
+        axios.defaults.headers.common['Authorization'] = `Bearer ${result.data}`
+        const user = jwtDecode(result.data)
+        if (user.roles[0] === 'customer')
           navigate(-1)
-      else if (user.roles[0] === 'hotel')
+        else if (user.roles[0] === 'hotel')
           navigate(`/hotel/admin/${user.sub}`)
-      alertify.success(result.message)
-  })
+        alertify.success(result.message)
+      })
   }
   return (
     <div>
