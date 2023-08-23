@@ -49,6 +49,7 @@ export default function Login() {
     authServices.login(values)
     .then(result => {
       setJwt(result.data)
+      axios.defaults.headers.common['Authorization'] = `Bearer ${result.data}`
       const user = jwtDecode(result.data)
       if (user.roles[0] === 'customer')
           navigate(-1)

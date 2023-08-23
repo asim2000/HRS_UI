@@ -29,9 +29,6 @@ import ListRoomItem from '../Admin/RoomItem/ListRoomItem'
 import { isAuthenticated } from '../../utilities/jwt/isAuthenticate'
 function App() {
   const navigate = useNavigate()
-  useEffect(() => {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${getJwt()}`
-  }, [])
 
   return (
     <div>

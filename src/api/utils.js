@@ -31,6 +31,8 @@ instance.interceptors.response.use(response=>{
 })
 
 instance.interceptors.request.use(request=>{
-    request.headers.Authorization = `Bearer ${getJwt()}`
+    if(getJwt()!=null){
+        request.headers.Authorization = `Bearer ${getJwt()}`
+    }
     return request
 })

@@ -9,7 +9,6 @@ import { Form, Formik } from 'formik'
 import * as Yup from "yup"
 import valid from 'card-validator'
 import TextInput from '../../utilities/customFormControls/TextInput'
-import BookingService from '../../services/bookingService'
 import { useSelector } from 'react-redux'
 import CreditCardTypeService from '../../services/creditCardType'
 import CheckInput from '../../utilities/customFormControls/CheckInput'
