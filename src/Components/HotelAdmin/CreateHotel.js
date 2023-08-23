@@ -25,12 +25,10 @@ export default function CreateHotel() {
 
         cityService.getCities()
             .then(result => {
-                if (result.data.code === 200) {
-                    setCities(result.data.data)
-                } else {
-                    alertify.error(result.data.message)
-                }
-            });
+                setCities(result.data)
+            }).catch(error => {
+                alertify.error(error.message)
+            })
 
         serviceService.getServices()
             .then(result => {
@@ -48,7 +46,7 @@ export default function CreateHotel() {
         addressLine: "",
         phone: "",
         description: "",
-        payPerCent:''
+        payPerCent: ''
     }
 
     const schema = Yup.object({
@@ -57,7 +55,7 @@ export default function CreateHotel() {
         addressLine: Yup.string().required(),
         phone: Yup.string().required(),
         description: Yup.string(),
-        payPerCent:Yup.string().required()
+        payPerCent: Yup.string().required()
 
     });
 
@@ -87,7 +85,7 @@ export default function CreateHotel() {
                 }
             })
     }
-    const perCents = [5,20,50,100]
+    const perCents = [5, 20, 50, 100]
     return (
         <div>
             <Formik
@@ -122,9 +120,9 @@ export default function CreateHotel() {
                                         <Input type='file' required multiple name='images' id='images' onChange={event => setImages(event.target.files)} placeholder='Choose hotel images' />
 
                                     </FormGroup>
-                                    <input type='hidden' name='mainImageName' id='mainImageName' value={selectedImg}/>
-                                    {images.length!==0?<div><Label>Select main image</Label><br/></div>:null}
-                                    {Array.from(images).map(image => <img width='100px' onClick={event => setSelectedImg(image.name)} height='100px' style={{border:selectedImg===image.name?'solid 1px blue':'', marginRight: '10px' }} src={URL.createObjectURL(image)} />)}
+                                    <input type='hidden' name='mainImageName' id='mainImageName' value={selectedImg} />
+                                    {images.length !== 0 ? <div><Label>Select main image</Label><br /></div> : null}
+                                    {Array.from(images).map(image => <img width='100px' onClick={event => setSelectedImg(image.name)} height='100px' style={{ border: selectedImg === image.name ? 'solid 1px blue' : '', marginRight: '10px' }} src={URL.createObjectURL(image)} />)}
                                 </Col>
                             </Row>
 

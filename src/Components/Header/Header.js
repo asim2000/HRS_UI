@@ -20,11 +20,9 @@ export default function Header(props) {
     const cityService = new CityService();
     cityService.getCities()
       .then(result => {
-        if (result.data.code === 200) {
-          setCities(result.data.data)
-        } else {
-          alertify.error(result.data.message)
-        }
+        setCities(result.data)
+      }).catch(error => {
+        alertify.error(error.message)
       })
   }, [])
 

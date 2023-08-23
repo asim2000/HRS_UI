@@ -1,7 +1,7 @@
-import axios from "axios";
+import { makeRequest } from "../api/utils";
 
 export default class CityService {
     getCities() {
-        return axios.get("http://localhost:8585/city")
+        return makeRequest('get',"/city")
     }
 }

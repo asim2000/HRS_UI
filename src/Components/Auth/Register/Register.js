@@ -15,7 +15,7 @@ import alertify from 'alertifyjs'
 import axios from 'axios'
 
 export default function Register() {
-  const [cities, setSities] = useState([])
+  const [cities, setCities] = useState([])
   const [genders, setGenders] = useState([])
   const navigate = useNavigate()
   const customerType = useSelector(state => state.customerTypeReducer)
@@ -23,19 +23,14 @@ export default function Register() {
     let cityService = new CityService();
     let genderService = new GenderService();
 
-    const headers = {
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
-    cityService.getCities(headers)
+    cityService.getCities()
       .then(result => {
-        if (result.data.code === 200) {
-          setSities(result.data.data)
-        } else {
-          alertify.error(result.data.message)
-        }
-      });
+        setCities(result.data)
+      }).catch(error => {
+        alertify.error(error.message)
+      })
 
-    genderService.getGenders(headers)
+    genderService.getGenders()
       .then(result => {
         if (result.data.code === 200) {
           setGenders(result.data.data)
