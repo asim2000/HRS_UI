@@ -13,11 +13,9 @@ export default function ListHotelService() {
         const serviceService = new ServiceService()
         serviceService.getServices()
         .then(result=>{
-            if(result.data.code === 200){
-                setServices(result.data.data)
-            }else{
-                alertify(result.data.message)
-            }
+            setServices(result.data)
+        }).catch(error=>{
+          alertify.error(error.message)
         })
     }, [])
     

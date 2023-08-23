@@ -32,11 +32,9 @@ export default function CreateHotel() {
 
         serviceService.getServices()
             .then(result => {
-                if (result.data.code === 200) {
-                    setServices(result.data.data)
-                } else {
-                    alertify.error(result.data.message)
-                }
+                setServices(result.data)
+            }).catch(error => {
+                alertify.error(error.message)
             })
 
     }, [])
@@ -46,7 +44,7 @@ export default function CreateHotel() {
         addressLine: "",
         phone: "",
         description: "",
-        serviceIds:[]
+        serviceIds: []
     }
 
     const schema = Yup.object({
@@ -55,7 +53,7 @@ export default function CreateHotel() {
         addressLine: Yup.string().required(),
         phone: Yup.string().required(),
         description: Yup.string(),
-        serviceIds:Yup.array().min(1,'Please select service').required()
+        serviceIds: Yup.array().min(1, 'Please select service').required()
     });
 
     const form = document.getElementById("formid")
@@ -71,10 +69,10 @@ export default function CreateHotel() {
         const formData = new FormData(target)
         hotelService.create(formData)
             .then(result => {
-                if(result.code === 200){
+                if (result.code === 200) {
                     navigate('/hotel/admin/' + adminId)
                     alertify.success(result.message)
-                }else{
+                } else {
                     alertify.error(result.message)
                 }
             }).catch(error => {
@@ -111,11 +109,11 @@ export default function CreateHotel() {
 
                                     <FormGroup className='mt-5'>
                                         <Label for='images'>Select Images</Label>
-                                        <Input type='file' required multiple name='images' id='images' onChange={event => {setImages(event.target.files);setSelectedImg(Array.from(event.target.files)[0].name)}} placeholder='Choose hotel images' />
+                                        <Input type='file' required multiple name='images' id='images' onChange={event => { setImages(event.target.files); setSelectedImg(Array.from(event.target.files)[0].name) }} placeholder='Choose hotel images' />
 
                                     </FormGroup>
                                     {images.length !== 0 ? <div><Label>Select main image</Label><br /></div> : null}
-                                    {Array.from(images).map(image => <img width='100px' onClick={event => setSelectedImg(image.name)} height='100px' style={{ border: selectedImg === image.name ? 'solid 1px blue' : '', marginRight: '10px' }} src={URL.createObjectURL(image)} />)} 
+                                    {Array.from(images).map(image => <img width='100px' onClick={event => setSelectedImg(image.name)} height='100px' style={{ border: selectedImg === image.name ? 'solid 1px blue' : '', marginRight: '10px' }} src={URL.createObjectURL(image)} />)}
                                     <input type='hidden' name='mainImageName' id='mainImageName' value={selectedImg} />
                                 </Col>
                             </Row>
