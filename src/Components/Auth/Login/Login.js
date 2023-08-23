@@ -35,6 +35,8 @@ export default function Login() {
         else if (user.roles[0] === 'hotel')
           navigate(`/hotel/admin/${user.sub}`)
         alertify.success(result.message)
+      }).catch(error=>{
+        
       })
   }
   return (

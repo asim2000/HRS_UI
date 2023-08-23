@@ -1,14 +1,11 @@
-import axios from "axios"
+import { makeRequest } from "../api/utils"
 
 export default class BookingService {
-    url = 'http://localhost:8585/booking'
-    headers = {
-        'Content-Type': 'application/json'
-      }
-    getAllByPersonId(id){
-        return axios.get(this.url+'/getallbypersonid/'+id)
+    
+    getAllBookingsByPersonId(id){
+        return makeRequest('get','/booking/person/'+id)
     }
-    getAllByHotelId(id){
-        return axios.get(this.url+'/getallbyhotelid/'+id)
+    getAllBookingsByHotelId(id){
+        return makeRequest('get','/booking/hotel/'+id)
     }
 }

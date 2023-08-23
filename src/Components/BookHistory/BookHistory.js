@@ -11,13 +11,11 @@ export default function BookHistory(props) {
     const {userId} = useParams()
     useEffect(() => {
       const bookingService = new BookingService()
-      bookingService.getAllByPersonId(userId)
+      bookingService.getAllBookingsByPersonId(userId)
       .then(result=>{
-        if(result.data.code === 200){
-          setBookings(result.data.data)
-        }else{
-          alertify.error(result.data.message)
-        }
+          setBookings(result.data)
+      }).catch(error=>{
+        alertify.error(error.message)
       })
     }, [])
     
@@ -70,7 +68,7 @@ export default function BookHistory(props) {
                 <tbody>
                 {
                   bookings.map(booking=>(
-                    <tr>
+                    <tr key={booking.id}>
                     <td>{booking.room.hotel.name}</td>
                     <td>Azerbaijan,{booking.room.hotel.address.city.name},{booking.room.hotel.address.addressLine}</td>
                     <td>{booking.room.hotel.contact.phone}</td>
