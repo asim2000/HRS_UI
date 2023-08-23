@@ -2,25 +2,20 @@ import axios from "axios"
 import { makeRequest } from "../api/utils"
 
 export default class HotelService {
-   
-    headers = {
-        'Content-Type': 'application/json'
-      }
-    url = 'http://localhost:8585/hotel'
     
     create(formData){
-        return axios.post(this.url,formData)
+        return axios.post('http://localhost:8585/hotel',formData)
     }
     getHomeHotels(data){
-        return axios.post(this.url+'/home/getall',JSON.stringify(data),{headers:this.headers})
+        return makeRequest('post','/hotel/home',data)
     }
     getHotelDetails(id){
-        return axios.get(this.url+'/details/'+id)
+        return makeRequest('get',`/hotel/${id}/details`)
     }
     getByEmployeeId(id){
         return makeRequest('get',`/hotel/employee/${id}`)
     }
     checkIfExistsRoom(hotelId){
-        return axios.get(this.url+'/'+hotelId+'/existsroom')
+        return makeRequest('get',`/hotel/${hotelId}/ExistsRoom`)
     }
 }

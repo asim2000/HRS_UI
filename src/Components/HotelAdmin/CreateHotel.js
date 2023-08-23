@@ -46,7 +46,7 @@ export default function CreateHotel() {
         addressLine: "",
         phone: "",
         description: "",
-        payPerCent: ''
+        serviceIds:[]
     }
 
     const schema = Yup.object({
@@ -55,8 +55,7 @@ export default function CreateHotel() {
         addressLine: Yup.string().required(),
         phone: Yup.string().required(),
         description: Yup.string(),
-        payPerCent: Yup.string().required()
-
+        serviceIds:Yup.array().min(1,'Please select service').required()
     });
 
     const form = document.getElementById("formid")
@@ -67,25 +66,21 @@ export default function CreateHotel() {
         }
     }
 
-    // const selectedImage = (event,image) => {
-    //     setSelectedImg(image.name)
-    //     event.target.style.border = selectedImg === image.name ? '1px blue solid' : ''
-    // }
-
     const save = e => {
         let hotelService = new HotelService()
         const formData = new FormData(target)
         hotelService.create(formData)
             .then(result => {
-                if (result.data.code === 200) {
+                if(result.code === 200){
                     navigate('/hotel/admin/' + adminId)
-                    alertify.success(result.data.message)
-                } else {
-                    alertify.error(result.data.message)
+                    alertify.success(result.message)
+                }else{
+                    alertify.error(result.message)
                 }
+            }).catch(error => {
+                alertify.error(error.message)
             })
     }
-    const perCents = [5, 20, 50, 100]
     return (
         <div>
             <Formik
@@ -112,17 +107,16 @@ export default function CreateHotel() {
                                     <Button type='submit' color='primary'>Save</Button>
                                 </Col>
                                 <Col md='6'>
-                                    <h5>Services</h5>
-                                    <CheckInput name='serviceIds' br={true} type='checkbox' options={services.map(service => ({ value: service.id, text: service.name }))} />
+                                    <CheckInput labelValue='Select Services' name='serviceIds' br={true} type='checkbox' options={services.map(service => ({ value: service.id, text: service.name }))} />
 
                                     <FormGroup className='mt-5'>
                                         <Label for='images'>Select Images</Label>
-                                        <Input type='file' required multiple name='images' id='images' onChange={event => setImages(event.target.files)} placeholder='Choose hotel images' />
+                                        <Input type='file' required multiple name='images' id='images' onChange={event => {setImages(event.target.files);setSelectedImg(Array.from(event.target.files)[0].name)}} placeholder='Choose hotel images' />
 
                                     </FormGroup>
-                                    <input type='hidden' name='mainImageName' id='mainImageName' value={selectedImg} />
                                     {images.length !== 0 ? <div><Label>Select main image</Label><br /></div> : null}
-                                    {Array.from(images).map(image => <img width='100px' onClick={event => setSelectedImg(image.name)} height='100px' style={{ border: selectedImg === image.name ? 'solid 1px blue' : '', marginRight: '10px' }} src={URL.createObjectURL(image)} />)}
+                                    {Array.from(images).map(image => <img width='100px' onClick={event => setSelectedImg(image.name)} height='100px' style={{ border: selectedImg === image.name ? 'solid 1px blue' : '', marginRight: '10px' }} src={URL.createObjectURL(image)} />)} 
+                                    <input type='hidden' name='mainImageName' id='mainImageName' value={selectedImg} />
                                 </Col>
                             </Row>
 

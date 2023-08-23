@@ -70,6 +70,8 @@ export default function Register() {
       .then(result => {
         navigate('/login')
         alertifyjs.success(result.message)
+      }).catch(error=>{
+        alertify.error(error.message)
       })
   }
   return (

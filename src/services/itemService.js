@@ -1,15 +1,12 @@
 import axios from "axios"
+import { makeRequest } from "../api/utils"
 
 export default class ItemService {
-    url = 'http://localhost:8585/item'
-    headers = {
-        'Content-Type': 'application/json'
-      }
 
     getAll() {
-        return axios.get(this.url)
+        return makeRequest('get', '/item')
     }
     add(data) {
-        return axios.post(this.url,JSON.stringify(data),{headers:this.headers})
+        return makeRequest('post', '/item', data)
     }
 }

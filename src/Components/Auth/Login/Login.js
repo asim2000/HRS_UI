@@ -36,7 +36,7 @@ export default function Login() {
           navigate(`/hotel/admin/${user.sub}`)
         alertify.success(result.message)
       }).catch(error=>{
-        
+        alertify.error(error.message)
       })
   }
   return (

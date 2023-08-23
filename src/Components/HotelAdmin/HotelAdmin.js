@@ -35,7 +35,9 @@ export default function HotelAdmin() {
         const hotelService = new HotelService()
         hotelService.getByEmployeeId(adminId)
             .then(result => {
-              setHotel(result.data)
+                setHotel(result.data)
+            }).catch(error => {
+                alertify.error(error.message)
             })
 
         const roomStyleService = new RoomStyleService()
@@ -102,17 +104,14 @@ export default function HotelAdmin() {
         const hotelService = new HotelService()
         hotelService.checkIfExistsRoom(hotel.id)
             .then(result => {
-                if (result.data.code === 200) {
-                    if(!result.data.data){
-                       setExistsRoom(false) 
-                    }else{
-                        document.getElementById('bookSection').style = 'visible'
-                    window.scrollTo(0, document.body.scrollHeight);
-                    }
-                    
+                if (!result.data) {
+                    setExistsRoom(false)
                 } else {
-                    alertify.error(result.data.message)
+                    document.getElementById('bookSection').style = 'visible'
+                    window.scrollTo(0, document.body.scrollHeight);
                 }
+            }).catch(error => {
+                alertify.error(error.message)
             })
 
     }
@@ -130,8 +129,7 @@ export default function HotelAdmin() {
                             : <Card>{console.log(hotel)}
                                 <Row>
                                     <Col md='6'>
-                                        {console.log(hotel)}
-                                        <CardImg src={require('../../assets/img/' + hotel.mainImageName)} alt='Hotel Image' />
+                                        <CardImg height='auto' width='300px' src={require('../../assets/img/' + hotel?.mainImageName)} alt='Hotel Image' />
                                     </Col>
                                     <Col md='6'>
                                         <CardBody>
@@ -155,7 +153,7 @@ export default function HotelAdmin() {
                 </Col>
             </Row>
             {
-                existsRoom==true
+                existsRoom == true
                     ?
                     <Row id='bookSection' style={{ visibility: 'hidden' }}>
                         <Col lg='3'>
@@ -218,7 +216,7 @@ export default function HotelAdmin() {
                         </Col>
                     </Row>
                     :
-                    <CustomModal title='Info' setState={setExistsRoom} buttonValue='Add room' link={'/hotel/'+hotel.id+'/room/add'} message='No room please before add room'/>
+                    <CustomModal title='Info' setState={setExistsRoom} buttonValue='Add room' link={'/hotel/' + hotel.id + '/room/add'} message='No room please before add room' />
             }
 
         </div>

@@ -36,10 +36,10 @@ export default function HotelDetails(props) {
     const [roomStyles, setRoomStyles] = useState([])
     const [selectedRoomStyle, setSelectedRoomStyle] = useState('STANDART')
     const bookNow = () => {
-        if(isAuthenticated()){
+        if (isAuthenticated()) {
             navigate(`/payment/${jwtDecode(getJwt()).sub}/${randomRoom.id}`)
         }
-        else{
+        else {
             navigate('/login')
             alertify.error('Zehmet olmasa once daxil olun.')
         }
@@ -48,34 +48,22 @@ export default function HotelDetails(props) {
         let hotelService = new HotelService()
         hotelService.getHotelDetails(hotelId)
             .then(result => {
-                console.log("ijijijkij")
-                console.log(result)
+                setHotel(result.data)
+            })
+            .catch(error => {
+                alertify.error(error.message)
+            })
+        const roomStyleService = new RoomStyleService()
+        roomStyleService.getAll()
+            .then(result => {
                 if (result.data.code === 200) {
-                    setHotel(result.data.data)
-                }
-                else if(result.data.code === 401){
-                    navigate('/login')
-                    alertify.info(result.data.message)
-                }
-                else {
-                    alertify.error(result.data.message)
-                }
-            })
-            .catch(error=>{
-                console.log("deiwjf")
-                console.log(error)
-            })
-            const roomStyleService = new RoomStyleService()
-            roomStyleService.getAll()
-            .then(result=>{
-                if(result.data.code === 200){
                     setRoomStyles(result.data.data)
-                }else{
+                } else {
                     alertify.error(result.data.message)
                 }
             })
     }, [])
-     const searchRoom = () => {
+    const searchRoom = () => {
         setRandomRoom(null)
         document.getElementById('spinner').style.visibility = 'visible'
         setTimeout(() => {
@@ -87,7 +75,7 @@ export default function HotelDetails(props) {
                 roomCount: roomCount,
                 adultCount: adultCount,
                 childreenCount: childreenCount,
-                roomStyle:selectedRoomStyle
+                roomStyle: selectedRoomStyle
             }).then(result => {
                 if (result.data.code === 200) {
                     setRandomRoom(result.data.data)
@@ -99,7 +87,7 @@ export default function HotelDetails(props) {
             })
         }, 2000);
 
-     }
+    }
     return (
         <div>
             <Button onClick={() => navigate(-1)} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Back</Button>
@@ -170,14 +158,14 @@ export default function HotelDetails(props) {
                                         <BootstrapDateRangePicker />
                                     </FormGroup>
                                     <Label>Select Room Style</Label>
-                                    <Select name='roomStyle' onChange={(e,{value})=>setSelectedRoomStyle(value)} className='w-100 mb-3' id='roomStyle' defaultValue={selectedRoomStyle} options={roomStyles?.map(roomStyle => ({ value: roomStyle, text: roomStyle,key:roomStyle }))} />
+                                    <Select name='roomStyle' onChange={(e, { value }) => setSelectedRoomStyle(value)} className='w-100 mb-3' id='roomStyle' defaultValue={selectedRoomStyle} options={roomStyles?.map(roomStyle => ({ value: roomStyle, text: roomStyle, key: roomStyle }))} />
                                     <RoomSelectBox />
 
                                     <Button onClick={() => searchRoom()} className='w-100'>Search Room</Button>
                                 </CardTitle>
                             </CardBody>
                         </Card>
-                        <div class="spinner-grow text-primary" style={{ width: '5rem', height: '5rem', marginTop:'50px',marginLeft: '150px', visibility:'hidden',position:'absolute' }} id='spinner' role="status">
+                        <div class="spinner-grow text-primary" style={{ width: '5rem', height: '5rem', marginTop: '50px', marginLeft: '150px', visibility: 'hidden', position: 'absolute' }} id='spinner' role="status">
 
                         </div>
                         {
@@ -204,7 +192,7 @@ export default function HotelDetails(props) {
                                                     randomRoom.items?.map(item => (<li>{item.name}</li>))
                                                 }
                                             </ul>
-                                            <Button className='bg-primary w-100' onClick={()=>bookNow()}>Book Now <i>{randomRoom.pricePerNight} AZN</i></Button>
+                                            <Button className='bg-primary w-100' onClick={() => bookNow()}>Book Now <i>{randomRoom.pricePerNight} AZN</i></Button>
                                         </Col>
                                     </Row>
                                 </CardBody>

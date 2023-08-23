@@ -23,7 +23,7 @@ export default function AddRoom() {
         roomService.create(values)
             .then(result => {
                 if (result.data.code === 200) {
-                    navigate('/hotel/'+hotelId+'/rooms')
+                    navigate('/hotel/' + hotelId + '/rooms')
                     alertify.success(result.data.message)
                 } else {
                     alertify.error(result.data.message)
@@ -46,11 +46,9 @@ export default function AddRoom() {
         const itemService = new ItemService()
         itemService.getAll()
             .then(result => {
-                if (result.data.code === 200) {
-                    setItems(result.data.data)
-                } else {
-                    alertify.error(result.data.message)
-                }
+                setItems(result.data)
+            }).catch(error => {
+                alertify.error(error.message)
             })
     }, [])
 
@@ -89,29 +87,11 @@ export default function AddRoom() {
         { value: true, text: 'Yes' },
         { value: false, text: 'No' }
     ]
-    // const changeBreakfastInput = () => {
-    //     const feeForBreakfast = document.getElementById('feeForBreakfast')
-    //     const optional = document.getElementById('optional')
-    //     if (optional.selected) {
-    //         feeForBreakfast.style.visibility = 'visible'
-    //     } else {
-    //         feeForBreakfast.style.visibility = 'hidden'
-    //     }
-    // }
-    // const changeParkingInput = ()=> {
-    //     const parkingPaid = document.getElementById('parkingPaid')
-    //     const feeForParking = document.getElementById('feeForParking')
-    //     if(parkingPaid.selected){
-    //         feeForParking.style.visibility="visible"
-    //     }else{
-    //         feeForParking.style.visibility="hidden"
-    //     }
-    // }
     return (
         <div>
             <Row>
                 <Col>
-                <Button onClick={()=>navigate(-1)} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Back</Button>
+                    <Button onClick={() => navigate(-1)} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Back</Button>
                 </Col>
                 <Col>
                     <Button className='d-flex ms-auto' color='primary' onClick={() => navigate(`/hotel/${hotelId}/room/add`)}>Add Room</Button>
@@ -144,50 +124,7 @@ export default function AddRoom() {
                             <Button type='submit' color='primary'>Add Room</Button>
                         </Col>
                         <Col md='6'>
-                            <CheckInput br={true} type='checkbox'  name='itemIds' options={items.map(item => ({ value: item.id, text: item.name }))} />
-                            {/* <FormGroup>
-                            <Label for='breakfast'>Breakfast</Label>
-                            <Input onChange={() => changeBreakfastInput()} id='breakfast' name='breakfast' type='select'>
-                                <option selected>No</option>
-                                <option value='0'>Yes,it's included in the price</option>
-                                <option id='optional'>Yes,it's optional</option>
-                            </Input>
-                            <InputGroup id='feeForBreakfast' style={{ visibility: 'hidden' }} className='mt-3'>
-                                <InputGroupText>Azn/per day</InputGroupText>
-                                <Input placeholder='Enter fee for breakfast' />
-                            </InputGroup>
-                        </FormGroup>
-
-                        <FormGroup>
-                            <Label for='breakfast'>Parking</Label>
-                            <Input onChange={() => changeParkingInput()} id='parking' name='parking' type='select'>
-                                <option selected>No</option>
-                                <option value='0'>Yes,free</option>
-                                <option id='parkingPaid'>Yes,paid</option>
-                            </Input>
-                            <InputGroup id='feeForParking' style={{ visibility: 'hidden' }} className='mt-3'>
-                                <InputGroupText>Azn/per day/per guest</InputGroupText>
-                                <Input placeholder='Enter fee for parking' />
-                            </InputGroup>
-                        </FormGroup>
-                         <FormGroup className='mt-5'>
-                            <Label>How many days in advance can guests cancel free of charge?</Label>
-                            <Input type='select'>
-                                <option>Day of arrival(6pm)</option>
-                                <option>1 days</option>
-                                <option>2 days</option>
-                                <option>3 days</option>
-                                <option>7 days</option>
-                                <option>14 days</option>
-                            </Input>
-                        </FormGroup>
-                        <FormGroup className='mt-5'>
-                            <Label>Or guests will pay 100%</Label>
-                            <Input type='select'>
-                                <option>of the first night</option>
-                                <option>of the full stay</option>
-                            </Input>
-                        </FormGroup> */}
+                            <CheckInput br={true} type='checkbox' name='itemIds' options={items.map(item => ({ value: item.id, text: item.name }))} />
 
                         </Col>
                     </Row>

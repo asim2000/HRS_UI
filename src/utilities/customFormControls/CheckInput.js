@@ -14,29 +14,12 @@ export default function CheckInput(props) {
                         <div className='ui checkbox'>
                             <Field id={option.value + random} value={option.value.toString()} type={props.type} name={props.name} />
                             <label className='radio-inline' style={{margin:'10px'}} for={option.value + random}>{option.text}</label>
-                            {meta.touched && !!meta.error ? (<Label pointing className='d-block' basic color='red' content={meta.error}></Label>) : null}
                         </div>
                     </div>
 
                 ))
             }
-            {/* <p id="my-radio-group">{props.labelValue}</p>
-            <div className='field'>
-            <div style={{marginBottom:'20px'}} className='ui checkbox'  error={meta.touched && !!meta.error}>
-            {
-            props.options.map(option => (
-                <label for={option.value + random} style={{margin:'10px',display:props.br?'block':'inline-block'}}>
-                <Field id={option.value + random} value={option.value.toString()} type={props.type} name={props.name} />
-                 {option.text}
-                </label>
-                
-            )
-            )
-            
-            }
             {meta.touched && !!meta.error ? (<Label pointing className='d-block' basic color='red' content={meta.error}></Label>) : null}
-            </div>
-            </div> */}
         </div>
     )
 }

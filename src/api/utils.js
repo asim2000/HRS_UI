@@ -17,7 +17,6 @@ instance.interceptors.response.use(response => {
     if (response.data.code === 200) {
         return response.data
     } else {
-        alertify.error(response.data.message)
         return Promise.reject({ code: response.data.code, message: response.data.message })
     }
 }, error => {
