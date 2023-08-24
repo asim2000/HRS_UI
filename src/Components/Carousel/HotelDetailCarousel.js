@@ -37,7 +37,7 @@ function HotelDetailCarousel(args) {
         onExited={() => setAnimating(false)}
         key={item.key}
       >
-        <img className='d-block w-100' src={require('../../assets/img/'+item.src)} alt={item.altText} />
+        <img style={{height:'400px',width:'auto'}} className='d-block w-100' src={require('../../assets/img/'+item.src)} alt={item.altText} />
         
       </CarouselItem>
     );

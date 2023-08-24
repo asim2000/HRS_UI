@@ -107,7 +107,7 @@ export default function HotelDetails(props) {
 
                                         </CardTitle>
                                         <CardSubtitle className='pb-2'>Azerbaijan,{hotel.address?.city.name},{hotel.address?.addressLine}</CardSubtitle>
-                                        <CardText>Starting from 200 Azn</CardText>
+                                        <CardText>Starting from {hotel.minimumPrice} Azn</CardText>
                                         <CardText>
                                             <Badge className='bg-primary'>8.7</Badge> <b>Excellent</b> 1823 review
                                         </CardText>

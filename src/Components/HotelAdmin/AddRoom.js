@@ -58,7 +58,8 @@ export default function AddRoom() {
         pricePerNight: '',
         showerCount: '',
         roomSize: '',
-        description: ''
+        description: '',
+        itemIds:[]
     }
 
     const schema = Yup.object({
@@ -74,7 +75,8 @@ export default function AddRoom() {
         pricePerNight: Yup.number().required(),
         showerCount: Yup.number().required(),
         roomSize: Yup.number().required(),
-        description: Yup.string()
+        description: Yup.string(),
+        itemIds:Yup.array().min(1,'Please select room item')
     });
     const petSelectBox = [
         { value: true, text: 'Yes' },
@@ -85,9 +87,6 @@ export default function AddRoom() {
             <Row>
                 <Col>
                     <Button onClick={() => navigate(-1)} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Back</Button>
-                </Col>
-                <Col>
-                    <Button className='d-flex ms-auto' color='primary' onClick={() => navigate(`/hotel/${hotelId}/room/add`)}>Add Room</Button>
                 </Col>
             </Row>
             <Formik
@@ -114,11 +113,10 @@ export default function AddRoom() {
                             <CheckInput type='radio' labelValue='Do you allow pets?' name='isPetAllowed' options={petSelectBox.map(item => ({ value: item.value, text: item.text }))} />
                             <TextInput name='pricePerNight' id='pricePerNight' placeholder='Enter price per night (Azn)' />
                             <TextInput name='description' id='description' placeholder='Enter description' />
-                            <Button type='submit' color='primary'>Add Room</Button>
                         </Col>
                         <Col md='6'>
-                            <CheckInput br={true} type='checkbox' name='itemIds' options={items.map(item => ({ value: item.id, text: item.name }))} />
-
+                            <CheckInput br={true} type='checkbox' name='itemIds' labelValue='Select room items' options={items.map(item => ({ value: item.id, text: item.name }))} />
+                            <Button className='mt-3' type='submit' color='primary'>Add Room</Button>
                         </Col>
                     </Row>
                 </Form>

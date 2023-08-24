@@ -123,7 +123,7 @@ export default function HotelAdmin() {
                             : <Card>{console.log(hotel)}
                                 <Row>
                                     <Col md='6'>
-                                        <CardImg height='auto' width='300px' src={require('../../assets/img/' + hotel?.mainImageName)} alt='Hotel Image' />
+                                        <CardImg height='400px' width='auto' src={require('../../assets/img/' + hotel?.mainImageName)} alt='Hotel Image' />
                                     </Col>
                                     <Col md='6'>
                                         <CardBody>
