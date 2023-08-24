@@ -1,10 +1,14 @@
-import { makeRequest } from "../api/utils";
+import axios from "axios"
+import { makeRequest, makeRequestForFormData } from "../api/utils"
 
-export const register = registerModel => {
-    return makeRequest('post','/account/register', registerModel)
+export default class AuthService {
+
+ register = body => {
+    return makeRequestForFormData('post','account/register', body)
 
 }
 
-export const login = loginModel => {
-    return makeRequest('post', '/account/login', loginModel)
+ login = body => {
+    return makeRequest('post', '/account/login', JSON.stringify(body))
+}
 }

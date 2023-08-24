@@ -1,13 +1,13 @@
 import axios from "axios"
-import { makeRequest } from "../api/utils"
+import { makeRequest, makeRequestForFormData } from "../api/utils"
 
 export default class HotelService {
     
-    create(formData){
-        return axios.post('http://localhost:8585/hotel',formData)
+    create(body){
+        return makeRequestForFormData('post','/hotel',body)
     }
-    getHomeHotels(data){
-        return makeRequest('post','/hotel/home',data)
+    getHomeHotels(body){
+        return makeRequest('post','/hotel/home',body)
     }
     getHotelDetails(id){
         return makeRequest('get',`/hotel/${id}/details`)

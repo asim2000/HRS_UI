@@ -1,22 +1,22 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { Button, Col } from 'reactstrap'
-import React, { useEffect, useReducer, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Button, Col, Input, Row } from 'reactstrap'
+import React, { useEffect, useState } from 'react'
 import CityService from '../../../services/cityService'
 import TextInput from '../../../utilities/customFormControls/TextInput'
-import { Formik, Form, validateYupSchema } from 'formik'
+import { Formik, Form } from 'formik'
 import * as Yup from "yup"
 import alertifyjs from 'alertifyjs'
-import * as authServices from '../../../services/authService'
 import SelectInput from '../../../utilities/customFormControls/SelectInput'
-import customerTypeReducer from '../../../redux/reducers/customerTypeReducer'
 import { useSelector } from 'react-redux'
 import GenderService from '../../../services/genderService'
 import alertify from 'alertifyjs'
-import axios from 'axios'
+import AuthService from '../../../services/authService'
 
 export default function Register() {
   const [cities, setCities] = useState([])
   const [genders, setGenders] = useState([])
+  const [image, setImage] = useState()
+  const [target, setTarget] = useState()
   const navigate = useNavigate()
   const customerType = useSelector(state => state.customerTypeReducer)
   useEffect(() => {
@@ -32,13 +32,21 @@ export default function Register() {
 
     genderService.getAll()
       .then(result => {
-          setGenders(result.data)
-      }).catch(error=>{
+        setGenders(result.data)
+      }).catch(error => {
         alertify.error(error.message)
       })
 
 
   }, [])
+
+  const form = document.getElementById("formid")
+  if (form) {
+    form.onsubmit = e => {
+      e.preventDefault()
+      setTarget(e.target)
+    }
+  }
 
   const initialValues = {
     role: customerType,
@@ -66,40 +74,49 @@ export default function Register() {
   });
 
   const register = values => {
-    authServices.register(values)
+    console.log(target)
+    const formData = new FormData(target)
+    const authService = new AuthService()
+    authService.register(formData)
       .then(result => {
         navigate('/login')
         alertifyjs.success(result.message)
-      }).catch(error=>{
+      }).catch(error => {
         alertify.error(error.message)
       })
   }
   return (
     <div>
-      <Col md="6">
-        <Formik
-          initialValues={initialValues}
-          validationSchema={schema}
-          validateOnMount={true}
-          onSubmit={(values) => {
-            register(values)
-          }}
-        >
-          <Form className="ui form">
-            <TextInput type='text' name="name" placeholder="Enter name" />
-            <TextInput type='text' name="surname" placeholder="Enter surname" />
-            <TextInput type='email' name="email" placeholder="Enter email" />
-            <TextInput type='password' name="password" placeholder="Enter password" />
-            <TextInput type='text' name="phone" placeholder="Enter phone" />
-            <TextInput type='date' name="dateOfBirth" placeholder="Enter date of birth" />
-            <SelectInput name='gender' defaultValue='Choose gender' options={genders.map(gender => ({ value: gender, text: gender }))} />
-            <SelectInput name='cityId' defaultValue='Choose city' options={cities.map(city => ({ value: city.id, text: city.name }))} />
-            <TextInput type='text' name="addressLine" placeholder="Enter address" />
-            <TextInput type='hidden' name="role" />
-            <Button type='submit' color='primary'>Register</Button>
-          </Form>
-        </Formik>
-      </Col>
+       <Formik
+            initialValues={initialValues}
+            validationSchema={schema}
+            validateOnMount={true}
+            onSubmit={(values) => {
+              register(values)
+            }}
+          >
+            <Form className="ui form" id='formid'>
+      <Row>
+        <Col md="6">
+              <TextInput type='text' name="name" placeholder="Enter name" />
+              <TextInput type='text' name="surname" placeholder="Enter surname" />
+              <TextInput type='email' name="email" placeholder="Enter email" />
+              <TextInput type='password' name="password" placeholder="Enter password" />
+              <TextInput type='text' name="phone" placeholder="Enter phone" />
+              <TextInput type='text' name="addressLine" placeholder="Enter address" />
+              <TextInput type='hidden' name="role" />
+          <Button type='submit' className='mt-3' color='primary'>Register</Button>
+        </Col>
+        <Col md="6">
+          <TextInput type='date' name="dateOfBirth" placeholder="Enter date of birth" />
+          <SelectInput name='gender' defaultValue='Choose gender' options={genders.map(gender => ({ value: gender, text: gender }))} />
+          <SelectInput name='cityId' defaultValue='Choose city' options={cities.map(city => ({ value: city.id, text: city.name }))} />
+          <Input type='file' name='image' id='image' onChange={e => setImage(URL.createObjectURL(e.target.files[0]))} required />
+          <img className='mt-2 d-block' height='100' src={image}/>
+        </Col>
+      </Row>
+        </Form>
+          </Formik>
     </div>
   )
 }

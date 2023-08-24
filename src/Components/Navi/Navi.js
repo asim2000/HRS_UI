@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {  useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom/dist';
 import {
@@ -14,17 +14,34 @@ import {
   DropdownMenu,
   DropdownItem
 } from 'reactstrap';
-import { removeJwt } from '../../utilities/jwt/jwt';
+import { getJwt, removeJwt } from '../../utilities/jwt/jwt';
 import { isAuthenticated } from '../../utilities/jwt/isAuthenticate';
-
+import '../../assets/css/dropdownicon.css'
+import jwtDecode from 'jwt-decode';
+import PersonService from '../../services/personService';
+import alertify from 'alertifyjs';
 export default function Navi() {
   const [isOpen, setIsOpen] = useState(false);
+  const [person, setPerson] = useState()
   const navigate = useNavigate()
   const toggle = () => setIsOpen(!isOpen);
   const logout = () => {
     removeJwt()
-    window.location.reload(true)
+    navigate('/')
   }
+  useEffect(()=>{
+    if(isAuthenticated()){
+      const {sub} = jwtDecode(getJwt())
+      const personService = new PersonService()
+      personService.getById(sub)
+      .then(result=>{
+        setPerson(result.data)
+        console.log(result.data)
+      }).catch(error=>{
+        alertify.error(error.message)
+      })
+    }
+  },[])
     return (
       <div>
         <Navbar color="light" light expand="md">
@@ -34,41 +51,37 @@ export default function Navi() {
 
           <NavbarToggler onClick={()=>toggle()} />
           <Collapse isOpen={isOpen} navbar>
-            <Nav className="ms-auto" navbar>
+            <Nav style={{display: 'flex',alignItems:'center',justifyContent:'center'}} className="ms-auto" navbar>
               <NavItem>
                 <NavLink style={{ cursor: "pointer" }} onClick={() => navigate('/about')}>About</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink style={{ cursor: "pointer" }} onClick={() => navigate('/contact')}>Contact</NavLink>
+                <NavLink style={{ cursor: "pointer",marginRight:'40px' }} onClick={() => navigate('/contact')}>Contact</NavLink>
               </NavItem>
               {
-                isAuthenticated()
+                isAuthenticated() && person
                   ?
-                  <NavItem>
-                    <NavLink style={{ cursor: "pointer" }} onClick={() => logout()}>Logout</NavLink>
-                  </NavItem>
+                    <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                {person.name+' '+person.surname} &nbsp; <img width='40' height='40' style={{borderRadius:'50%'}} src={require(`../../assets/img/${person?.image==null?'avatar.jpg':person.image}`)}/> 
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem>
+                    Settings
+                  </DropdownItem>
+                  <DropdownItem divider/>
+                  <DropdownItem onClick={()=>logout()}>
+                    Logout
+                  {/* <NavLink style={{ cursor: "pointer" }} onClick={() => logout()}>Logout</NavLink> */}
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
                   :
                     <NavItem style={{display:'inline-block'}}>
                       <NavLink style={{ cursor: "pointer",display:'inline-block'}} onClick={() => navigate('/login')}>Login</NavLink>
                       <NavLink style={{ cursor: "pointer",display:'inline-block'}} onClick={() => navigate('/select-register')}>Register</NavLink>
                     </NavItem>
               }
-
-
-              {/* <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  <img style={{borderRadius:"50%",width:"30px"}} src={require('../../assets/img/avatar.jpg')}/>  Admin
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    Settings
-                  </DropdownItem>
-                  <DropdownItem divider/>
-                  <DropdownItem onClick={()=>this.props.navigate('/logout')}>
-                    Logout
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown> */}
             </Nav>
           </Collapse>
         </Navbar>

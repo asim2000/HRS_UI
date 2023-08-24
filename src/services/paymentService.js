@@ -1,15 +1,11 @@
-import axios from "axios"
 import { makeRequest } from "../api/utils"
 
 export default class PaymentService {
-    headers = {
-        'Content-Type': 'application/json'
-      }
-    url = 'http://localhost:8585/payment'
-    createPaymentForCustomer(data){
-        return makeRequest('post','/payment/CreateForCustomer',data)
+
+    createPaymentForCustomer(body){
+        return makeRequest('post','/payment/CreateForCustomer',body)
     }
-    createPaymentForHotel(data){
-        return makeRequest('post','/payment/CreateForHotel',data)
+    createPaymentForHotel(body){
+        return makeRequest('post','/payment/CreateForHotel',body)
     }
 }

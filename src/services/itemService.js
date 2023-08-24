@@ -6,7 +6,7 @@ export default class ItemService {
     getAll() {
         return makeRequest('get', '/item')
     }
-    add(data) {
-        return makeRequest('post', '/item', data)
+    add(body) {
+        return makeRequest('post', '/item', body)
     }
 }

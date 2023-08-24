@@ -1,4 +1,3 @@
-import axios from "axios"
 import { makeRequest } from "../api/utils"
 
 export default class RoomService {
@@ -6,11 +5,11 @@ export default class RoomService {
     getAllByHotelId(id) {
         return makeRequest('get',`/room/hotel/${id}`)
     }
-    create(values){
-        return makeRequest('post','/room',values)
+    create(body){
+        return makeRequest('post','/room',body)
     }
-    getRandomRoom(data){
-        return makeRequest('post','/room/GetRandomRoom',data)
+    getRandomRoom(body){
+        return makeRequest('post','/room/GetRandomRoom',body)
     }
     getById(id){
         return makeRequest('get',`/room/${id}`)

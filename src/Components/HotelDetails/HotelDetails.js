@@ -99,11 +99,7 @@ export default function HotelDetails(props) {
                                     <CardBody>
                                         <CardTitle className='pb-2' style={{ fontSize: '20px' }}>
                                             {hotel.name} <br />
-                                            <FaStar size='15' color='#0d6efd' />
-                                            <FaStar size='15' color='#0d6efd' />
-                                            <FaStar size='15' color='#0d6efd' />
-                                            <FaStar size='15' color='#0d6efd' />
-                                            <FaStar size='15' color='#0d6efd' />
+                                            {Array.from(Array(hotel.star),()=>(<FaStar size='15' color='#0d6efd' />))}
 
                                         </CardTitle>
                                         <CardSubtitle className='pb-2'>Azerbaijan,{hotel.address?.city.name},{hotel.address?.addressLine}</CardSubtitle>
@@ -117,28 +113,16 @@ export default function HotelDetails(props) {
                                                     hotel.services?.map(service => (<li>{service.name}</li>))
                                                 }
                                             </ul>
-                                            {/* <AiOutlineWifi />&nbsp;&nbsp;Free Wifi <br />
-                                            <MdFreeBreakfast />&nbsp;&nbsp;Free breakfast <br />
-                                            <FaParking />&nbsp;&nbsp;Free parking */}
                                         </CardText>
-                                        {/* <CardText>
-                                                <h5>Amenities</h5>
-                                             <p>
-                                             <TiTick/> Baggage hold <br/>
-                                             <TiTick/> Baggage hold <br/>
-                                             <TiTick/> Baggage hold <br/>
-                                             <TiTick/> Baggage hold <br/>
-                                             </p>
-                                            </CardText> */}
                                     </CardBody>
                                 </Col>
-                                <div style={{ marginLeft: '10px' }}>
-                                    <p className='pt-3'>
+                                <div>
+                                    <p className='p-3'>
                                         {hotel.description}
                                     </p>
                                     {
                                         randomRoom != null && (
-                                            <p>{randomRoom.description}</p>
+                                            <p className='p-3'>{randomRoom.description}</p>
                                         )
                                     }
                                 </div>

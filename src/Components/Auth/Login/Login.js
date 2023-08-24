@@ -5,12 +5,11 @@ import { Col, Row } from 'reactstrap'
 import TextInput from '../../../utilities/customFormControls/TextInput'
 import { Button } from 'semantic-ui-react'
 import * as Yup from "yup"
-import * as authServices from '../../../services/authService'
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import { setJwt } from '../../../utilities/jwt/jwt'
 import alertify from 'alertifyjs'
-import { instance } from '../../../api/utils'
+import AuthService from '../../../services/authService'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -25,7 +24,8 @@ export default function Login() {
   });
 
   const login = values => {
-    authServices.login(values)
+    const authService = new AuthService()
+    authService.login(values)
       .then(result => {
         setJwt(result.data)
         axios.defaults.headers.common['Authorization'] = `Bearer ${result.data}`

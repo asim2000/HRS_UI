@@ -44,7 +44,8 @@ export default function CreateHotel() {
         addressLine: "",
         phone: "",
         description: "",
-        serviceIds: []
+        serviceIds: [],
+        star:''
     }
 
     const schema = Yup.object({
@@ -53,7 +54,8 @@ export default function CreateHotel() {
         addressLine: Yup.string().required(),
         phone: Yup.string().required(),
         description: Yup.string(),
-        serviceIds: Yup.array().min(1, 'Please select service').required()
+        serviceIds: Yup.array().min(1, 'Please select service').required(),
+        star:Yup.number().max(10).required()
     });
 
     const form = document.getElementById("formid")
@@ -69,12 +71,8 @@ export default function CreateHotel() {
         const formData = new FormData(target)
         hotelService.create(formData)
             .then(result => {
-                if (result.code === 200) {
                     navigate('/hotel/admin/' + adminId)
                     alertify.success(result.message)
-                } else {
-                    alertify.error(result.message)
-                }
             }).catch(error => {
                 alertify.error(error.message)
             })
@@ -98,6 +96,7 @@ export default function CreateHotel() {
                                 <Col md='6'>
                                     <input type='hidden' name='personId' value={adminId} />
                                     <TextInput name='name' id='name' placeholder='Enter name' />
+                                    <TextInput type='number' name='star' id='star' placeholder='Enter star'/>
                                     <SelectInput name='cityId' id='cityId' defaultValue='Choose city' options={cities.map(city => ({ value: city.id, text: city.name }))} />
                                     <TextInput name='addressLine' id='addressLine' placeholder='Enter address' />
                                     <TextInput name='phone' id='phone' placeholder='Enter phone' />

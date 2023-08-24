@@ -15,6 +15,7 @@ import RoomStyleService from '../../services/roomStyleService'
 import { Divider, Select } from 'semantic-ui-react'
 import PaymentService from '../../services/paymentService'
 import CustomModal from '../Modal/CustomModal'
+import { FaStar } from 'react-icons/fa'
 
 export default function HotelAdmin() {
     const navigate = useNavigate()
@@ -128,6 +129,7 @@ export default function HotelAdmin() {
                                     <Col md='6'>
                                         <CardBody>
                                             <h5>{hotel.name}</h5>
+                                            <p>{Array.from(Array(hotel.star),()=>(<FaStar size='15' color='#0d6efd' />))}</p>
                                             <p>Azerbaijan,{hotel.address.city.name},{hotel.address.addressLine}</p>
                                             <p>{hotel.contact.phone}</p>
                                         </CardBody>
