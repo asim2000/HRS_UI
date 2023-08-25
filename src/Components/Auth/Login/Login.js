@@ -13,6 +13,7 @@ import AuthService from '../../../services/authService'
 import { useDispatch, useSelector } from 'react-redux'
 import * as loggedInUserActions from '../../../redux/actions/loggedInUserAction'
 import PersonService from '../../../services/personService'
+import * as userRolesActions from '../../../redux/actions/userRolesAction'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -34,13 +35,13 @@ export default function Login() {
       .then(result => {
         setJwt(result.data)
         axios.defaults.headers.common['Authorization'] = `Bearer ${result.data}`
-        const user = jwtDecode(result.data)
-        setStateLoggedInUser(user.sub)
-        dispatch(loggedInUserActions.setLoggedInUser(user))
-        if (user.roles[0] === 'customer')
+        const decodedToken = jwtDecode(result.data)
+        setStateLoggedInUser(decodedToken.sub)
+        dispatch(userRolesActions.setUserRoles(decodedToken.roles))
+        if (decodedToken.roles[0] === 'customer')
           navigate(-1)
-        else if (user.roles[0] === 'hotel')
-          navigate(`/hotel/admin/${user.sub}`)
+        else if (decodedToken.roles[0] === 'hotel')
+          navigate(`/hotel/admin/${decodedToken.sub}`)
         alertify.success(result.message)
       }).catch(error=>{
         alertify.error(error.message)

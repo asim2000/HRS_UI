@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom/dist';
 import {
   Collapse,
   Navbar,
@@ -20,22 +19,33 @@ import '../../assets/css/dropdownicon.css'
 import jwtDecode from 'jwt-decode';
 import * as loggedInUserActions from '../../redux/actions/loggedInUserAction'
 import { useDispatch, useSelector } from 'react-redux';
+import PersonService from '../../services/personService';
+import alertify from 'alertifyjs';
+import { setUserRoles } from '../../redux/actions/userRolesAction';
 export default function Navi() {
   const [isOpen, setIsOpen] = useState(false);
-  const [roles, setRoles] = useState(['guess'])
-  const loggedInUser = useSelector(state=>state.loggedInUserReducer)
+  const loggedInUser = useSelector(state => state.loggedInUserReducer)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const roles = useSelector(state=>state.userRolesReducer)
   const toggle = () => setIsOpen(!isOpen);
   const logout = () => {
     removeJwt()
     dispatch(loggedInUserActions.setLoggedInUser(null))
+    dispatch(setUserRoles(null))
     navigate('/')
   }
+
   useEffect(() => {
     if (isAuthenticated()) {
-      const { roles } = jwtDecode(getJwt())
-      setRoles(roles)
+      const {sub} = jwtDecode(getJwt())
+      const personService = new PersonService()
+      personService.getById(sub)
+        .then(result => {
+          dispatch(loggedInUserActions.setLoggedInUser(result.data))
+        }).catch(error => {
+          alertify.error(error.message)
+        })
     }
   }, [])
   return (
@@ -68,40 +78,36 @@ export default function Navi() {
                       if (roles.includes('admin')) {
                         return (
                           <div>
-                            <DropdownItem onClick={()=>navigate('/admin/hotel-service/list')}>Hotel service</DropdownItem>
-                            
-                          <DropdownItem onClick={()=>navigate('/admin/room-item/list')}>Room item</DropdownItem>
-                          <DropdownItem divider />
+                            <DropdownItem onClick={() => navigate('/admin/hotel-service/list')}>Hotel service</DropdownItem>
+
+                            <DropdownItem onClick={() => navigate('/admin/room-item/list')}>Room item</DropdownItem>
+                            <DropdownItem divider />
                           </div>
                         )
                       }
                       if (roles.includes('customer')) {
                         return (
                           <div>
-                            <DropdownItem onClick={()=>navigate('/admin/hotel-service/list')}>Hotel service</DropdownItem>
-                            
-                          <DropdownItem onClick={()=>navigate('/admin/room-item/list')}>Room item</DropdownItem>
-                          <DropdownItem divider />
+                            <DropdownItem onClick={() => navigate(`/customer/${loggedInUser.id}/booking-history`)}>Booking history</DropdownItem>
+                            <DropdownItem divider />
                           </div>
                         )
                       }
                       if (roles.includes('hotel')) {
                         return (
                           <div>
-                            <DropdownItem onClick={()=>navigate('/admin/hotel-service/list')}>Hotel service</DropdownItem>
-                            
-                          <DropdownItem onClick={()=>navigate('/admin/room-item/list')}>Room item</DropdownItem>
-                          <DropdownItem divider />
+                            <DropdownItem onClick={() => navigate(`/hotel/admin/${loggedInUser.id}`)}>Home</DropdownItem>
+                            <DropdownItem divider />
                           </div>
                         )
                       }
                       if (roles.includes('business')) {
                         return (
                           <div>
-                            <DropdownItem onClick={()=>navigate('/admin/hotel-service/list')}>Hotel service</DropdownItem>
-                            
-                          <DropdownItem onClick={()=>navigate('/admin/room-item/list')}>Room item</DropdownItem>
-                          <DropdownItem divider />
+                            <DropdownItem onClick={() => navigate('/admin/hotel-service/list')}>Hotel service</DropdownItem>
+
+                            <DropdownItem onClick={() => navigate('/admin/room-item/list')}>Room item</DropdownItem>
+                            <DropdownItem divider />
                           </div>
                         )
                       }

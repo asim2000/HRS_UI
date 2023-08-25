@@ -7,6 +7,8 @@ import customerTypeReducer from './customerTypeReducer'
 import checkInReducer from './checkInReducer'
 import checkOutReducer from './checkOutReducer'
 import loggedInUserReducer from './loggedInUserReducer'
+import userRolesReducer from './userRolesReducer'
+
 const rootReducer = combineReducers({
     visibilityReducer,
     adultReducer,
@@ -15,7 +17,8 @@ const rootReducer = combineReducers({
     customerTypeReducer,
     checkInReducer,
     checkOutReducer,
-    loggedInUserReducer
+    loggedInUserReducer,
+    userRolesReducer
 })
 
 export default rootReducer;

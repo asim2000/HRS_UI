@@ -6,5 +6,6 @@ export default {
     customerType:"",
     checkIn:new Date(),
     checkOut:new Date(),
-    loggedInUser:null
+    loggedInUser:{},
+    userRoles:[]
 }

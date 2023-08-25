@@ -26,29 +26,7 @@ import AddHotelService from '../Admin/HotelService/AddHotelService'
 import ListHotelService from '../Admin/HotelService/ListHotelService'
 import AddRoomItem from '../Admin/RoomItem/AddRoomItem'
 import ListRoomItem from '../Admin/RoomItem/ListRoomItem'
-import { isAuthenticated } from '../../utilities/jwt/isAuthenticate'
-import { useDispatch } from 'react-redux'
-import PersonService from '../../services/personService'
-import jwtDecode from 'jwt-decode'
-import * as loggedInUserActions from '../../redux/actions/loggedInUserAction'
-import alertify from 'alertifyjs'
 function App() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-useEffect(() => {
-  if(getJwt()){
-    const {sub} = jwtDecode(getJwt())
-    const personService = new PersonService()
-      personService.getById(sub)
-        .then(result => {
-          dispatch(loggedInUserActions.setLoggedInUser(result.data))
-        }).catch(error => {
-          alertify.error(error.message)
-        })
-  }
-  
-}, [])
-
   return (
     <div>
       <Container>
