@@ -74,7 +74,6 @@ export default function Register() {
   });
 
   const register = values => {
-    console.log(target)
     const formData = new FormData(target)
     const authService = new AuthService()
     authService.register(formData)

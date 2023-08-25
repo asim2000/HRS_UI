@@ -10,9 +10,14 @@ import jwtDecode from 'jwt-decode'
 import { setJwt } from '../../../utilities/jwt/jwt'
 import alertify from 'alertifyjs'
 import AuthService from '../../../services/authService'
+import { useDispatch, useSelector } from 'react-redux'
+import * as loggedInUserActions from '../../../redux/actions/loggedInUserAction'
+import PersonService from '../../../services/personService'
 
 export default function Login() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const user = useSelector(state=>state.loggedInUserReducer)
   const initialValues = {
     email: "",
     password: ""
@@ -30,6 +35,8 @@ export default function Login() {
         setJwt(result.data)
         axios.defaults.headers.common['Authorization'] = `Bearer ${result.data}`
         const user = jwtDecode(result.data)
+        setStateLoggedInUser(user.sub)
+        dispatch(loggedInUserActions.setLoggedInUser(user))
         if (user.roles[0] === 'customer')
           navigate(-1)
         else if (user.roles[0] === 'hotel')
@@ -39,6 +46,18 @@ export default function Login() {
         alertify.error(error.message)
       })
   }
+
+const setStateLoggedInUser = (id) => {
+  const personService = new PersonService()
+      personService.getById(id)
+        .then(result => {
+          dispatch(loggedInUserActions.setLoggedInUser(result.data))
+          console.log(user)
+        }).catch(error => {
+          alertify.error(error.message)
+        })
+}
+
   return (
     <div>
       <Row className='d-flex justify-content-center'>

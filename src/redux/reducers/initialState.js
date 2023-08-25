@@ -5,5 +5,6 @@ export default {
     roomCount:2,
     customerType:"",
     checkIn:new Date(),
-    checkOut:new Date()
+    checkOut:new Date(),
+    loggedInUser:null
 }

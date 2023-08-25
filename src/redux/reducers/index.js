@@ -6,7 +6,7 @@ import roomReducer from './roomReducer'
 import customerTypeReducer from './customerTypeReducer'
 import checkInReducer from './checkInReducer'
 import checkOutReducer from './checkOutReducer'
-
+import loggedInUserReducer from './loggedInUserReducer'
 const rootReducer = combineReducers({
     visibilityReducer,
     adultReducer,
@@ -14,7 +14,8 @@ const rootReducer = combineReducers({
     roomReducer,
     customerTypeReducer,
     checkInReducer,
-    checkOutReducer
+    checkOutReducer,
+    loggedInUserReducer
 })
 
 export default rootReducer;
