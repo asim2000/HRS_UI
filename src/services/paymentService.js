@@ -11,4 +11,7 @@ export default class PaymentService {
     createPaymentForBroker(body){
         return makeRequest('post','/payment/CreateForBroker',body)
     }
+    addPaymentByHotel(body) {
+        return makeRequest('post','/payment/add/hotel',body)
+    }
 }

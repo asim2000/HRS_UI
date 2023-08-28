@@ -5,23 +5,23 @@ import { RiDeleteBin6Fill } from 'react-icons/ri'
 import { GiCancel } from 'react-icons/gi'
 import { AiFillEye } from 'react-icons/ai'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import HotelService from '../../services/hotelService'
+import HotelService from '../../../services/hotelService'
 import alertify from 'alertifyjs'
-import BootstrapDateRangePicker from '../DateRangeBox/BootstrapDateRangePicker'
-import RoomSelectBox from '../RoomSelectBox/RoomSelectBox'
+import BootstrapDateRangePicker from '../../DateRangeBox/BootstrapDateRangePicker'
+import RoomSelectBox from '../../RoomSelectBox/RoomSelectBox'
 import { useSelector } from 'react-redux'
-import RoomService from '../../services/roomService'
-import RoomStyleService from '../../services/roomStyleService'
+import RoomService from '../../../services/roomService'
+import RoomStyleService from '../../../services/roomStyleService'
 import { Divider, Select, Form } from 'semantic-ui-react'
-import PaymentService from '../../services/paymentService'
-import CustomModal from '../Modal/CustomModal'
+import PaymentService from '../../../services/paymentService'
+import CustomModal from '../../Modal/CustomModal'
 import { FaStar } from 'react-icons/fa'
-import TextInput from '../../utilities/customFormControls/TextInput'
+import TextInput from '../../../utilities/customFormControls/TextInput'
 import { Formik, } from 'formik'
 import * as Yup from 'yup'
-import PersonService from '../../services/personService'
+import PersonService from '../../../services/personService'
 
-export default function HotelAdmin() {
+export default function HotelAdminHome() {
     const navigate = useNavigate()
     const { adminId } = useParams()
     const url = `/hotel/create/${adminId}`
@@ -186,7 +186,7 @@ export default function HotelAdmin() {
                             : <Card>
                                 <Row>
                                     <Col md='6'>
-                                        <CardImg height='400px' width='auto' src={require('../../assets/img/' + hotel?.mainImageName)} alt='Hotel Image' />
+                                        <CardImg height='400px' width='auto' src={require('../../../assets/img/' + hotel?.mainImageName)} alt='Hotel Image' />
                                     </Col>
                                     <Col md='6'>
                                         <CardBody>
@@ -217,16 +217,16 @@ export default function HotelAdmin() {
                         <Col lg='3'>
                             <Card className='mt-3'>
                                 <CardBody>
-                                    <div className='mt-2'>
+                                    <div className='mt-1'>
                                         <BootstrapDateRangePicker />
                                     </div>
-                                    <div className='mt-3'>
+                                    <div className='mt-4'>
                                         <RoomSelectBox />
                                     </div>
                                     <div>
                                         <Select name='roomStyle' onChange={(e, { value }) => setSelectedRoomStyle(value)} className='w-100 mb-3' id='roomStyle' defaultValue={selectedRoomStyle} options={roomStyles?.map(roomStyle => ({ value: roomStyle, text: roomStyle, key: roomStyle }))} />
                                     </div>
-                                    <div className='mt-3'>
+                                    <div className='mt-4'>
                                         <Button color='primary' className='w-100' onClick={() => searchRoom()}>Search room</Button>
                                     </div>
                                 </CardBody>

@@ -7,21 +7,17 @@ import Login from '../Auth/Login/Login'
 import Register from '../Auth/Register/Register'
 import Navi from '../Navi/Navi'
 import HotelDetails from '../HotelDetails/HotelDetails'
-import HotelDetailCarousel from '../Carousel/HotelDetailCarousel'
 import BookHistory from '../Customer/BookHistory/BookHistory'
 import Payment from '../Payment/Payment'
-import CreateHotel from '../HotelAdmin/CreateHotel'
-import Rooms from '../HotelAdmin/Rooms'
-import AddRoom from '../HotelAdmin/AddRoom'
-import HotelAdminBook from '../HotelAdmin/HotelAdminBook'
-import HotelAdminBookHistory from '../HotelAdmin/HotelAdminBookHistory'
+import CreateHotel from '../HotelAdmin/CreateHotel/CreateHotel'
+import Rooms from '../HotelAdmin/Rooms/Rooms'
+import AddRoom from '../HotelAdmin/AddRoom/AddRoom'
+import HotelAdminBook from '../HotelAdmin/HotelAdminBook/HotelAdminBook'
+import HotelAdminBookHistory from '../HotelAdmin/BookingHistory/HotelAdminBookHistory'
 import SelectRegister from '../Auth/Register/SelectRegister'
 import Home from '../Home/Home'
-import HotelAdmin from '../HotelAdmin/HotelAdmin'
-import axios from 'axios'
+import HotelAdminHome from '../HotelAdmin/Home/HotelAdminHome'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
-import { Switch } from '@mui/material'
-import { getJwt, removeJwt } from '../../utilities/jwt/jwt'
 import AddHotelService from '../Admin/HotelService/AddHotelService'
 import ListHotelService from '../Admin/HotelService/ListHotelService'
 import AddRoomItem from '../Admin/RoomItem/AddRoomItem'
@@ -56,7 +52,7 @@ function App() {
                 <Route exact path='/hotel/create/:adminId' Component={CreateHotel} />
                 <Route exact path='/hotel/:hotelId/rooms' Component={Rooms} />
                 <Route exact path='/hotel/:hotelId/room/add' Component={AddRoom} />
-                <Route exact path='/hotel/admin/:adminId' Component={HotelAdmin} />
+                <Route exact path='/hotel/admin/:adminId' Component={HotelAdminHome} />
                 <Route exact path='/hotel/room/book' Component={HotelAdminBook} />
                 <Route exact path='/hotel/:hotelId/booking-history' Component={HotelAdminBookHistory} />
               </Route>

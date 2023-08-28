@@ -3,13 +3,13 @@ import { Button, Col, FormGroup, Input, Label, Row } from 'reactstrap'
 import { useNavigate, useParams } from 'react-router-dom'
 import alertify from 'alertifyjs'
 import { Field, Form, Formik } from 'formik'
-import TextInput from '../../utilities/customFormControls/TextInput'
-import CheckInput from '../../utilities/customFormControls/CheckInput'
-import ServiceService from '../../services/serviceService'
+import TextInput from '../../../utilities/customFormControls/TextInput'
+import CheckInput from '../../../utilities/customFormControls/CheckInput'
+import ServiceService from '../../../services/serviceService'
 import * as Yup from "yup"
-import CityService from '../../services/cityService'
-import SelectInput from '../../utilities/customFormControls/SelectInput'
-import HotelService from '../../services/hotelService'
+import CityService from '../../../services/cityService'
+import SelectInput from '../../../utilities/customFormControls/SelectInput'
+import HotelService from '../../../services/hotelService'
 
 export default function CreateHotel() {
     const navigate = useNavigate()

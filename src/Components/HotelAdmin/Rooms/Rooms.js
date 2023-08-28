@@ -6,7 +6,7 @@ import {AiFillEye} from 'react-icons/ai'
 import {AiFillCheckCircle} from 'react-icons/ai'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import RoomService from '../../services/roomService'
+import RoomService from '../../../services/roomService'
 import alertify from 'alertifyjs'
 
 export default function Rooms() {
