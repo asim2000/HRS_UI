@@ -3,15 +3,18 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { Button, Col, Input, InputGroup, Row, Table } from 'reactstrap'
 import {AiFillEdit, AiOutlineArrowLeft} from 'react-icons/ai'
 import {GiCancel} from 'react-icons/gi'
-import BookingService from '../../services/bookingService'
+import BookingService from '../../../services/bookingService'
 import alertify from 'alertifyjs'
+import filterTable from '../../../assets/js/filter'
+import jwtDecode from 'jwt-decode'
+import { getJwt } from '../../../utilities/jwt/jwt'
 export default function BookHistory(props) {
     const navigate = useNavigate()
     const [bookings, setBookings] = useState([])
     const {userId} = useParams()
     useEffect(() => {
       const bookingService = new BookingService()
-      bookingService.getAllBookingsByPersonId(userId)
+      bookingService.getAllBookingsByOrdererId(userId)
       .then(result=>{
           setBookings(result.data)
       }).catch(error=>{
@@ -37,7 +40,7 @@ export default function BookHistory(props) {
                 </Col>
                 <Col>
                     <InputGroup className='d-flex ms-auto' style={{width:"350px"}}>
-                        <Input type='text' className='d-flex ms-auto'/>
+                        <Input type='text' id='hotelBookingsSearchInput' onKeyUp={() => filterTable('hotelBookingsSearchInput', 'hotelBookingsTable')} className='d-flex ms-auto'/>
                         <Button>Search booking</Button>
                     </InputGroup>
                 </Col>
@@ -47,7 +50,7 @@ export default function BookHistory(props) {
               {
                 bookings.length === 0
                 ? <h5>No Booking</h5>
-                :<Table>
+                :<Table id='hotelBookingsTable'>
                 <thead>
                   <tr>
                     <th>Hotel name</th>

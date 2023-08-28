@@ -29,9 +29,9 @@ export default function SelectRegister(props) {
             </Row>
             <Row className='d-flex justify-content-center'>
             <Col md='4' sm='6' xs='12' className='m-3'>
-            <Card className='registerCard' onClick={()=>register('business')}>
+            <Card className='registerCard' onClick={()=>register('broker')}>
                     <CardBody style={{cursor:"pointer"}} className='text-center'>
-                        For Business
+                        For Broker
                     </CardBody>
                 </Card>
             </Col>

@@ -21,6 +21,8 @@ import BaseSelectInput from '../../utilities/customFormControls/BaseSelectInput'
 import { isAuthenticated } from '../../utilities/jwt/isAuthenticate'
 import jwtDecode from 'jwt-decode'
 import { getJwt } from '../../utilities/jwt/jwt'
+import Math from '../../utilities/math/math'
+import CustomMath from '../../utilities/math/math'
 
 export default function HotelDetails(props) {
     const { hotelId } = useParams()
@@ -37,7 +39,16 @@ export default function HotelDetails(props) {
     const [selectedRoomStyle, setSelectedRoomStyle] = useState('STANDART')
     const bookNow = () => {
         if (isAuthenticated()) {
-            navigate(`/payment/${jwtDecode(getJwt()).sub}/${randomRoom.id}`)
+            const {sub,roles} = jwtDecode(getJwt())
+            console.log(roles)
+            if(roles.includes('customer')){
+                navigate(`/payment/${jwtDecode(getJwt()).sub}/${randomRoom.id}`)
+            }
+            else if(roles.includes('broker')){
+                navigate(`/broker/${sub}/book/room/${randomRoom.id}`)
+            }
+
+            
         }
         else {
             navigate('/login')
@@ -172,7 +183,7 @@ export default function HotelDetails(props) {
                                                     randomRoom.items?.map(item => (<li>{item.name}</li>))
                                                 }
                                             </ul>
-                                            <Button className='bg-primary w-100' onClick={() => bookNow()}>Book Now <i>{randomRoom.pricePerNight} AZN</i></Button>
+                                            <Button className='bg-primary w-100' onClick={() => bookNow()}>Book Now <i>{new CustomMath().calculateTotalAmount(checkIn,checkOut,randomRoom.pricePerNight)} AZN</i></Button>
                                         </Col>
                                     </Row>
                                 </CardBody>

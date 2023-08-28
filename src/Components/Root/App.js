@@ -8,7 +8,7 @@ import Register from '../Auth/Register/Register'
 import Navi from '../Navi/Navi'
 import HotelDetails from '../HotelDetails/HotelDetails'
 import HotelDetailCarousel from '../Carousel/HotelDetailCarousel'
-import BookHistory from '../BookHistory/BookHistory'
+import BookHistory from '../Customer/BookHistory/BookHistory'
 import Payment from '../Payment/Payment'
 import CreateHotel from '../HotelAdmin/CreateHotel'
 import Rooms from '../HotelAdmin/Rooms'
@@ -26,6 +26,10 @@ import AddHotelService from '../Admin/HotelService/AddHotelService'
 import ListHotelService from '../Admin/HotelService/ListHotelService'
 import AddRoomItem from '../Admin/RoomItem/AddRoomItem'
 import ListRoomItem from '../Admin/RoomItem/ListRoomItem'
+import Contact from '../Contact/Contact'
+import About from '../About/About'
+import CustomerRegisterForBroker from '../Broker/CustomerRegisterForBroker'
+import BrokerBookingHistory from '../Broker/BrokerBookingHistory'
 function App() {
   return (
     <div>
@@ -41,9 +45,12 @@ function App() {
               <Route exact path='/' element={<Navigate to='/home/index' />} />
               <Route exact path='/login' Component={Login} />
               <Route exact path='/register' Component={Register} />
+              <Route exact path='/about' Component={About} />
+              <Route exact path='/contact' Component={Contact} />
               <Route exact path='/select-register' Component={SelectRegister} />
               <Route exact path='/home/index' Component={Home} />
               <Route exact path='/hotel/:hotelId/details' Component={HotelDetails} />
+              <Route exact path='/hrs' Component={HotelAdminBook}/>
 
               <Route path='/hotel' Component={ProtectedRoute}>
                 <Route exact path='/hotel/create/:adminId' Component={CreateHotel} />
@@ -52,6 +59,10 @@ function App() {
                 <Route exact path='/hotel/admin/:adminId' Component={HotelAdmin} />
                 <Route exact path='/hotel/room/book' Component={HotelAdminBook} />
                 <Route exact path='/hotel/:hotelId/booking-history' Component={HotelAdminBookHistory} />
+              </Route>
+              <Route exact path='/broker' Component={ProtectedRoute}>
+                <Route exact path='/broker/:brokerId/book/room/:roomId' Component={CustomerRegisterForBroker} />
+                <Route exact path='/broker/:brokerId/BookingHistory' Component={BrokerBookingHistory} />
               </Route>
               <Route path='/customer' Component={ProtectedRoute}>
                 <Route exact path='/customer/:userId/booking-history' Component={BookHistory} />

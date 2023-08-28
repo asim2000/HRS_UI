@@ -27,7 +27,9 @@ export default function Navi() {
   const loggedInUser = useSelector(state => state.loggedInUserReducer)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const roles = useSelector(state=>state.userRolesReducer)
+  const [sub, setSub] = useState()
+  const [roles, setRoles] = useState([])
+ 
   const toggle = () => setIsOpen(!isOpen);
   const logout = () => {
     removeJwt()
@@ -38,7 +40,9 @@ export default function Navi() {
 
   useEffect(() => {
     if (isAuthenticated()) {
-      const {sub} = jwtDecode(getJwt())
+      const {sub,roles} = jwtDecode(getJwt())
+      setSub(sub)
+      setRoles(Array.from(roles))
       const personService = new PersonService()
       personService.getById(sub)
         .then(result => {
@@ -101,12 +105,10 @@ export default function Navi() {
                           </div>
                         )
                       }
-                      if (roles.includes('business')) {
+                      if (roles.includes('broker')) {
                         return (
                           <div>
-                            <DropdownItem onClick={() => navigate('/admin/hotel-service/list')}>Hotel service</DropdownItem>
-
-                            <DropdownItem onClick={() => navigate('/admin/room-item/list')}>Room item</DropdownItem>
+                            <DropdownItem onClick={() => navigate(`/broker/${loggedInUser.id}/BookingHistory`)}>Booking history</DropdownItem>
                             <DropdownItem divider />
                           </div>
                         )

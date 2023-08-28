@@ -1,51 +1,42 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Button, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { Button, Col, FormGroup, Input, InputGroup, InputGroupText, Label, Row } from 'reactstrap'
 import alertify from 'alertifyjs'
+import RoomStyleService from '../../services/roomStyleService'
+import ItemService from '../../services/itemService'
+import {  Form, Formik } from 'formik'
+import TextInput from '../../utilities/customFormControls/TextInput'
+import CheckInput from '../../utilities/customFormControls/CheckInput'
+import * as Yup from "yup"
+import SelectInput from '../../utilities/customFormControls/SelectInput'
+import RoomService from '../../services/roomService'
+import { AiOutlineArrowLeft } from 'react-icons/ai'
 
-export default function HotelAdminBook() {
-    const navigate = useNavigate()
-    const book = ()=> {
-        navigate('/hotel/admin/booking-history')
-        alertify.success('Successfully book room.')
+export default function AddRoom() {
+   
+    const initialValues = {
+      name:''
     }
+
+    const schema = Yup.object({
+        name:Yup.string().required()
+    });
     return (
         <div>
-            <Form>
-            <Row>
-                <Col>
-                  <FormGroup>
-                    <Label>Check-in/Check-out</Label>
-                    <Input type='date'/>
-                  </FormGroup>
-                  <FormGroup>
-                    <Label>Room Number</Label>
-                    <Input type='select'>
-                        <option>100</option>
-                        <option>101</option>
-                        <option>102</option>
-                        <option>103</option>
-                    </Input>
-                  </FormGroup>
-                   <i style={{color:'red',display:'block',marginTop:'30px'}}>Total 200Azn</i>
-                <Button color='primary' className='mt-4' onClick={()=>book()}>Book</Button>
-                </Col>
-                <Col>
-                   <FormGroup check>
-                    <Input type='checkbox'/>
-                    <Label check>Breakfast(30 Azn)</Label>
-                   </FormGroup>
-                   <FormGroup check>
-                    <Input type='checkbox'/>
-                    <Label check>Parking(10 Azn)</Label>
-                   </FormGroup>
-                   <FormGroup check>
-                    <Input type='checkbox'/>
-                    <Label check>Sauna(30 Azn)</Label>
-                   </FormGroup>
-                </Col>
-            </Row>
-            </Form>
+           
+            <Formik
+                initialValues={initialValues}
+                validationSchema={schema}
+                validateOnMount={true}
+                onSubmit={(values) => {
+                    console.log(values)
+                }}
+            >
+                <Form className='form ui'>
+                            <TextInput name='name' id='name' placeholder='Enter room number' />
+                            <Button className='mt-3' type='submit' color='primary'>Add Room</Button>
+                </Form>
+            </Formik>
         </div>
     )
 }

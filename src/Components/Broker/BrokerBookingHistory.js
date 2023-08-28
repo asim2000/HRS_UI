@@ -6,15 +6,16 @@ import { GiCancel } from 'react-icons/gi'
 import BookingService from '../../services/bookingService'
 import alertify from 'alertifyjs'
 import filterTable from '../../assets/js/filter'
-export default function HotelAdminBookHistory(props) {
+export default function BrokerBookingHistory(props) {
   const navigate = useNavigate()
   const [bookings, setBookings] = useState([])
-  const { hotelId } = useParams()
+  const { brokerId } = useParams()
   useEffect(() => {
     const bookingService = new BookingService()
-    bookingService.getAllBookingsByHotelId(hotelId)
+    bookingService.getAllBookingsByOrderedId(brokerId)
       .then(result => {
           setBookings(result.data)
+          console.log(result.data)
       }).catch(error => {
         alertify.error(error.message)
       })
@@ -53,7 +54,6 @@ export default function HotelAdminBookHistory(props) {
               <Table id='hotelBookingsTable'>
                 <thead>
                   <tr>
-                    <th>Ordered</th>
                     <th>Orderer</th>
                     <th>Reservation Number</th>
                     <th>Room Number</th>
@@ -71,7 +71,6 @@ export default function HotelAdminBookHistory(props) {
                   bookings.length!=0 && bookings.map(booking => 
                      (
                       <tr key={booking.id}>
-                        <td>{booking.ordered.name + ' ' + booking.ordered.surname}</td>
                         <td>{booking.orderer.name + ' ' + booking.orderer.surname}</td>
                         <td>{booking.reservationNumber}</td>
                         <td>{booking.room.roomNumber}</td>

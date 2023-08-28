@@ -103,7 +103,7 @@ export default function Register() {
               <TextInput type='password' name="password" placeholder="Enter password" />
               <TextInput type='text' name="phone" placeholder="Enter phone" />
               <TextInput type='text' name="addressLine" placeholder="Enter address" />
-              <TextInput type='hidden' name="role" />
+              <TextInput type='hidden' id='role' value={customerType} name="role" />
           <Button type='submit' className='mt-3' color='primary'>Register</Button>
         </Col>
         <Col md="6">
