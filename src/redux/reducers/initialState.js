@@ -7,5 +7,7 @@ export default {
     checkIn:new Date(),
     checkOut:new Date(),
     loggedInUser:{},
-    userRoles:[]
+    userRoles:[],
+    reportCheckIn:new Date(new Date().getFullYear(), new Date().getMonth()),
+    reportCheckOut:new Date(new Date().getFullYear(),new Date().getMonth())
 }

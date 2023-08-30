@@ -18,7 +18,7 @@ export default class HotelService {
     checkIfExistsRoom(hotelId){
         return makeRequest('get',`/hotel/${hotelId}/ExistsRoom`)
     }
-    getReportOfHotel(hotelId) {
-        return makeRequest('get',`/hotel/${hotelId}/report`)
+    getReportOfHotel(hotelId,body) {
+        return makeRequest('post',`/hotel/${hotelId}/report`,body)
     }
 }

@@ -8,6 +8,8 @@ import checkInReducer from './checkInReducer'
 import checkOutReducer from './checkOutReducer'
 import loggedInUserReducer from './loggedInUserReducer'
 import userRolesReducer from './userRolesReducer'
+import reportCheckInReducer from './reportCheckInReducer'
+import reportCheckOutReducer from './reportCheckOutReducer'
 
 const rootReducer = combineReducers({
     visibilityReducer,
@@ -18,7 +20,9 @@ const rootReducer = combineReducers({
     checkInReducer,
     checkOutReducer,
     loggedInUserReducer,
-    userRolesReducer
+    userRolesReducer,
+    reportCheckInReducer,
+    reportCheckOutReducer
 })
 
 export default rootReducer;

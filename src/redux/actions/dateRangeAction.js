@@ -12,3 +12,15 @@ export const changeCheckOut = (checkOut) => {
         payload:checkOut
     }
 }
+export const changeReportCheckIn = checkIn => {
+    return {
+        type:actionTypes.CHANGE_REPORT_CHECK_IN,
+        payload:checkIn
+    }
+}
+export const changeReportCheckOut = checkOut => {
+    return {
+        type:actionTypes.CHANGE_REPORT_CHECK_OUT,
+        payload:checkOut
+    }
+}
