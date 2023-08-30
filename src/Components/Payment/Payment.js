@@ -13,11 +13,12 @@ import { useSelector } from 'react-redux'
 import CreditCardTypeService from '../../services/creditCardType'
 import CheckInput from '../../utilities/customFormControls/CheckInput'
 import PaymentService from '../../services/paymentService'
+import CustomMath from '../../utilities/math/customMath'
 
 export default function Payment(props) {
   const navigate = useNavigate()
   const { userId, roomId } = useParams()
-  const [room, setRoom] = useState()
+  const [room, setRoom] = useState({})
   const [payPerCent, setPayPerCent] = useState(20)
   const checkIn = useSelector(state => state.checkInReducer)
   const checkOut = useSelector(state => state.checkOutReducer)
@@ -28,6 +29,7 @@ export default function Payment(props) {
     roomService.getByIdForPayment(roomId)
       .then(result => {
           setRoom(result.data)
+          console.log(result)
       }).catch(error=>{
         alertify.error(error.message)
       })
@@ -46,7 +48,8 @@ export default function Payment(props) {
     values.expYear = expYear
     const booking = {
       roomId: roomId,
-      personId: userId,
+      orderedId: userId,
+      ordererId:userId,
       checkIn: checkIn,
       checkOut: checkOut,
       pricePerNight: room.pricePerNight
@@ -54,7 +57,7 @@ export default function Payment(props) {
     const payment = {
       creditCard: values,
       booking: booking,
-      amount: payPerCent * room.pricePerNight / 100,
+      amount: payPerCent * (new CustomMath().calculateTotalAmount(checkIn,checkOut,room.pricePerNight)) / 100,
       isSaveCard: isSaveCard
     }
     const paymentService = new PaymentService()
@@ -197,7 +200,7 @@ export default function Payment(props) {
                           </div>
                         </Col>
                         <Col xs='9'>
-                          <Button color='primary' className='w-100' type='submit'>Pay {room?.pricePerNight * payPerCent / 100} AZN</Button>
+                          <Button color='primary' className='w-100' type='submit'>Pay {new CustomMath().calculateTotalAmount(checkIn,checkOut,room.pricePerNight) * payPerCent / 100} AZN</Button>
                         </Col>
                       </Row>
                     </Col>

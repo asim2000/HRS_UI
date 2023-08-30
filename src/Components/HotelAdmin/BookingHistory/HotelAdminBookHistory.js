@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button, Col, Input, InputGroup, Row, Table } from 'reactstrap'
 import { AiFillEdit, AiOutlineArrowLeft } from 'react-icons/ai'
-import {BsCashCoin} from 'react-icons/bs'
+import { BsCashCoin } from 'react-icons/bs'
 import { GiCancel } from 'react-icons/gi'
 import BookingService from '../../../services/bookingService'
 import alertify from 'alertifyjs'
@@ -19,7 +19,7 @@ export default function HotelAdminBookHistory(props) {
     const bookingService = new BookingService()
     bookingService.getAllBookingsByHotelId(hotelId)
       .then(result => {
-          setBookings(result.data)
+        setBookings(result.data)
       }).catch(error => {
         alertify.error(error.message)
       })
@@ -51,10 +51,10 @@ export default function HotelAdminBookHistory(props) {
       <Row>
         <Col>
           {
-           
+
             bookings.length === 0
               ? <h5>No Booking</h5>
-              : 
+              :
               <Table id='hotelBookingsTable'>
                 <thead>
                   <tr>
@@ -69,13 +69,13 @@ export default function HotelAdminBookHistory(props) {
                     <th>Paid</th>
                     <th>Debt</th>
                     <th>Booking Date</th>
-                    <th style={{width:'100px'}}>Action</th>
+                    <th style={{ width: '100px' }}>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {
-                  bookings.length!=0 && bookings.map(booking => 
-                     (
+                    bookings.length != 0 && bookings.map(booking =>
+                    (
                       <tr key={booking.id}>
                         <td>{booking.ordered.name + ' ' + booking.ordered.surname}</td>
                         <td>{booking.orderer.name + ' ' + booking.orderer.surname}</td>
@@ -89,7 +89,7 @@ export default function HotelAdminBookHistory(props) {
                         <td>{booking.pricePerNight * ((new Date(booking.checkOut).getTime() - new Date(booking.checkIn).getTime()) / (1000 * 3600 * 24) + 1) - booking.payments.map(payment => payment.amount).reduce((partialSum, a) => partialSum + a, 0)}</td>
                         <td>{booking.createdDate.split('T')[0]}<br />{booking.createdDate.split('T')[1]}</td>
                         <td>
-                          <BsCashCoin title='add payment' color='green' onClick={()=>{
+                          <BsCashCoin title='add payment' color='green' onClick={() => {
                             setBookingId(booking.id)
                             setFullname(booking.orderer.name + ' ' + booking.orderer.surname)
                             setShowModal(true)
@@ -100,14 +100,14 @@ export default function HotelAdminBookHistory(props) {
                         </td>
                       </tr>
                     )
-                  )
+                    )
                   }
                 </tbody>
               </Table>
           }
         </Col>
       </Row>
-      {showModal?<ModalForPayment setShowModal={(value)=>setShowModal(value)} bookingId={bookingId} fullname={fullname}/>:null}
+      {showModal ? <ModalForPayment setShowModal={(value) => setShowModal(value)} bookingId={bookingId} fullname={fullname} /> : null}
     </div>
   )
 }

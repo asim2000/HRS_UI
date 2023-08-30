@@ -11,12 +11,15 @@ import * as Yup from "yup"
 import SelectInput from '../../../utilities/customFormControls/SelectInput'
 import RoomService from '../../../services/roomService'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
+import jwtDecode from 'jwt-decode'
+import { getJwt } from '../../../utilities/jwt/jwt'
 
 export default function AddRoom() {
     const navigate = useNavigate()
     const { hotelId } = useParams()
     const [roomStyles, setRoomStyles] = useState([])
     const [items, setItems] = useState([])
+    const {sub} = jwtDecode(getJwt())
     const save = (values) => {
         const roomService = new RoomService()
         values.hotelId = hotelId
@@ -86,7 +89,7 @@ export default function AddRoom() {
         <div>
             <Row>
                 <Col>
-                    <Button onClick={() => navigate(-1)} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Back</Button>
+                    <Button onClick={() => navigate(`/hotel/admin/${sub}`)} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Back</Button>
                 </Col>
             </Row>
             <Formik

@@ -26,6 +26,7 @@ import Contact from '../Contact/Contact'
 import About from '../About/About'
 import CustomerRegisterForBroker from '../Broker/CustomerRegisterForBroker'
 import BrokerBookingHistory from '../Broker/BrokerBookingHistory'
+import HotelReport from '../HotelAdmin/Report/HotelReport'
 function App() {
   return (
     <div>
@@ -48,7 +49,8 @@ function App() {
               <Route exact path='/hotel/:hotelId/details' Component={HotelDetails} />
               <Route exact path='/hrs' Component={HotelAdminBook}/>
 
-              <Route path='/hotel' Component={ProtectedRoute}>
+              <Route exact path='/hotel' Component={ProtectedRoute}>
+                <Route exact path='/hotel/:hotelId/report' Component={HotelReport}/>
                 <Route exact path='/hotel/create/:adminId' Component={CreateHotel} />
                 <Route exact path='/hotel/:hotelId/rooms' Component={Rooms} />
                 <Route exact path='/hotel/:hotelId/room/add' Component={AddRoom} />

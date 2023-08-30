@@ -196,6 +196,7 @@ export default function HotelAdminHome() {
                                             <p>{hotel.contact.phone}</p>
                                         </CardBody>
                                         <CardFooter className='d-flex'>
+                                            <Button onClick={() => navigate(`/hotel/${hotel.id}/report`)} color='primary'>Report</Button>&nbsp;
                                             <Button onClick={() => navigate(`/hotel/${hotel.id}/room/add`)} color='primary'>Add Room</Button>&nbsp;
                                             <Button onClick={() => navigate(`/hotel/${hotel.id}/rooms`)} color='primary'>Room List</Button>&nbsp;
                                             <Button onClick={() => navigate(`/hotel/${hotel.id}/booking-history`)} color='primary'>Booking history</Button>&nbsp;

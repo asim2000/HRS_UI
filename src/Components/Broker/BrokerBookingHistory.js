@@ -15,7 +15,6 @@ export default function BrokerBookingHistory(props) {
     bookingService.getAllBookingsByOrderedId(brokerId)
       .then(result => {
           setBookings(result.data)
-          console.log(result.data)
       }).catch(error => {
         alertify.error(error.message)
       })

@@ -29,7 +29,7 @@ export default function AddHotelService() {
                 <Row>
                     <Col xs='6'>
                         <Label htmlFor='service'>Service Name</Label>
-                        <Input name='service' onChange={(e) => setServiceName(e.target.value)} id='service' placeholder='Enter room service' />
+                        <Input name='service' onChange={(e) => setServiceName(e.target.value)} id='service' placeholder='Enter hotel service' />
                         <Button className='mt-3 w-50' onClick={() => save()}>Save</Button>
                     </Col>
                 </Row>

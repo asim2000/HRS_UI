@@ -21,8 +21,7 @@ import BaseSelectInput from '../../utilities/customFormControls/BaseSelectInput'
 import { isAuthenticated } from '../../utilities/jwt/isAuthenticate'
 import jwtDecode from 'jwt-decode'
 import { getJwt } from '../../utilities/jwt/jwt'
-import Math from '../../utilities/math/math'
-import CustomMath from '../../utilities/math/math'
+import CustomMath from '../../utilities/math/customMath'
 
 export default function HotelDetails(props) {
     const { hotelId } = useParams()
