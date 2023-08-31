@@ -16,7 +16,7 @@ export default function BootstrapDateRangePicker() {
   return (
     <div>
       <DateRangePicker initialSettings={{ startDate: checkIn, endDate: checkOut }} onApply={(event,picker)=>changeDate(picker)}>
-        <input type='text' style={{textAlign:'center'}} id='dateRange' className='form-control' placeholder='Checkin - Checkout'/>
+        <input readOnly type='text' style={{textAlign:'center'}} id='dateRange' className='form-control' placeholder='Checkin - Checkout'/>
       </DateRangePicker>
     </div>
   )

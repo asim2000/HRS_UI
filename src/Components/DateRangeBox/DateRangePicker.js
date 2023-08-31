@@ -26,6 +26,7 @@ const DateRangePicker = () => {
               endDate={endDate}
               selectsStart
               className="form-control"
+              readOnly
             />
           </FormGroup>
         </Col>

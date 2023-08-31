@@ -31,9 +31,6 @@ export default function HotelAdminBookHistory(props) {
         <Col>
           <Button onClick={() => navigate(-1)} className='mb-3 bg-primary'><AiOutlineArrowLeft /> Home</Button>
         </Col>
-        <Col>
-          <Button className='d-flex ms-auto' color='primary' onClick={() => navigate('/')}>New Book</Button>
-        </Col>
       </Row>
       <Row className='mt-3 mb-5'>
         <Col>

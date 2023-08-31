@@ -13,7 +13,7 @@ class RoomSelectBox extends Component {
     return (
       <div>
                 <FormGroup>
-                  <Input style={{textAlign:'center'}} type="text" onClick={()=>this.props.actions.changeVisibility()} name="room" id="room" placeholder={(this.props.adultCount!=null?this.props.adultCount:'') + ' adult - ' + (this.props.childreenCount!=null?this.props.childreenCount:'') + ' children - ' + (this.props.roomCount!=null?this.props.roomCount:'') + ' room'}/>
+                  <Input style={{textAlign:'center'}} readOnly type="text" onClick={()=>this.props.actions.changeVisibility()} name="room" id="room" placeholder={(this.props.adultCount!=null?this.props.adultCount:'') + ' adult - ' + (this.props.childreenCount!=null?this.props.childreenCount:'') + ' children - ' + (this.props.roomCount!=null?this.props.roomCount:'') + ' room'}/>
                 </FormGroup>
            <Card style={{visibility:this.props.visibility,position:"absolute",zIndex:"10",width:"300px"}} className='mt-2' id='roomConfig'>
              <CardBody>
